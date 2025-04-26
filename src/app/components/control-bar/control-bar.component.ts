@@ -1,15 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit, HostListener, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, HostListener, ElementRef, ViewChild, TemplateRef, signal, computed } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  NgbAccordionModule,
-  NgbDropdownModule,
-  NgbModal,
-  NgbModalRef
-} from '@ng-bootstrap/ng-bootstrap';
 import { GatewayDataSharingService } from '../../services/gateway-data-sharing.service';
 import { LoginService } from '../../services/login.service';
-
 import { CookieService } from 'ngx-cookie-service';
 import { catchError, Observable, tap } from 'rxjs';
 import { CreditSystemResponse, ServiceInfo } from '../../models/shared/ServiceInfo';
@@ -31,234 +24,242 @@ import { CircularProgressComponent } from '../circular-progress/circular-progres
   styleUrl: './control-bar.component.scss',
   imports: [
     CommonModule,
-    NgbDropdownModule,
     EmptyCreditComponent,
     CreditPendingComponent,
     CreditRejectedComponent,
-    NgbAccordionModule,
     CircularProgressComponent
   ],
 })
 export class ControlBarComponent implements OnInit {
-  outsideBangladesh?: boolean;
-  activeDropdown: string | null = null;
-  isFirstOpen = true;
-  isSecondOpen = false;
-  isThirdOpen = false;
-  isFourthOpen = false;
+  @ViewChild('modalRef') modalRef!: TemplateRef<any>;
+  @ViewChild('pendingModal') pendingModal!: TemplateRef<any>;
+  @ViewChild('rejectedModal') rejectedModal!: TemplateRef<any>;
 
-  toggleDropdown(dropdownName: string) {
-    this.activeDropdown = this.activeDropdown === dropdownName ? null : dropdownName;
-  }
+  // Signals for state management
+  outsideBangladesh = signal<boolean | undefined>(undefined);
+  activeDropdown = signal<string | null>(null);
+  isFirstOpen = signal(true);
+  isSecondOpen = signal(false);
+  isThirdOpen = signal(false);
+  isFourthOpen = signal(false);
+  showModal = signal(false);
+  showPendingModal = signal(false);
+  showRejectedModal = signal(false);
+  currentModal = signal<TemplateRef<any> | null>(null);
 
-  openRejectedModal() {
-    this.openFunctionalModal(CreditRejectedComponent);
-  }
-  modalRef: NgbModalRef | null = null;
-  cvBankPercentage = 0;
-  smsPackagePercentage = 0;
-  jobPostingAccessPercentage = 0;
-  companyName = '';
-  companyId: string = '';
+  // Circular progress visibility flags
+  isSmsCircularProgressVisible = true;
   isJobPostingCircularProgressVisible = true;
   isCvBankCircularProgressVisible = true;
-  isSmsCircularProgressVisible = true;
-  hasJobPostingAccess = false;
-  hasCVBankAccess = false;
-  remainingCV? = 0;
-  viewedCV = 0;
-  maxCV = 0;
-  hasSmsPackage = false;
-  smsPurchased = 0;
-  smsSend = 0;
-  smsRemaining = 0;
-  remainingBasicJobs = 0;
-  maxBasicJobs = 0;
-  remainingStandoutJobs = 0;
-  maxStandoutJobs = 0;
-  remainingStandoutPremiumJobs = 0;
-  maxStandoutPremiumJobs = 0;
-  companyLogoURL = '';
-  isAdminUser = false;
-  isSidebar = false;
-  supportingInfo: SupportingInfo | undefined;
-  creditSystem: CreditSystemResponse | undefined;
 
-  serviceData?: ServiceInfo;
+  // Computed values
+  isSidebar = signal(false);
+  isAdminUser = signal(false);
+  companyName = signal('');
+  companyId = signal('');
+  companyLogoURL = signal('');
 
-  verificationStatus: boolean | undefined;
-  nidVerify: boolean | undefined;
-  paymentProcess: boolean | undefined;
-  // activeTab: string | undefined;
-  isNotCreditExpired: boolean = false;
+  // Progress percentages
+  cvBankPercentage = signal(0);
+  smsPackagePercentage = signal(0);
+  jobPostingAccessPercentage = signal(0);
+
+  // Service access flags
+  hasJobPostingAccess = signal(false);
+  hasCVBankAccess = signal(false);
+  hasSmsPackage = signal(false);
+
+  // Service data
+  remainingCV = signal(0);
+  viewedCV = signal(0);
+  maxCV = signal(0);
+  smsPurchased = signal(0);
+  smsSend = signal(0);
+  smsRemaining = signal(0);
+  remainingBasicJobs = signal(0);
+  maxBasicJobs = signal(0);
+  remainingStandoutJobs = signal(0);
+  maxStandoutJobs = signal(0);
+  remainingStandoutPremiumJobs = signal(0);
+  maxStandoutPremiumJobs = signal(0);
+
+  // Verification status
+  verificationStatus = signal<boolean | undefined>(undefined);
+  nidVerify = signal<boolean | undefined>(undefined);
+  paymentProcess = signal<boolean | undefined>(undefined);
+  isNotCreditExpired = signal(false);
+
+  // Input properties
   @Input() activeTab?: string;
+
+  // Service data
+  serviceData = signal<ServiceInfo | undefined>(undefined);
+  supportingInfo = signal<SupportingInfo | undefined>(undefined);
+  creditSystem = signal<CreditSystemResponse | undefined>(undefined);
 
   @HostListener('document:click', ['$event'])
   clickout(event: Event) {
     if (!this.elementRef.nativeElement.contains(event.target)) {
-      this.activeDropdown = null;
+      this.activeDropdown.set(null);
     }
   }
 
   constructor(
     private cookieService: CookieService,
     private creditSystemService: CreditSystemService,
-    private modalService: NgbModal,
     public gatewayDataSharingService: GatewayDataSharingService,
     private loginService: LoginService,
     private router: Router,
     private elementRef: ElementRef
   ) { }
 
-  setCreditSystem() {
-    this.creditSystem = this.serviceData?.creditSystem;
-    const validityDate = this.creditSystem?.validityDate ?? '';
-    if (
-      this.gatewayDataSharingService.getParseDate(validityDate) >=
-      this.gatewayDataSharingService.getCurrentDateTime()
-    ) {
-      this.isNotCreditExpired = true;
-    }
-  }
-  ngOnChanges() { }
   ngOnInit(): void {
-    // this.controlBarService.activeTab$.subscribe((value: any) => {
-    //   console.log(value);
-    //   this.changeTab(value);
-    // });
     this.loginService.serviceInfoData$.subscribe((data) => {
-      this.serviceData = data;
-
+      this.serviceData.set(data);
       this.cvDataShow();
       this.setCreditSystem();
       this.jobPostingAssessShow();
-      this.showSmsPackage()
+      this.showSmsPackage();
     });
 
-    this.companyId = window.localStorage.getItem('companyId') ?? '';
+    this.companyId.set(window.localStorage.getItem('companyId') ?? '');
     this.loginService.getSupportingInfo().subscribe((userData) => {
       if (userData) {
-        let defaultLogo = 'https://recruiter.bdjobs.com/assets/images/default-company.png';
-        this.companyLogoURL =
-          userData.CompanyActiveLogoURL === ''
-            ? defaultLogo
-            : userData.CompanyActiveLogoURL;
+        const defaultLogo = 'https://recruiter.bdjobs.com/assets/images/default-company.png';
+        this.companyLogoURL.set(
+          userData.CompanyActiveLogoURL === '' ? defaultLogo : userData.CompanyActiveLogoURL
+        );
       }
     });
-    this.isAdminUser = (window.localStorage.getItem(this.loginService.LOCAL_STORAGE_KEYS.IS_ADMIN_USER) === 'true') ?? false;
-    this.companyName = window.localStorage.getItem(this.loginService.LOCAL_STORAGE_KEYS.COMPANY_NAME) ?? 'Company Name';
 
-    this.cvBankPercentage = 0;
-    this.smsPackagePercentage = 0;
-    this.jobPostingAccessPercentage = 0;
+    this.isAdminUser.set(
+      (window.localStorage.getItem(this.loginService.LOCAL_STORAGE_KEYS.IS_ADMIN_USER) === 'true') || false
+    );
+    this.companyName.set(
+      window.localStorage.getItem(this.loginService.LOCAL_STORAGE_KEYS.COMPANY_NAME) ?? 'Company Name'
+    );
 
     this.loginService.getSupportingInfo().subscribe((supportingInfo) => {
       if (supportingInfo) {
-        this.verificationStatus = supportingInfo.VerificationStatus;
-        this.nidVerify = supportingInfo.NidVerify;
-        this.paymentProcess = supportingInfo.PaymentProcess;
+        this.verificationStatus.set(supportingInfo.VerificationStatus);
+        this.nidVerify.set(supportingInfo.NidVerify);
+        this.paymentProcess.set(supportingInfo.PaymentProcess);
 
-        if (supportingInfo.CompanyCountry.toLowerCase() !== 'bangladesh') {
-          this.outsideBangladesh = true;
-        } else {
-          this.outsideBangladesh = false;
-        }
+        this.outsideBangladesh.set(
+          supportingInfo.CompanyCountry.toLowerCase() !== 'bangladesh'
+        );
       }
     });
   }
 
+  toggleDropdown(dropdownName: string) {
+    this.activeDropdown.set(
+      this.activeDropdown() === dropdownName ? null : dropdownName
+    );
+  }
+
+  openRejectedModal() {
+    this.currentModal.set(this.rejectedModal);
+    this.showRejectedModal.set(true);
+  }
+
+  setCreditSystem() {
+    this.creditSystem.set(this.serviceData()?.creditSystem);
+    const validityDate = this.creditSystem()?.validityDate ?? '';
+    this.isNotCreditExpired.set(
+      this.gatewayDataSharingService.getParseDate(validityDate) >=
+      this.gatewayDataSharingService.getCurrentDateTime()
+    );
+  }
+
   jobPostingAssessShow() {
-    this.hasJobPostingAccess = this.serviceData?.jobPostingAccess ?? false;
+    this.hasJobPostingAccess.set(this.serviceData()?.jobPostingAccess ?? false);
 
-    if (this.hasJobPostingAccess) {
-      this.remainingBasicJobs =
-        this.serviceData?.jobPostingService?.basicListLimit ?? 0;
-
-      this.maxBasicJobs = this.serviceData?.jobPostingService?.maxJob ?? 0;
-
-      this.remainingStandoutJobs =
-        this.serviceData?.jobPostingService?.standoutLimit ?? 0;
-
-      this.maxStandoutJobs =
-        this.serviceData?.jobPostingService?.maxStandout ?? 0;
-
-      this.remainingStandoutPremiumJobs =
-        this.serviceData?.jobPostingService?.standoutPremiumLimit ?? 0;
-
-      this.maxStandoutPremiumJobs =
-        this.serviceData?.jobPostingService?.maxStandoutPremium ?? 0;
+    if (this.hasJobPostingAccess()) {
+      this.remainingBasicJobs.set(
+        this.serviceData()?.jobPostingService?.basicListLimit ?? 0
+      );
+      this.maxBasicJobs.set(
+        this.serviceData()?.jobPostingService?.maxJob ?? 0
+      );
+      this.remainingStandoutJobs.set(
+        this.serviceData()?.jobPostingService?.standoutLimit ?? 0
+      );
+      this.maxStandoutJobs.set(
+        this.serviceData()?.jobPostingService?.maxStandout ?? 0
+      );
+      this.remainingStandoutPremiumJobs.set(
+        this.serviceData()?.jobPostingService?.standoutPremiumLimit ?? 0
+      );
+      this.maxStandoutPremiumJobs.set(
+        this.serviceData()?.jobPostingService?.maxStandoutPremium ?? 0
+      );
 
       const remainingJobsSum =
-        this.remainingBasicJobs +
-        this.remainingStandoutJobs +
-        this.remainingStandoutPremiumJobs;
+        this.remainingBasicJobs() +
+        this.remainingStandoutJobs() +
+        this.remainingStandoutPremiumJobs();
       const maxJobsSum =
-        this.maxBasicJobs + this.maxStandoutJobs + this.maxStandoutPremiumJobs;
+        this.maxBasicJobs() + this.maxStandoutJobs() + this.maxStandoutPremiumJobs();
 
       if (maxJobsSum > 0) {
-        this.jobPostingAccessPercentage = Math.round(
-          (remainingJobsSum / maxJobsSum) * 100
+        this.jobPostingAccessPercentage.set(
+          Math.round((remainingJobsSum / maxJobsSum) * 100)
         );
       }
     }
   }
 
   showSmsPackage() {
-    this.hasSmsPackage = this.serviceData?.smsPackage ?? false;
+    this.hasSmsPackage.set(this.serviceData()?.smsPackage ?? false);
+    this.smsPurchased.set(this.serviceData()?.smsPurchased ?? 0);
+    this.smsSend.set(this.serviceData()?.smsSend ?? 0);
+    this.smsRemaining.set(this.serviceData()?.smsRemaining ?? 0);
 
-    this.smsPurchased = this.serviceData?.smsPurchased ?? 0;
-    this.smsSend = this.serviceData?.smsSend ?? 0;
-    this.smsRemaining = this.serviceData?.smsRemaining ?? 0;
-
-    if (this.smsPurchased > 0) {
-      this.smsPackagePercentage = Math.round(
-        (this.smsRemaining / this.smsPurchased) * 100
+    if (this.smsPurchased() > 0) {
+      this.smsPackagePercentage.set(
+        Math.round((this.smsRemaining() / this.smsPurchased()) * 100)
       );
-      if (this.smsPackagePercentage < 0) {
-        this.smsPackagePercentage = 0;
+      if (this.smsPackagePercentage() < 0) {
+        this.smsPackagePercentage.set(0);
       }
     }
   }
 
   cvDataShow() {
-    this.hasCVBankAccess = this.serviceData?.cvSearchAccess ?? false;
+    this.hasCVBankAccess.set(this.serviceData()?.cvSearchAccess ?? false);
 
-    if (this.hasCVBankAccess) {
-      this.remainingCV = this.serviceData?.cvSearchService?.available ?? 0;
-
-      this.maxCV = this.serviceData?.cvSearchService.limit ?? 0;
-
-      this.viewedCV = parseInt(
-        window.localStorage.getItem(
-          this.loginService.LOCAL_STORAGE_KEYS.CV_BANK_VIEWED
-        ) ?? '0'
+    if (this.hasCVBankAccess()) {
+      this.remainingCV.set(this.serviceData()?.cvSearchService?.available ?? 0);
+      this.maxCV.set(this.serviceData()?.cvSearchService.limit ?? 0);
+      this.viewedCV.set(
+        parseInt(
+          window.localStorage.getItem(
+            this.loginService.LOCAL_STORAGE_KEYS.CV_BANK_VIEWED
+          ) ?? '0'
+        )
       );
+      this.viewedCV.set(this.serviceData()?.cvSearchService.viewed ?? 0);
 
-      this.viewedCV = this.serviceData?.cvSearchService.viewed ?? 0;
-
-      if (this.maxCV > 0) {
-        this.cvBankPercentage = Math.round(
-          (this.remainingCV / this.maxCV) * 100
+      if (this.maxCV() > 0) {
+        this.cvBankPercentage.set(
+          Math.round((this.remainingCV() / this.maxCV()) * 100)
         );
       }
     }
   }
 
   onClickSignOut() {
-    let comId: string = window.localStorage.getItem('CompanyId') ?? '';
-    let uId: string = window.localStorage.getItem('UserId') ?? '';
+    const comId: string = window.localStorage.getItem('CompanyId') ?? '';
+    const uId: string = window.localStorage.getItem('UserId') ?? '';
 
     this.loginService.deleteServiceDataFromRadis(comId, uId).subscribe();
 
     this.loginService.clearAppData().subscribe({
       next: () => {
-        // window.location.replace('https://gateway.bdjobs.com');
-        //window.location.replace('https://recruiter.bdjobs.com');
         this.router.navigate(['/']);
       },
       error: () => {
-        // window.location.replace('https://gateway.bdjobs.com');
-        //window.location.replace('https://recruiter.bdjobs.com');
         this.router.navigate(['/']);
       },
     });
@@ -267,28 +268,22 @@ export class ControlBarComponent implements OnInit {
   onSmsDropdownOpenChange(event: boolean) {
     this.isSmsCircularProgressVisible = !event;
   }
+
   onJobPostDropdownOpenChange(event: boolean) {
     this.isJobPostingCircularProgressVisible = !event;
   }
 
   onCvBankDropdownOpenChange(event: boolean) {
     this.isCvBankCircularProgressVisible = !event;
-    // this.isCvBankCircularProgressVisible = !event;
   }
 
   submitCreditReferral(token: string): Observable<any> {
-    // Remove this.closeModal(); as it likely belongs to a different component
-    // var companyId = window.localStorage.getItem('CompanyId') ?? '';
-    // console.log('companyId=>', companyId);
-
-    // var companyName = window.localStorage.getItem('CompanyName') ?? '';
-
     return this.creditSystemService
-      .callCreditSystemCheckReferral(this.companyId, this.companyName, token)
+      .callCreditSystemCheckReferral(this.companyId(), this.companyName(), token)
       .pipe(
         tap((response) => {
-          let comId: string = window.localStorage.getItem('CompanyId') ?? '';
-          let uId: string = window.localStorage.getItem('UserId') ?? '';
+          const comId: string = window.localStorage.getItem('CompanyId') ?? '';
+          const uId: string = window.localStorage.getItem('UserId') ?? '';
           this.loginService.deleteServiceDataFromRadis(comId, uId).subscribe();
           setTimeout(() => {
             this.setServiceData();
@@ -318,111 +313,72 @@ export class ControlBarComponent implements OnInit {
       );
   }
 
-  //modal
-  openModal(content: any) {
-    // console.log('opened!');
-    this.modalRef = this.modalService.open(content, { size: 'lg' });
+  open() {
+    this.currentModal.set(this.modalRef);
+    this.showModal.set(true);
+  }
+
+  openModal(content: TemplateRef<any>) {
+    this.currentModal.set(content);
+    this.showModal.set(true);
   }
 
   closeModal() {
-    this.modalRef?.close();
+    this.showModal.set(false);
+    this.showPendingModal.set(false);
+    this.showRejectedModal.set(false);
+    this.currentModal.set(null);
   }
+
+  openPendingModal() {
+    this.currentModal.set(this.pendingModal);
+    this.showPendingModal.set(true);
+  }
+
+  openFunctionalModal(component: any) {
+    this.currentModal.set(this.modalRef);
+    this.showModal.set(true);
+  }
+
   navigateToDashboard() {
     this.router.navigate(['dashboard']);
   }
+
   navigateToCreditSystem() {
     this.router.navigate(['credit-system']);
   }
-  open() {
-    const modalRef = this.modalService.open(NidVerificationModalComponent, {
-      centered: true,
-    });
-    modalRef.result.then(
-      (result) => {
-        console.log(result);
-      },
-      (reason) => {
-        console.log(reason);
-      }
-    );
-  }
-  // openFunctionalModal(component: any) {
-  //   const modalRef = this.modalService.open(component, {
-  //     centered: true,
-  //     size: 'lg',
-  //   });
-  //   modalRef.result.then(
-  //     (result) => {
-  //       console.log(result);
-  //     },
-  //     (reason) => {
-  //       console.log(reason);
-  //     }
-  //   );
-  // }
-  openPendingModal() {
-    this.openFunctionalModal(CreditPendingComponent);
-  }
-  openFunctionalModal(component: any) {
-    const modalRef = this.modalService.open(component, {
-      centered: true,
-      size: 'lg',
-      ariaLabelledBy: 'modal-title',
-      ariaDescribedBy: 'modal-body',
-    });
-    modalRef.result.then(
-      (result) => {
-        console.log(result);
-      },
-      (reason) => {
-        console.log(reason);
-      }
-    );
-  }
 
-  // openProgressModal() {
-  //   const modalRef = this.modalService.open(ProgressLoadingComponent, {
-  //     centered: true,
-  //   });
-  //   modalRef.result.then(
-  //     (result) => {
-  //       console.log(result);
-  //     },
-  //     (reason) => {
-  //       console.log(reason);
-  //     }
-  //   );
-  // }
   setServiceData(): void {
-    let comId: string = window.localStorage.getItem('CompanyId') ?? '';
-    let uId: string = window.localStorage.getItem('UserId') ?? '';
+    const comId: string = window.localStorage.getItem('CompanyId') ?? '';
+    const uId: string = window.localStorage.getItem('UserId') ?? '';
 
     this.loginService.getServiceData(comId, uId).subscribe((response: any) => {
       this.loginService.setServiceData(response.data);
     });
   }
 
-  sidebarShow(): void{
-    this.isSidebar = true;
+  sidebarShow(): void {
+    this.isSidebar.set(true);
   }
-  sidebarClose(): void{
-    this.isSidebar = false;
+
+  sidebarClose(): void {
+    this.isSidebar.set(false);
   }
 
   onFirstAccordionChange(isOpen: boolean) {
-    this.isFirstOpen = isOpen;
+    this.isFirstOpen.set(isOpen);
   }
 
   onSecondAccordionChange(isOpen: boolean) {
-    this.isSecondOpen = isOpen;
+    this.isSecondOpen.set(isOpen);
   }
 
   onThirdAccordionChange(isOpen: boolean) {
-    this.isThirdOpen = isOpen;
+    this.isThirdOpen.set(isOpen);
   }
 
   onFourthAccordionChange(isOpen: boolean) {
-    this.isFourthOpen = isOpen;
+    this.isFourthOpen.set(isOpen);
   }
 
   truncateText(compName: string): string {
