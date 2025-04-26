@@ -1,0 +1,379 @@
+<div class="card shadow-sm my-3">
+  <div class="card-body">
+    <div class="d-flex flex-row justify-content-between">
+      <div class="d-flex align-items-center">
+        <h5 class="card-title job-title">{{ jobInformation?.jobTitle }}</h5>
+        <h1></h1>
+        <div class="d-inline-block ms-2 pb-2">
+          @if(jobPostStatus == JOB_POST_STATUS.LIVE || jobPostStatus ==
+          JOB_POST_STATUS.PAUSED ) {
+          <select
+            [ngClass]="{
+                'form-select form-select-sm job-status-select': true,
+                pending: this.jobPostStatus == JOB_POST_STATUS.PENDING,
+                live: this.jobPostStatus == JOB_POST_STATUS.LIVE,
+                paused: this.jobPostStatus == JOB_POST_STATUS.PAUSED,
+                expired: this.jobPostStatus == JOB_POST_STATUS.EXPIRED,
+              }"
+            aria-label="Select job post status"
+            [(ngModel)]="jobPostStatus"
+            (change)="onJobPostStatusChange()"
+          >
+            @if(jobPostStatus != JOB_POST_STATUS.LIVE) {
+            <option value="{{ JOB_POST_STATUS.LIVE }}">Live</option>
+            } @if(jobPostStatus != JOB_POST_STATUS.PAUSED) {
+            <option value="{{ JOB_POST_STATUS.PAUSED }}">Pause</option>
+            }
+          </select>
+          } @else {
+          <div
+            [ngClass]="{
+                'form-select form-select-sm job-status-select': true,
+                pending: this.jobPostStatus == JOB_POST_STATUS.PENDING,
+                live: this.jobPostStatus == JOB_POST_STATUS.LIVE,
+                paused: this.jobPostStatus == JOB_POST_STATUS.PAUSED,
+                expired: this.jobPostStatus == JOB_POST_STATUS.EXPIRED,
+              }"
+          ></div>
+          }
+        </div>
+
+        @if(jobInformation?.isPublished && !jobInformation?.jobPaymentStatus) {
+        <div class="d-inline-block ms-2 pb-2">
+          <button
+            class="btn btn-success btn-sm btn-pay-online"
+            (click)="onClickPayOnline()"
+          >
+            Pay Online
+          </button>
+        </div>
+        }
+      </div>
+
+      <div>
+        <a
+          href="https://corporate3.bdjobs.com/job_posting_board.asp?from=recruiter&JobNo={{
+              jobInformation?.jobId
+            }}&vtype=edit&rtype="
+          class="btn btn-sm btn-outline-primary mx-1 job-action-button"
+        >
+          <div class="d-flex align-items-center">
+            <span class="card-button-icon edit"></span
+            ><span class="d-inline-block">Edit Job</span>
+          </div>
+        </a>
+        <a
+          href="https://corporate3.bdjobs.com/job_posting_board.asp?from=recruiter&JobNo={{
+              jobInformation?.jobId
+            }}&vtype=repost&rtype="
+          class="btn btn-sm btn-outline-primary mx-1 job-action-button"
+        >
+          <div class="d-flex align-items-center">
+            <span class="card-button-icon repost"></span>
+            <span class="d-inline-block"> Copy & Repost </span>
+          </div>
+        </a>
+
+        <div class="d-inline-block ms-2">
+          <button class="btn btn-sm">
+            <img
+              src="assets/images/bell-fill.svg"
+              class="card-button-icon large"
+            />
+          </button>
+          <button class="btn btn-sm">
+            <img
+              src="assets/images/user-hired.svg"
+              class="card-button-icon large"
+            />
+          </button>
+
+          <div ngbDropdown class="d-inline-block">
+            <button
+              class="btn btn-sm btn-three-dot-menu-toggle"
+              id="dropdownBasic1"
+              ngbDropdownToggle
+            >
+              <img
+                src="assets/images/three-dots-vertical.svg"
+                class="card-button-icon large"
+              />
+            </button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button (click)="openArchiveModal(content)" ngbDropdownItem>
+                Archive
+              </button>
+              <a
+                href="https://corporate3.bdjobs.com/Analytics/Details.asp?from=recruiter&rptType=TU&jp_id={{
+                    jobInformation?.jobId
+                  }}"
+                ngbDropdownItem
+                >Analytics</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex flex-row justify-content-start align-items-center">
+      <div class="me-1">
+        <span
+          ><b>Posted:</b>&nbsp;{{ jobInformation?.jobPostingDate | date }}</span
+        >
+      </div>
+
+      <div class="short-vertical-bar"></div>
+
+      <div class="mx-1">
+        <div class="d-flex align-items-center">
+          <span><b>Deadline:</b>&nbsp;{{ deadlineDate | date }}</span>
+          <!-- Hidden input for datepicker -->
+          <input
+            class="d-none"
+            ngbDatepicker
+            #d="ngbDatepicker"
+            [(ngModel)]="deadlineDatePickerModel"
+            (dateSelect)="onDeadlineChanged($event)"
+            [positionTarget]="deadlineDatePickerButton"
+            placement="bottom"
+          />
+          <img
+            #deadlineDatePickerButton
+            (click)="d.toggle()"
+            src="assets/images/pencil-square.svg"
+            class="card-icon"
+          />
+        </div>
+      </div>
+
+      <div class="short-vertical-bar"></div>
+
+      <div class="mx-1">
+        <span><b>Service Type:</b>&nbsp;{{ jobInformation?.serviceType }}</span>
+      </div>
+
+      <div class="short-vertical-bar"></div>
+
+      <div class="mx-1">
+        <span
+          ><b>Job Viewed:</b>&nbsp;{{ jobInformation?.jobViewedCount }}</span
+        >
+      </div>
+    </div>
+
+    @if(this.jobInformation?.totalApplications == 0){
+    @if(this.jobInformation?.isPublished && this.jobInformation?.applyOptions
+    !== "Apply Online") {
+    <div class="d-flex flex-row align-items-center mt-3">
+      <div>
+        <b>Selected Application Process:</b>&nbsp;<span class="text-primary"
+          >{{ jobInformation?.applyOptions }}&nbsp;|
+          <img
+            src="assets/images/info-circle-fill-blue.svg"
+            class="icon-apply-option-info"
+          />82% Employers choose Apply Online
+        </span>
+      </div>
+    </div>
+    <div class="d-flex flex-row align-items-center justify-content-around mt-3">
+      <div class="feature-apply-online-panel">
+        <div class="text-primary">To get smart filtering features</div>
+        <button class="btn btn-primary mt-3 btn-apply-online">
+          Change to apply online
+        </button>
+      </div>
+      <div>
+        <img src="assets/images/blur.jpg" class="w-100" />
+      </div>
+    </div>
+    } @else {
+    <div class="d-flex justify-content-around my-4">
+      <app-stepper [jobInformation]="jobInformation"></app-stepper>
+    </div>
+    } } @else {
+    <div
+      class="d-flex flex-row align-items-center justify-content-between mt-3"
+    >
+      <div class="job-post-status-section justify-content-center text-center">
+        <div class="total-applicant-number">
+          <a
+            href="https://corporate3.bdjobs.com/Applicant-Hiring-Activity-Process.asp?from=recruiter&jobno={{
+                jobInformation?.jobId
+              }}&pgtype=&tc={{ jobInformation?.totalApplications }}"
+          >
+            {{ jobInformation?.totalApplications }}
+          </a>
+        </div>
+        <div class="fw-bold">Applications</div>
+      </div>
+
+      <div class="long-vertical-bar"></div>
+
+      <div class="job-post-status-section justify-content-start">
+        <div class="job-post-status-section-title mb-2 mb-3">
+          Profile Matching
+          <img class="info-icon" src="assets/images/info-circle-fill.svg" />
+        </div>
+        <!-- <img
+            class="demo-graph"
+            src="../../../../assets/images/demo-graph-1.png"
+            draggable="false"
+          /> -->
+        <div class="">
+          <highcharts-chart
+            [Highcharts]="Highcharts"
+            [options]="chartOptions"
+          ></highcharts-chart>
+        </div>
+        <!-- style="width: 200px; height: 150px; display: block" -->
+      </div>
+
+      <div class="long-vertical-bar"></div>
+
+      <div class="job-post-status-section justify-content-start">
+        <div class="job-post-status-section-title mb-2 mb-3">
+          Experience
+          <img
+            class="info-icon"
+            src="assets/images/info-circle-fill.svg"
+            draggable="false"
+          />
+        </div>
+        <!-- <img
+            class="demo-graph"
+            src="../../../../assets/images/demo-graph-2.png"
+            draggable="false"
+          /> -->
+        <div class="">
+          <highcharts-chart
+            [Highcharts]="Highcharts"
+            [options]="chartOption2"
+          ></highcharts-chart>
+        </div>
+
+        <!-- style="width: 250px; height: auto; display: block" -->
+      </div>
+
+      <div class="long-vertical-bar"></div>
+
+      <div class="job-post-status-section justify-content-start">
+        <div class="job-post-status-section-title mb-2 mb-3">
+          Salary Expectations
+          <img
+            class="info-icon"
+            src="assets/images/info-circle-fill.svg"
+            draggable="false"
+          />
+        </div>
+
+        <div class="salary-expectation-view">
+          <span
+            [innerHTML]="this.salaryExpectationText"
+            class="salary-expectation-text"
+          ></span>
+          <img
+            class="demo-graph-3"
+            src="assets/images/salary-expectation-background.png"
+            draggable="false"
+          />
+        </div>
+      </div>
+
+      <div class="long-vertical-bar"></div>
+
+      <div class="job-post-status-section justify-content-center">
+        <div class="mb-2">
+          <div class="yet-to-view-number">
+            <a
+              href="https://corporate3.bdjobs.com/Applicant-Hiring-Activity-Process.asp?from=recruiter&jobno={{
+                  jobInformation?.jobId
+                }}&pgtype=nvwd&tc={{ jobInformation?.applicationYetToViewCount }}"
+            >
+              {{ jobInformation?.applicationYetToViewCount }}
+            </a>
+          </div>
+          <div class="d-flex align-items-center gap-1">
+            <img class="card-button-icon" src="assets/images/eye-slash.svg" />
+            <div class="text">Yet to view</div>
+          </div>
+        </div>
+        <div>
+          <div class="viewed-number">
+            <a
+              href="https://corporate3.bdjobs.com/Applicant-Hiring-Activity-Process.asp?from=recruiter&jobno={{
+                  jobInformation?.jobId
+                }}&pgtype=vwd&tc={{ jobInformation?.applicationViewedCount }}"
+            >
+              {{ jobInformation?.applicationViewedCount }}
+            </a>
+          </div>
+          <div class="d-flex align-items-center gap-1">
+            <img class="card-button-icon" src="assets/images/eye.svg" />
+            <div class="text">Viewed</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="long-vertical-bar"></div>
+
+      <div class="job-post-status-section justify-content-center">
+        <div class="mb-2">
+          <div class="shortlisted-number">
+            <a
+              href="https://corporate3.bdjobs.com/Applicant-Hiring-Activity-Process.asp?from=recruiter&jobno={{
+                  jobInformation?.jobId
+                }}&pgtype=sl&tc={{ jobInformation?.applicationShortlistedCount }}"
+            >
+              {{ !jobInformation?.applicationShortlistedCount ? 0 :
+              jobInformation?.applicationShortlistedCount }}
+            </a>
+          </div>
+
+          <div class="d-flex align-items-center gap-1">
+            <img
+              class="card-button-icon"
+              src="assets/images/account-check.svg"
+            />
+            <div class="textstats">Shortlisted</div>
+          </div>
+        </div>
+        <div>
+          <div class="last-activity-name d-flex align-items-center gap-1">
+            <img class="card-button-icon" src="assets/images/online-test.svg" />
+            {{ jobInformation?.lastActivityName }}
+          </div>
+          <div class="textstats">LastActivity</div>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Archive Job</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>Do you want to archive this job?</p>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-primary"
+      (click)="modal.dismiss('')"
+    >
+      Cancel
+    </button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('Ok')">
+      Ok
+    </button>
+  </div>
+</ng-template>

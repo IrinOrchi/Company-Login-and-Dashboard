@@ -1,0 +1,23 @@
+<div style="background-color: #fff;">
+  <header>
+    <app-top-nav-bar></app-top-nav-bar>
+  </header>
+
+  @if (showLoader) {
+    <app-skeleton-loader></app-skeleton-loader>
+   }@else{
+  <main>
+       <div class="container">
+         <div class="row">
+           @if (jobId == '' && showLeftPanel) 
+           {
+             <div class="col-3"><app-cv-actions></app-cv-actions></div>
+           }
+           <div class="col-9" [ngClass]="{'col-12': jobId!='', 'col-9': jobId=='' && showLeftPanel}"><router-outlet></router-outlet></div>
+         </div>
+       </div>
+       
+       <!-- loader component -->
+      </main>
+    }
+</div>

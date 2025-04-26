@@ -1,0 +1,488 @@
+<div class="container" id="short_view_main_div" #short_view_main_div>
+  <div class="p-1 short_cv">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      @if (jobTitle) {
+      <div class="job">
+        <span>Job Title: </span>
+        <span class="job-name ps-1">{{jobTitle}}</span>
+      </div>
+    }
+      <div class="d-flex flex-column justify-content-end align-items-end">
+        <p class="source m-0">Source: Bdjobs.com Online Talent Search</p>
+        <div class="d-flex align-items-center date">
+          <span>Last Updated: </span>
+          <span class="fw-bold update-date">{{cvDetails?.UpdatedOnSQL?.toString() !== '0001-01-01T00:00:00Z'  ? (cvDetails?.UpdatedOnSQL | date:'d MMM yyyy') : (cvDetails?.CreatedOn  | date:'d MMM yyyy')}}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="px-2">
+      <div class="row border_wrap">
+        <div class="col-md-5 left-side">
+          <div class="p-3">
+            <div [class.itemblur]="isLockedForPnpl">
+                <img class="user_photo" src={{PhotoUrl}} alt="job seeker photo">
+            </div>
+            <div class="user-name" id="user_name" [class.itemblur]="isLockedForPnpl">
+              @if (!isLockedForPnpl) {
+                <h3>{{cvDetails?.Name?.FullName}}</h3>
+              }
+              @else {
+                <h3>0000 000 00 0000 00000000</h3>
+              }
+            </div>
+            <div class="user-address">
+              @if(presentFullAddress || permanentFullAddress){
+              <div class="d-flex align-items-start justify-content-start mb-2" [class.itemblur]="isLockedForPnpl">
+                <img src="../../../../assets/images/address.png" alt="adress icon" class="mt-1">
+                @if (!isLockedForPnpl) {
+                  <span class="fw-bold ps-1">{{presentFullAddress ? presentFullAddress : permanentFullAddress}}</span>
+                }
+                @else {
+                  <span class="fw-bold ps-1">000000000 000000000000 000000000 000000</span>
+                }
+              </div>
+              }
+              @if(cvDetails && cvDetails.Mobiles.length>0){
+              <div class="d-flex align-items-start justify-content-start mb-2" [class.itemblur]="isLockedForPnpl">
+                <img src="../../../../assets/images/call.png" alt="adress icon" class="mt-1">
+                @if (!isLockedForPnpl) {
+                  <ng-container>
+                    <span class="fw-bold ps-1" *ngFor="let item of cvDetails.Mobiles; let i = index">
+                    {{item.MobileNo}}@if(i>=0 && i<cvDetails.Mobiles.length-1){,}</span>
+                  </ng-container>
+                }
+                @else {
+                  <span>00000000000</span>
+                }
+              </div>
+              }
+
+              @if(cvDetails && cvDetails.Emails.length>0){
+              <div class="d-flex align-items-start justify-content-start mb-2"  [class.itemblur]="isLockedForPnpl">
+                <img src="../../../../assets/images/message.png" alt="adress icon" class="mt-1">
+                <!-- @for (item of cvDetails.Emails; track $index) {
+                <span class="fw-bold ps-1">{{item.EmailAddress}}</span>
+                @if($index > 0 ){
+                <span class="fw-bold ps-1"> , {{item.EmailAddress}}</span>
+                }
+                } -->
+                
+
+                @if (!isLockedForPnpl) {
+                  <span class="fw-bold ps-1"
+                  *ngIf="cvDetails.Emails.length>0">{{cvDetails.Emails[0].EmailAddress}}</span>
+                  <span class="fw-bold ps-1" *ngIf="cvDetails.Emails.length>1">, {{cvDetails.Emails[1].EmailAddress}}</span>
+                }
+                @else {
+                  <span>0000000000000000000</span>
+                }
+              </div>
+              }
+              @if(linkedInAccount){
+              <div class="d-flex align-items-start justify-content-start mb-2" [class.itemblur]="isLockedForPnpl" *ngIf="linkedInAccount !== ''">
+                <img src="https://corporate3.bdjobs.com/images/linkedin.png" alt="adress icon" class="mt-1">
+                @if (!isLockedForPnpl) {
+                  <span class="fw-bold ps-1">{{linkedInAccount}}</span>
+                }
+                @else {
+                  <span>000000000000000000000</span>
+                }
+              </div>
+              }
+
+              @if(githubAccount){
+              <div class="d-flex align-items-start justify-content-start mb-2" [class.itemblur]="isLockedForPnpl" *ngIf="githubAccount !== ''">
+                <img src="../../../../assets/images/gimg.png" alt="adress icon" class="mt-1">
+                @if (!isLockedForPnpl) {
+                  <span class="fw-bold ps-1">{{githubAccount}}</span>
+                }
+                @else {
+                  <span>000000000000000000000</span>
+                }
+              </div>
+              }
+
+                @if(facebookAccount){
+                  <div class="d-flex align-items-start justify-content-start mb-2" [class.itemblur]="isLockedForPnpl" *ngIf="facebookAccount !== ''">
+                    <img src="https://corporate3.bdjobs.com/images/facebook.png" alt="adress icon" class="mt-1">
+                    @if (!isLockedForPnpl) {
+                      <span class="fw-bold ps-1">{{facebookAccount}}</span>
+                    }
+                    @else {
+                      <span>000000000000000000000</span>
+                    }
+                  </div>
+                  }
+                @if(dribbbleaccount){
+                  <div class="d-flex align-items-start justify-content-start mb-2" [class.itemblur]="isLockedForPnpl" *ngIf="dribbbleaccount !== ''">
+                    <img src="https://corporate3.bdjobs.com/images/dimg.png" alt="adress icon" class="mt-1">
+                    @if (!isLockedForPnpl) {
+                      <span class="fw-bold ps-1">{{dribbbleaccount}}</span>
+                    }
+                    @else {
+                      <span>000000000000000000000</span>
+                    }
+                  </div>
+                  }
+                @if(youtubeAccount){
+                  <div class="d-flex align-items-start justify-content-start mb-2" [class.itemblur]="isLockedForPnpl" *ngIf="youtubeAccount !== ''">
+                    <img src="https://corporate3.bdjobs.com/images/youtube.png" alt="adress icon" class="mt-1">
+                    @if (!isLockedForPnpl) {
+                      <span class="fw-bold ps-1">{{youtubeAccount}}</span>
+                    }
+                    @else {
+                      <span>000000000000000000000</span>
+                    }
+                  </div>
+                }
+                @if(otherAccount){
+                  <div class="d-flex align-items-start justify-content-start mb-2" [class.itemblur]="isLockedForPnpl" *ngIf="otherAccount !== ''">
+                    <img src="https://corporate3.bdjobs.com/images/others.png" alt="adress icon" class="mt-1">
+                    @if (!isLockedForPnpl) {
+                      <span class="fw-bold ps-1">{{otherAccount}}</span>
+                    }
+                    @else {
+                      <span>000000000000000000000</span>
+                    }
+                  </div>
+                  }
+              <!-- <div class="d-flex align-items-start justify-content-start mb-2">
+                <img src="../../../../assets/images/address.png" alt="adress icon" class="mt-1">
+                <span class="fw-bold ps-1">{{presentFullAddress}}</span>
+              </div> -->
+            </div>
+            @if (cvDetails?.FatherName || cvDetails?.MotherName || cvDetails?.Gender?.Name || cvDetails?.DateOfBirth ||
+            cvDetails?.Nationality || cvDetails?.NationalIdentificationNumber || (permanentFullAddress &&
+            permanentFullAddress.length>0)||cvDetails?.PassportIssueDate || cvDetails?.PassportNo) {
+            <div class="personal_info pt-3">
+              <div class="title">
+                <img src="../../../../assets/images/p-info-bc.png">
+                <span>Personal Information</span>
+              </div>
+              <div class="personal_detrails pt-3">
+                @if(cvDetails?.FatherName){
+                <div class="d-flex align-items-start flex-column py-3">
+                  <span>Father's Name</span>
+                  <span class="fw-bold" [class.itemblur]="isLockedForPnpl">{{cvDetails?.FatherName}}</span>
+                </div>
+                }
+                @if(cvDetails?.MotherName){
+                <div class="d-flex align-items-start flex-column py-3">
+                  <span>Mother's Name</span>
+                  <span class="fw-bold" [class.itemblur]="isLockedForPnpl">{{cvDetails?.MotherName}}</span>
+                </div>
+                }
+                @if (cvDetails?.Gender?.Name) {
+                <div class="d-flex align-items-start flex-column py-3">
+                  <span>Gender</span>
+                  <span class="fw-bold">{{ cvDetails?.Gender?.Name === 'Other' ? 'Others' : cvDetails?.Gender?.Name }}</span>
+                </div>
+                }
+                @if (cvDetails?.DateOfBirth) {
+                <div class="d-flex align-items-start flex-column py-3">
+                  <span>Date of Birth</span>
+                  <span class="fw-bold">{{cvDetails?.DateOfBirth| date:'d MMM yyyy'}}</span>
+                </div>
+                }
+
+                @if (cvDetails?.BirthPlace) {
+                  <div class="d-flex align-items-start flex-column py-3">
+                    <span>Birth place</span>
+                    <span class="fw-bold">{{cvDetails?.BirthPlace}}</span>
+                  </div>
+                }
+  
+
+                @if (cvDetails?.Height) {
+                <div class="d-flex align-items-start flex-column py-3">
+                  <span>Height</span>
+                  <span class="fw-bold">{{cvDetails?.Height}}</span>
+                </div>
+                }
+                @if (cvDetails?.Weight) {
+                <div class="d-flex align-items-start flex-column py-3">
+                  <span>Weight</span>
+                  <span class="fw-bold">{{cvDetails?.Weight}}</span>
+                </div>
+                }
+                @if (cvDetails?.PassportNo) {
+                <div class="d-flex align-items-start flex-column py-3">
+                  <span>Passport No</span>
+                  <span class="fw-bold" [class.itemblur]="isLockedForPnpl">{{cvDetails?.PassportNo}}</span>
+                </div>
+                }
+                @if (passportIssueDate) {
+                <div class="d-flex align-items-start flex-column py-3">
+                  <span>Passport Issue Date</span>
+                  <span class="fw-bold" [class.itemblur]="isLockedForPnpl">{{ passportIssueDate | date:'dd MMM yyyy'}}</span>
+                </div>
+                }
+                @if(cvDetails?.Nationality){
+                <div class="d-flex align-items-start flex-column py-3">
+                  <span>Nationality</span>
+                  <span class="fw-bold">{{cvDetails?.Nationality}}</span>
+                </div>
+                }
+                @if (cvDetails?.NationalIdentificationNumber) {
+                <div class="d-flex align-items-start flex-column py-3">
+                  <span>National Id No</span>
+                  <span class="fw-bold" [class.itemblur]="isLockedForPnpl">{{cvDetails?.NationalIdentificationNumber}}</span>
+                </div>
+                }
+                @if (permanentFullAddress && permanentFullAddress.length>0) {
+                <div class="d-flex align-items-start flex-column py-3">
+                  <span>Permanent Address</span>
+                  <span class="fw-bold" [class.itemblur]="isLockedForPnpl">{{permanentFullAddress}}</span>
+                </div>
+                }
+              </div>
+            </div>
+            }
+          </div>
+        </div>
+
+
+        <div class="col-md-7 right-side">
+          <div class="ps-5 pt-5">
+            <div class="other_info" *ngIf="isExprienceHas">
+              @if (calculatedTotalExperience) {
+              <div class="title">
+                <img src="../../../../assets/images/Exp-bc.png">
+                <span>Experience ({{calculatedTotalExperience}} Years)</span>
+              </div>
+              }
+              @if (firstTwoExperiencesInformation&&firstTwoExperiencesInformation.length>0) {
+              <div class="others_details my-2 py-2"
+                *ngFor="let experience of firstTwoExperiencesInformation; let i = index">
+                <div class="py-3 mb-2">
+                  <span class="p-title ">{{ i + 1 }}. {{ experience.Designation }}</span>
+                </div>
+
+                <div>
+                  <span>
+                    Experience (Years): </span>
+                  <span
+                    class="fw-bold">{{sharedDataService.convertToYearsMonths(experience.IndividualTotalExperience)}}</span>
+                </div>
+                <div>
+                  <span>Company: </span>
+                  <span class="fw-bold">{{ experience.CompanyName }}</span>
+                </div>
+
+              </div>
+              }
+
+
+              <!-- <div class="others_details my-2 py-2">
+                  <div class="py-3 mb-2">
+                    <span class="p-title ">Junior Software Engineer</span>
+                  </div>
+  
+                  <div>
+                    <span>
+                      Experience (Years): </span>
+                    <span class="fw-bold">2 years 5 months</span>
+                  </div>
+                  <div>
+                    <span>Company: </span>
+                    <span class="fw-bold">Binary Quest Limited</span>
+                  </div>
+  
+                </div> -->
+
+              <div class="border_half"></div>
+
+            </div>
+            @if(cvDetails && cvDetails.SkillInformations && cvDetails.SkillInformations.length > 0){
+            <div class="other_info pt-4">
+              <div class="title">
+                <img src="../../../../assets/images/skill-bc.png">
+                <span>Skills</span>
+              </div>
+
+              <div class="others_details my-2 py-2">
+                <ul>
+                  <li *ngFor="let skill of cvDetails?.SkillInformations">
+                    {{ skill.Skills.SkillName }}
+                  </li>
+                </ul>
+              </div>
+
+              <div class="border_half"></div>
+
+            </div>
+            }
+
+            <div class="other_info pt-4" *ngIf="lastTwoTrainingSummary?.length > 0">
+              <div class="title">
+                <img src="../../../../assets/images/tra-sum-bc.png">
+                <span>Training Summary</span>
+              </div>
+
+              <div class="others_details my-2 py-2" *ngFor="let training of lastTwoTrainingSummary">
+                <div class="py-3 mb-2">
+                  <span class="p-title ">{{training.TrainingName}}</span>
+                </div>
+
+                <div>
+                  <span>Institute: </span>
+                  <span class="fw-bold">{{ training.Institute }}</span>
+                </div>
+                <div>
+                  <span>Duration: </span>
+                  <span class="fw-bold">{{ training.Duration }}</span>
+                </div>
+
+              </div>
+              <!-- <div class="others_details my-2 py-2">
+                  <div class="py-3 mb-2">
+                    <span class="p-title ">Android Application training</span>
+                  </div>
+  
+                  <div>
+                    <span>Institute: </span>
+                    <span class="fw-bold">ICT division</span>
+                  </div>
+                  <div>
+                    <span>Company: </span>
+                    <span class="fw-bold">Binary Quest Limited</span>
+                  </div>
+  
+                </div> -->
+
+              <div class="border_half"></div>
+
+            </div>
+
+            @if (academicQualifiacationSorted) {
+              <div class="other_info pt-4">
+                <div class="title">
+                  <img src="../../../../assets/images/Edu-qua-bc.png">
+                  <span>Educational Qualification</span>
+                </div>
+  
+                <div class="others_details my-2 py-2" *ngFor="let academicQualification of firstTwoEducation">
+                  <div class="py-3 mb-2">
+                    <span class="p-title ">{{ academicQualification.DegreeName }}</span>
+                  </div>
+  
+                  <div>
+                    <span>Institute: </span>
+                    <span class="fw-bold">{{ academicQualification.Institute }}
+                      @if (academicQualification.IsForeignInstitute)
+                      {<i>[Foreign Institute]</i>}</span>
+                  </div>
+                  <div>
+                    <span>Pass Year: </span>
+                    <span class="fw-bold">{{ academicQualification.PassingYear }}</span>
+                  </div>
+                  <div *ngIf="academicQualification?.Concentration?.ConcentrationName != '' && academicQualification?.Concentration?.ConcentrationName != null ">
+                    <span>Concentration/Major: </span>
+                    <span class="fw-bold">{{academicQualification?.Concentration?.ConcentrationName}}</span>
+                  </div>
+                  <div>
+                    <span>Result: </span>
+                    <span class="fw-bold">{{sharedDataService.getGradeDescription(academicQualification)}}</span>
+                  </div>
+                  <!-- <div>
+                    <span>Result: </span>
+                    <span class="fw-bold">{{ academicQualification.Result.ResultType === 1 ? 'CGPA: ' +
+                      academicQualification.Result.MarkOrCGPA + ' out of 4' : academicQualification.Result.MarkOrCGPA
+                      }}</span>
+                  </div> -->
+  
+                </div>
+                <!-- <div class="others_details my-2 py-2">
+                    <div class="py-3 mb-2">
+                      <span class="p-title ">Junior Software Engineer</span>
+                    </div>
+    
+                    <div>
+                      <span>
+                        Experience (Years): </span>
+                      <span class="fw-bold">2 years 5 months</span>
+                    </div>
+                    <div>
+                      <span>Company: </span>
+                      <span class="fw-bold">Binary Quest Limited</span>
+                    </div>
+    
+                  </div> -->
+  
+                <div class="border_half"></div>
+  
+              </div>
+            }
+            
+
+            @if(cvDetails && cvDetails.References && cvDetails.References.length > 0){
+            <div class="other_info pt-4">
+              <div class="title">
+                <img src="../../../../assets/images/Referr-bc.png">
+                <span>Reference</span>
+              </div>
+
+              <div class="others_details my-2 py-2" *ngFor=" let reference of cvDetails?.References">
+                <div class="py-3 mb-2">
+                  <span class="p-title ">{{reference.Name}}</span>
+                </div>
+
+                <div>
+                  <span>
+                    Relation: </span>
+                  <span class="fw-bold">{{reference.Relations}}</span>
+                </div>
+                @if(reference.PrimaryPhone){
+                <div>
+                  <span>
+                    Mobile No: </span>
+                  <span class="fw-bold">{{reference.PrimaryPhone}}</span>
+                </div>
+                }@else if (reference.OfficePhone) {
+                <div>
+                  <span>
+                    Mobile No: </span>
+                  <span class="fw-bold">{{reference.OfficePhone}}</span>
+                </div>
+                }
+                <!-- <div>
+                  <span>Mobile No:</span>
+                  <span class="fw-bold">{{ reference.PrimaryPhone ? reference.PrimaryPhone : (reference.ResidentPhone ?
+                    reference.ResidentPhone : reference.OfficePhone) }}</span>
+                </div> -->
+
+              </div>
+              <!-- <div class="others_details my-2 py-2">
+                  <div class="py-3 mb-2">
+                    <span class="p-title ">Dr. Md. Nawab Yousuf Ali</span>
+                  </div>
+  
+                  <div>
+                    <span>
+                      Relation </span>
+                    <span class="fw-bold">Academic</span>
+                  </div>
+                  <div>
+                    <span>Mobile No: </span>
+                    <span class="fw-bold">+8801917119022</span>
+                  </div>
+  
+                </div> -->
+
+              <div class="border_half"></div>
+
+            </div>
+            }
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button type="button" class="backToTop" style="display: inline;" (click)="scrollToTop()">
+    <i class="icon-angle-top"></i> Back To Top
+  </button>
+</div>

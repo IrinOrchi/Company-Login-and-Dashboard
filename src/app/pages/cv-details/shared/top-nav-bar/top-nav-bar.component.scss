@@ -1,0 +1,117 @@
+$color_1: rgb(255, 255, 255);
+$color_2: #fff;
+$color_3: #9d0191;
+$color_4: #000;
+$color_5: #ffffff;
+$color_6: #0c6899;
+$background-color_1: rgb(66, 66, 66);
+$background-color_2: #eee;
+$background-color_3: #fff;
+$background-color_4: #4fbf43;
+$background-color_5: #ff3b30;
+$background-color_6: #ececec;
+$background-color_7: #0c6899;
+$background-color_8: #fff;
+
+.mx-1 {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.topbar {
+  background-color: $background-color_1;
+  color: $color_1;
+  overflow-x: hidden;
+  padding: 10px 15px;
+  border-radius: 0;
+  border-top-left-radius: 15px;
+  margin: 10px;
+}
+
+.topbar-2 {
+  margin: 10px;
+  background-color: $background-color_2;
+  padding-bottom: 1px;
+}
+
+.bar-2 {
+  background-color: $background-color_3;
+  color: $color_1;
+  padding: 0px 10px;
+  border-bottom: 3px solid #bfbfbf;
+}
+
+.emp-list {
+  color: $color_2;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.icheck {
+  display: inline-block;
+  height: 24px;
+  width: 24px;
+  line-height: 24px;
+  border-radius: 50%;
+  background-color: $background-color_4;
+  text-align: center;
+  font-size: 12px;
+}
+
+.iclose {
+  display: inline-block;
+  height: 24px;
+  width: 24px;
+  line-height: 24px;
+  border-radius: 50%;
+  background-color: $background-color_5;
+  text-align: center;
+  font-size: 12px;
+}
+
+.video_btn {
+  a, button {
+    background-color: $background-color_6;
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #9d0191;
+    color: $color_3 !important;
+    white-space: nowrap;
+    text-decoration: none;
+    font-size: 12px;
+    margin-left: 7px;
+  }
+}
+
+.das {
+  color: $color_4;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.details_view.active {
+  color: $color_5;
+  background-color: $background-color_7;
+  border: 1px solid #0c6899;
+  padding: 5px 16px 4px 16px;
+  position: relative;
+  box-shadow: none;
+  min-width: 115px;
+}
+
+.details_view {
+  border-radius: 8px;
+  color: $color_6;
+  background-color: $background-color_8;
+  border: 1px solid #0c6899;
+  padding: 5px 16px 4px 16px;
+  position: relative;
+  box-shadow: none;
+  min-width: 115px;
+}
+
+.hand-cursor {
+  cursor: pointer;
+  /* or any other cursor value you want */
+}

@@ -1,0 +1,421 @@
+// .popup-overlay {
+//     position: fixed;
+//     top: 0;
+//     left: 0;
+//     width: 100%;
+//     height: 100%;
+//     background: rgba(0, 0, 0, 0.5);
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     z-index: 1000;
+//   }
+  
+//   .popup-container {
+//     background: white;
+//     padding: 24px 24px 0 24px;
+//     position: relative;
+//     border-radius: 16px;
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     gap: 16px;
+//     width: 90%;
+//     max-width: 600px;
+//     max-height: 90vh;
+//     overflow-y: hidden;
+//     margin: 0 15px;
+//   }
+  
+//   .close-icon {
+//     position: absolute;
+//     top: 16px;
+//     right: 16px;
+//     cursor: pointer;
+//     color: #757575;
+//   }
+  
+//   .close-icon:hover {
+//     color: #212121;
+//   }
+  
+//   .popup-header {
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     gap: 16px;
+//   }
+  
+//   .popup-icon {
+//     width: 80px;
+//     height: 80px;
+//     background: #dbfee4;
+//     border-radius: 9999px;
+//     border: 16px solid #effff3;
+//   }
+  
+//   .popup-content {
+//     width: 100%;
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     overflow-y: auto;
+//     padding-right: 4px;
+//     margin-right: -4px;
+//   }
+  
+//   .popup-title {
+//     text-align: center;
+//     color: #212121;
+//     font-size: clamp(20px, 3vw, 24px);
+//     font-family: Inter, sans-serif;
+//     font-weight: 700;
+//     line-height: 1.2;
+//     margin-bottom: 8px;
+//   }
+  
+//   .popup-description {
+//     width: 100%;
+//     max-width: 550px;
+//     text-align: center;
+//     color: #757575;
+//     font-size: clamp(14px, 2vw, 16px);
+//     font-family: Inter, sans-serif;
+//     font-weight: 500;
+//     line-height: 1.4;
+//     letter-spacing: 0.09px;
+//   }
+  
+//   .job-list {
+//     display: flex;
+//     flex-direction: column;
+//     gap: 12px;
+//     width: 100%;
+//     padding-right: 4px;
+//     margin-bottom: 16px;
+//     max-height: none;
+//   }
+  
+//   .job-item {
+//     display: flex;
+//     align-items: center;
+//     gap: 10px;
+//     padding: 12px 16px;
+//     border-radius: 6px;
+//     background: white;
+//     border: 1px solid #d3dce3;
+//     cursor: pointer;
+//     width: 100%;
+//   }
+  
+//   .job-item.active {
+//     border-color: #0e73a9;
+//   }
+  
+//   .radio-button {
+//     width: 13px;
+//     height: 13px;
+//     border-radius: 50%;
+//     border: 1px solid #c4c4c4;
+//     flex-shrink: 0;
+//     position: relative;
+//     box-sizing: border-box;
+//   }
+  
+//   .radio-button.selected {
+//     border-color: #0e73a9;
+//   }
+  
+//   .radio-button.selected::after {
+//     content: '';
+//     position: absolute;
+//     top: 50%;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+//     width: 7px;
+//     height: 7px;
+//     border-radius: 50%;
+//     background: #0e73a9;
+//   }
+  
+//   .job-info {
+//     display: flex;
+//     flex-direction: column;
+//     gap: 4px;
+//     width: calc(100% - 23px);
+//   }
+  
+//   .job-title {
+//     font-size: 14px;
+//     font-weight: 500;
+//     color: #212121;
+//     word-break: break-word;
+//   }
+  
+//   .job-deadline {
+//     font-size: 12px;
+//     font-weight: 500;
+//     color: #212121;
+//   }
+  
+//   .popup-footer {
+//     width: 100%;
+//     padding: 16px 20px;
+//     background: #f3f4f6;
+//     border-radius: 0 0 16px 16px;
+//     display: flex;
+//     justify-content: flex-end;
+//     border-top: 1px solid #dae5ec;
+//     margin-top: auto;
+//     position: sticky;
+//     bottom: 0;
+//   }
+  
+//   .post-job-button {
+//     background: #008a22;
+//     color: white;
+//     padding: 12px 24px;
+//     border-radius: 6px;
+//     font-size: 14px;
+//     font-weight: 500;
+//     cursor: pointer;
+//     border: none;
+//   }
+   
+// /* Media queries for better responsiveness */
+// @media (max-width: 576px) {
+//   .popup-container {
+//     padding: 16px;
+//   }
+  
+//   .popup-title {
+//     font-size: 20px;
+//   }
+  
+//   .popup-description {
+//     font-size: 14px;
+//   }
+  
+//   .post-job-button {
+//     padding: 10px 16px;
+//     font-size: 13px;
+//   }
+//   }
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .popup-container {
+    background: white;
+    padding: 24px 24px 0 24px;
+    position: relative;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: hidden;
+    margin: 0 15px;
+  }
+  
+  .close-icon {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    cursor: pointer;
+    color: #757575;
+  }
+  
+  .close-icon:hover {
+    color: #212121;
+  }
+  
+  .popup-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .popup-icon {
+    width: 80px;
+    height: 80px;
+    background: #dbfee4;
+    border-radius: 9999px;
+    border: 16px solid #effff3;
+  }
+  
+  .popup-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    padding-right: 4px;
+    margin-right: -4px;
+  }
+  
+  .popup-title {
+    text-align: center;
+    color: #212121;
+    font-size: clamp(20px, 3vw, 24px);
+    font-family: Inter, sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  
+  .popup-description {
+    width: 100%;
+    max-width: 550px;
+    text-align: center;
+    color: #757575;
+    font-size: clamp(14px, 2vw, 16px);
+    font-family: Inter, sans-serif;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: 0.09px;
+  }
+  
+  .job-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    padding-right: 4px;
+    margin-bottom: 16px;
+  }
+  
+  .job-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-radius: 6px;
+    background: white;
+    border: 1px solid #d3dce3;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .job-item.active {
+    border-color: #0e73a9;
+  }
+  
+  .radio-button {
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    border: 1px solid #c4c4c4;
+    flex-shrink: 0;
+    position: relative;
+    box-sizing: border-box;
+  }
+  
+  .radio-button.selected {
+    border-color: #0e73a9;
+  }
+  
+  .radio-button.selected::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #0e73a9;
+  }
+  
+  .job-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: calc(100% - 23px);
+  }
+  
+  .job-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: #212121;
+    word-break: break-word;
+  }
+  
+  .job-deadline {
+    font-size: 12px;
+    font-weight: 500;
+    color: #212121;
+  }
+  
+  .popup-footer {
+    width: 100%;
+    padding: 16px 20px;
+    background: #f3f4f6;
+    border-radius: 0 0 16px 16px;
+    display: flex;
+    justify-content: flex-end;
+    border-top: 1px solid #dae5ec;
+    margin-top: auto;
+    position: sticky;
+    bottom: 0;
+  }
+  
+  .post-job-button {
+    background: #008a22;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+  }
+  
+  @media (max-width: 576px) {
+    .popup-container {
+      width: 95%;
+      margin: 0 10px;
+      padding: 16px 16px 0 16px;
+    }
+    
+    .job-list {
+      max-height: none;
+    }
+    
+    .post-job-button {
+      padding: 10px 16px;
+      font-size: 13px;
+    }
+  }
+  
+  @media (max-width: 400px) {
+    .popup-container {
+      padding: 12px;
+    }
+    
+    .popup-icon {
+      width: 60px;
+      height: 60px;
+      border-width: 12px;
+    }
+  }
+  
+  @media (min-width: 1600px) {
+    .popup-container {
+      max-width: 700px;
+    }
+  }

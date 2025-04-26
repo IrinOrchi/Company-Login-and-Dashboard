@@ -1,0 +1,93 @@
+<!-- black top bar start -->
+<!-- <div class="topbar">
+  <div>
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center justify-content-center">
+
+        <a class="emp-list hand-cursor">
+          <div class="me-3">
+            @if (!isShortListed && !isRejected) {
+            <span class="icon-check-o icheck me-2" (click)="shortList()"></span>
+            <span (click)="shortList()">Shortlist</span>
+            }@else if(isShortListed) {
+            <span class="icon-check icheck me-2"></span>
+            <span>Shortlisted</span>
+            }
+          </div>
+        </a>
+        <a class="emp-list hand-cursor">
+          <div>
+            @if (!isShortListed && !isRejected) {
+            <span class="icon-cross-close iclose me-2" (click)="rejectCV()"></span>
+            <span (click)="rejectCV()">Reject</span>
+            } @else if(isRejected){
+            <span class="icon-restore iclose me-2" (click)="rejectCV()"></span>
+            <span (click)="restoreCV()">Restore</span>
+            }
+
+          </div>
+        </a>
+      </div>
+      <div class="video_btn">
+        @if(cvDetails && cvDetails.Attachment.IsVideoProfile){
+        <button class="exlnkvtxt" style="cursor: pointer;" (click)="showVideoCV()">
+          <span class="icon-video-account icovideo pe-1"></span>
+          <span style="color: black;">Video CV</span>
+        </button>
+
+        }
+        @if(cvDetails && cvDetails.Attachment.IsPersonalizedProfile){
+        <button class="exlnkvtxt" style="cursor: pointer;" (click)="downloadCustomizedCv()">
+          <span class="icon-pdf-file"></span>
+          <span style="color: black;">Customized CV</span></button>
+        }
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- black top bar end -->
+
+<div class="topbar-2">
+  <div class="bar-2">
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="d-flex flex-column flex-md-row align-items-center ms-3 pdf_downld" >
+        <div class="das">
+          Download CV:
+        </div>
+        <div class="d-flex justify-content-center align-items-center" [class.itemblur]="isLockedForPnpl">
+          <button type="button" class="btn btn-link mx-1" (click)="pdfDownloadFunc()">
+            <img src="../../../../assets/images/pdf.png" alt="PDF">
+          </button>
+          <!-- <button type="button" class="btn btn-link mx-1" (click)="generateWord()">
+            <img src="../../../../assets/images/word.png" alt="Word">
+          </button> -->
+          <button type="button" class="btn btn-link mx-1" (click)="pdfPrintFunc()">
+            <img src="../../../../assets/images/print.png" alt="Print">
+          </button>
+          
+        </div>
+
+      </div>
+      <div class="d-flex flex-column flex-sm-row justify-content-sm-center align-items-center py-2">
+        <!-- <button class="details_view  mb-2 mb-sm-0 " type="button" (click)="detailedView()"
+          [class.active]="currentViewType === 'detailed'"><span class="icon-cv"></span>
+          Details
+          View</button>
+        <button class="details_view  mb-2 mb-sm-0 " type="button" (click)="shortView()"><span class="icon-cv"
+            [class.active]="currentViewType === 'short'"></span>
+          Short
+          View</button> -->
+        <button class="details_view mb-2 mb-sm-0" type="button" (click)="detailedView()"
+          [class.active]="currentViewType === 'detailed'">
+          <span class="icon-cv"></span> Details View
+        </button>
+
+        <button class="details_view mb-2 mb-sm-0" type="button" (click)="shortView()"
+          [class.active]="currentViewType === 'short'">
+          <span class="icon-cv"></span> Short View
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

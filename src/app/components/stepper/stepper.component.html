@@ -1,0 +1,71 @@
+<div class="stepper">
+  <div class="steps">
+    <progress id="progress" [value]="progressBarValue" max="100"></progress>
+
+
+    @if(!this.nidVerify && !this.paymentProcess && !this.verificationStatus){
+    <div class="step-item step1">
+      <button class="step-button text-center" type="button">
+        <div class="d-flex align-items-center justify-content-center">
+          <img src="assets/images/check-circle-fill.svg" class="stepper-icon" />
+        </div>
+      </button>
+      <div class="step-title">NID Verification</div>
+      <a class="btn btn-success btn-sm btn-nid-verification" href="https://corporate3.bdjobs.com/nidVerification.asp">
+        Verify Now
+      </a>
+    </div>
+    }
+
+    <div class="step-item">
+      <button class="step-button text-center" type="button">
+        <div class="d-flex align-items-center justify-content-center">
+          @if(hasSalesClearance){
+          <img src="assets/images/check-circle-fill.svg" class="stepper-icon" />
+          } @else {
+          <img src="assets/images/record-fill-white.svg" class="stepper-icon" />
+          }
+        </div>
+      </button>
+      <div class="step-title">Sales Clearance</div>
+    </div>
+    @if(isBillingShow){
+      <div class="step-item">
+        <button class="step-button text-center collapsed" type="button">
+          <div class="d-flex align-items-center justify-content-center">
+            @if(hasAccountsClearance){
+            <img src="assets/images/check-circle-fill.svg" class="stepper-icon" />
+            } @else {
+            <img src="assets/images/record-fill-white.svg" class="stepper-icon" />
+            }
+          </div>
+        </button>
+        <div class="step-title">Billing</div>
+      </div>
+    }
+    <div class="step-item">
+      <button class="step-button text-center collapsed" type="button">
+        <div class="d-flex align-items-center justify-content-center">
+          @if(hasContentClearance){
+          <img src="assets/images/check-circle-fill.svg" class="stepper-icon" />
+          } @else {
+          <img src="assets/images/record-fill-white.svg" class="stepper-icon" />
+          }
+        </div>
+      </button>
+      <div class="step-title">Content Review</div>
+    </div>
+    <div class="step-item">
+      <button class="step-button text-center collapsed" type="button">
+        <div class="d-flex align-items-center justify-content-center">
+          @if(isPublished){
+          <img src="assets/images/check-circle-fill.svg" class="stepper-icon" />
+          } @else {
+          <img src="assets/images/record-fill-white.svg" class="stepper-icon" />
+          }
+        </div>
+      </button>
+      <div class="step-title">Publish</div>
+    </div>
+  </div>
+</div>

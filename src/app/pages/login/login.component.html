@@ -1,0 +1,381 @@
+<!-- image portion 2nd -->
+<div class="wrap">
+  <div
+    class="mainWrap"
+    style="background-image: url('assets/images/employer-bg-login.jpg')"
+  >
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 col-md-12 order-2 order-lg-1">
+          <div class="body part1">
+            <h1>
+              Connecting Employers <br />
+              With Quality Candidates
+            </h1>
+            <p>
+              Manage your entire hiring process from job posting to online
+              assessments and interviews
+            </p>
+            <a
+              class="btn btn-postjob"
+              type="button"
+              href="https://recruiter.bdjobs.com/jobposting/"
+              >Post a Job</a
+            >
+          </div>
+        </div>
+
+        <form
+          (keyup.enter)="onClickLoginButton()"
+          class="col-lg-6 col-md-12 order-1 order-lg-2"
+        >
+          <div class="body part2">
+            <div class="form-header">
+              <h3 class="heading-1">Ready to hire your next talent?</h3>
+              <p>Create or sign in to your account</p>
+            </div>
+
+            @if(this.loginFormErrorMessage) {
+            <div class="form-validation">
+              <img
+                class="validation-icon"
+                src="assets/images/exclamation-circle-fill.svg"
+              />&nbsp;{{ this.loginFormErrorMessage }}
+            </div>
+            }
+
+            <div class="form-body">
+              <input
+                type="text"
+                name="username"
+                id="username"
+                class="form-control"
+                placeholder="Enter your username"
+                [(ngModel)]="userName"
+                aria-label="Username"
+              />
+              <input
+                type="password"
+                name="password"
+                id="password"
+                class="form-control"
+                placeholder="Enter your password"
+                [(ngModel)]="password"
+                aria-label="Password"
+                maxlength="8"
+              />
+            </div>
+
+            <div class="form-footer">
+              <div class="footer-part1">
+                <!-- <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    [(ngModel)]="rememberUser"
+                    id="chkRememberMe"
+                  />
+                  <label class="form-check-label" for="chkRememberMe">
+                    Remember me
+                  </label>
+                </div> -->
+
+                <a href="https://corporate3.bdjobs.com/password?from=recruiter"
+                  >Forgot username or password?</a
+                >
+              </div>
+
+              <div>
+                @if(this.isLoginApiCallPending === true) {
+                <div class="text-center my-3">
+                  <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                </div>
+                } @else {
+                <button
+                  class="btn btn-primary btn-login"
+                  type="submit"
+                  (click)="onClickLoginButton()"
+                >
+                  Sign in
+                </button>
+                }
+              </div>
+
+              <div class="footer-part2">
+                <div class="d-inline-block">Don't have an account?</div>
+                &nbsp;
+                <!-- <a href="https://corporate3.bdjobs.com/Corporate_NewAccount.asp?from=recruiter"
+                  >Create Account</a -->
+                  <a href="https://recruiter.bdjobs.com/RecruiterAccount/register"
+                  >Create Account</a
+                >
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <!-- Mobile Stats -->
+        <!-- Chowdhury Mohammad Irfanuddin -->
+        <div class="col-lg-6 col-md-12 d-lg-none order-3 mt-5">
+          <div class="small-container">
+            <div class="container text-center">
+              <div class="row p-0">
+                <div class="stat-info p-3 border-bottom">
+                  <img src="assets/images/dataFile.svg" alt="logo" />
+                  <p class="tabtxt">Bdjobs Talent Search</p>
+                  <span class="statsnum">{{ totalCvBankCount }}</span>
+                </div>
+              </div>
+              <div class="row p-0">
+                <div class="stat-info p-3 border-bottom">
+                  <img src="assets/images/baggage.svg" alt="logo" />
+                  <p class="tabtxt">Live Jobs</p>
+                  <span class="statsnum">{{ totalJobAdCount }}</span>
+                </div>
+              </div>
+              <div class="row p-0">
+                <div class="stat-info p-3">
+                  <img src="assets/images/build.svg" alt="logo" />
+                  <p class="tabtxt">Apply Online</p>
+                  <span class="statsnum">{{ totalJobApplicationCount }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3rd portion -->
+
+  <!-- Desktop -->
+  <div class="small-container d-none d-lg-flex">
+    <div class="container text-center">
+      <div class="row">
+        <div class="col p-0">
+          <div class="stat-info py-2 px-3">
+            <img src="assets/images/dataFile.svg" alt="logo" />
+            <p class="tabtxt">Bdjobs Talent Search</p>
+            <span class="statsnum">{{ totalCvBankCount }}</span>
+          </div>
+        </div>
+        <div class="col p-0">
+          <div class="stat-info py-2 px-3 border-left">
+            <img src="assets/images/baggage.svg" alt="logo" />
+            <p class="tabtxt">Live Jobs</p>
+            <span class="statsnum">{{ totalJobAdCount }}</span>
+          </div>
+        </div>
+        <div class="col p-0">
+          <div class="stat-info py-2 px-3 border-left">
+            <img src="assets/images/build.svg" alt="logo" />
+            <p class="tabtxt">Apply Online</p>
+            <span class="statsnum">{{ totalJobApplicationCount }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- video portion 4rd-->
+
+  <div class="mid-cont">
+    <div class="container">
+      <ul
+        class="nav nav-pills mb-3 tab-header"
+        id="pills-tab"
+        role="tablist"
+        ngbNav
+        #nav="ngbNav"
+        [(activeId)]="active"
+      >
+        <li class="nav-item" [ngbNavItem]="1">
+          <button class="nav-link" id="pills-home-tab" ngbNavLink>
+            One-Stop Recruiting
+          </button>
+
+          <ng-template ngbNavContent>
+            <div id="pills-profile">
+              <div class="video-body">
+                <div class="imgPart">
+                  <img
+                    src="assets/images/one-stop-recruiting.png"
+                    alt="One stop recruiting"
+                  />
+                </div>
+
+                <div class="tab-detail">
+                  <h3>Streamlined One-Stop Recruitment Center</h3>
+                  <p>
+                    Experience the convenience of handling all our hiring
+                    activities, from online tests and interviews to sorting and
+                    more, in one integrated platform.
+                  </p>
+
+                  <a
+                    class="btn btn-getStart"
+                    href="https://corporate3.bdjobs.com/help/applicant-hiring-activity-user-guide.asp?from=recruiter"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Learn More</a
+                  >
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </li>
+        
+        <li class="nav-item" [ngbNavItem]="2">
+          <button class="nav-link" id="pills-profile-tab" ngbNavLink>
+            Comprehensive Talent Search
+          </button>
+
+          <ng-template ngbNavContent>
+            <div id="pills-login">
+              <div class="video-body">
+                <div class="imgPart">
+                  <img
+                    src="assets/images/comprehensive-cv-bank.png"
+                    alt="Comprehensive Talent Search"
+                  />
+                </div>
+
+                <div class="tab-detail">
+                  <h3>Get Access to Nation's Largest Talent Search</h3>
+                  <p>
+                    Access a comprehensive Talent Search right here, ensuring you have
+                    a wealth of potential candidates at your fingertips.
+                  </p>
+
+                  <a
+                    class="btn btn-getStart"
+                    href="https://corporate3.bdjobs.com/help/search_cv_bank.asp?from=recruiter"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Learn More</a
+                  >
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </li>
+
+        <li class="nav-item" [ngbNavItem]="3">
+          <button class="nav-link" id="pills-login-tab" ngbNavLink>
+            Precise Job Posting
+          </button>
+
+          <ng-template ngbNavContent>
+            <div id="pills-body">
+              <div class="video-body">
+                <div class="imgPart">
+                  <img
+                    src="assets/images/precise-job-posting.png"
+                    alt="Precise job posting"
+                  />
+                </div>
+
+                <div class="tab-detail">
+                  <h3>Precise Job Posting Makes Your Work Easy</h3>
+                  <p>
+                    Enjoy the ease of our latest job posting features, making it
+                    simple to showcase your opportunities to a wide audience.
+                  </p>
+                  <a
+                    class="btn btn-getStart"
+                    href="https://corporate3.bdjobs.com/help/postjob.asp?from=recruiter"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Learn More</a
+                  >
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </li>
+
+        <li class="nav-item" [ngbNavItem]="4">
+          <button class="nav-link" id="pills-body-tab" ngbNavLink>
+            Insightful Analytics
+          </button>
+
+          <ng-template ngbNavContent>
+            <div class="tab-content" id="pills-tabContent">
+              <div id="pills-home">
+                <div class="video-body">
+                  <div class="imgPart">
+                    <img
+                      src="assets/images/insightful-analytics.png"
+                      alt="Insightful analytics"
+                    />
+                  </div>
+
+                  <div class="tab-detail">
+                    <h3>Empower Decisions with Analytics</h3>
+                    <p>
+                      Gain valuable insights and make informed decisions with
+                      our robust analytics tool, designed to provide you with
+                      essential data.
+                    </p>
+
+                    <a
+                      class="btn btn-getStart"
+                      href="https://recruiter.bdjobs.com/jobposting/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >Get Started</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </li>
+      </ul>
+
+      <div [ngbNavOutlet]="nav" class="mt-2"></div>
+    </div>
+  </div>
+
+  <!-- slider portion 5th-->
+  <div class="container my-4">
+    <div class="row py-3 my-3">
+      <div class="col-md-12 text-center">
+        <h2 class="sectitle">
+          Begin a Successful Hiring Journey with Proven Solutions
+        </h2>
+        <p class="px-1 px-md-5" style="font-size: 16px">
+          Our solutions ensures your hiring process is not only successful but
+          also highly effective in finding the right talent for your
+          organization.
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <app-feature-carousel></app-feature-carousel>
+    </div>
+
+    <!-- 6th portion -->
+
+    <!-- <div class="empower">
+    <div class="container text-center col-12 emp-bus">
+      <h4>Empowering Businesses, Enriching Careers</h4>
+      <p>Keep in touch with Bdjobs and get to know more</p>
+      <div class="inp-fld">
+        <input
+          type="email"
+          class="form-control"
+          placeholder="Enter your email address"
+        />
+        <button class="btn btn-submit">Submit</button>
+      </div>
+    </div>
+  </div> -->
+    
+  </div>
+</div>
+

@@ -1,0 +1,18 @@
+<div class="emptycontainer">
+    <div class="d-flex flex-column align-items-center justify-content-center">
+        <div class="d-flex flex-column align-items-center justify-content-center">
+            <img src="../../../assets/images/RedeemCredit.svg" alt="" />
+            <h3 class="title mt-3">You currently have no Credits</h3>
+            <p class="text-center">
+                Please insert any Referral Code you have to add credit
+            </p>
+        </div>
+        <div class="d-flex flex-column align-items-center justify-content-center">
+            <h3 class="ref">Referral Code</h3>
+            <input type="text" placeholder="Enter Referral Code" class="form-control refinput" minlength="6"
+                maxlength="6" [(ngModel)]="token" />
+            @if(statusText){<p class="text-center" style="color: brown;">{{statusText}}</p>}
+            <button type="button" class="btn btn-primary mt-3" (click)="submitCreditSystem()">Submit</button>
+        </div>
+    </div>
+</div>

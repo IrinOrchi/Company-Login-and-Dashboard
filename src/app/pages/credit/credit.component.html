@@ -1,0 +1,214 @@
+<app-control-bar />
+<div class="credit mt-4">
+  <div class="accord">
+    <div class="container">
+      <app-accordion></app-accordion>
+    </div>
+  </div>
+</div>
+
+<div class="container mb-4">
+  <!-- balance -->
+  <div class="mb-5">
+    <div class="cbalance">
+      <div class="row">
+        <div class="col-md-3 mb-4">
+          <div class="crd">
+            <img src="../../../assets/images/ccount.png" alt="" />
+            <h4 class="title">Total Credits</h4>
+            <p><span>{{totalCredit}}</span> Credits</p>
+          </div>
+        </div>
+        <div class="col-md-3 mb-4">
+          <div class="crd usedac">
+            <div class="flex-grow-1">
+              <img src="../../../assets/images/cused.png" alt="" />
+              <h4 class="title">Credits Used</h4>
+            </div>
+            <div>
+              <p class="crdtxt"><span class="count">{{usedCredit}}</span> Credits</p>
+              <ngb-progressbar class="mb-3" type="primary" [value]="usedCreditProgress" />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mb-4">
+          <div class="crd">
+            <div class="flex-grow-1">
+              <img src="../../../assets/images/cleft.png" alt="" />
+              <h4 class="title">Remaining Credits</h4>
+            </div>
+            <p class="crdtxt"><span class="count">{{leftCredit}}</span> Credits</p>
+            <ngb-progressbar class="mb-3" type="primary" [value]="leftCreditProgress" />
+          </div>
+        </div>
+        <div class="col-md-3 mb-4">
+          <div class="crd">
+            <div class="flex-grow-1">
+              <img src="../../../assets/images/cvalidity.png" alt="" />
+              <h4 class="title">Credit Validity</h4>
+            </div>
+            @if(isNotCreditExpired){
+            <p>Valid till {{validity}}</p>
+            }@else{
+            <p class="text-danger">Expired</p>
+            }
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Credit Statements -->
+  <h2 class="csubtitle">Credit Statements</h2>
+  <!-- @if(tokenData && tokenData.length>0){ -->
+  <!-- credit balcnce filter and history -->
+  <div class="credit__container">
+    <div class="crdsec mb-4">
+      <form>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="mb-3">
+              <label for="from" class="form-label crdtitle">From Date</label>
+              <input class="form-control" type="date" placeholder="Default input" aria-label="default input example"
+                [(ngModel)]="fromDate" />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="mb-3">
+              <label for="from" class="form-label crdtitle">To Date</label>
+              <input class="form-control" type="date" placeholder="Default input" aria-label="default input example"
+                [(ngModel)]="toDate" />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="from" class="form-label crdtitle">Filter</label>
+
+              <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon"
+                [(ngModel)]="selectedFilter">
+                <option selected value="p">Posted Job</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="d-flex align-items-center justify-content-center">
+              <button class="btn btn-primary" (click)="search()">Search</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    @if(creditSystem && creditSystem.TokenData.length>0 ){
+    <!-- All credit History -->
+    <div>
+      <h3 class="crdtitle">History</h3>
+      <div class="crdtable">
+        <table class="table">
+          <thead class="table-dark">
+            <tr>
+              <th>Date</th>
+              <th>Activity</th>
+              <th>Credit Used</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (credit of creditSystem.TokenData; track $index) {
+            <tr>
+              <td>{{creditSystemService.formatDate(credit.tDate)}}</td>
+              <td>Posted Job</td>
+              <td>{{credit.tCreditUsed}}</td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+    }
+  </div>
+  <!-- }@else { -->
+  @if (!tokenData || tokenData.length == 0) {
+  <div class="credit__container mt-4">
+    <div class="d-flex flex-column align-items-center justify-content-center nohis">
+      <img src="../../../../assets/images/no-history.svg" alt="" />
+      <h4>Oops!</h4>
+      <p>You don't have any credit history yet!</p>
+    </div>
+  </div>
+  }
+  <!-- } -->
+
+
+</div>
+
+<!-- modals -->
+<!-- no credit modal -->
+<!-- <ng-template #modalRef let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="d('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <div class="container mb-4">
+      <app-empty-credit></app-empty-credit>
+    </div>
+  </div>
+</ng-template> -->
+
+<!-- pending modal -->
+<!-- <ng-template #pendingModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="d('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <div class="container mb-4">
+      <app-credit-pending></app-credit-pending>
+    </div>
+  </div>
+</ng-template>  -->
+
+<!-- rejected modal -->
+<!-- <ng-template #rejectedModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="d('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <div class="container mb-4">
+      <app-credit-rejected></app-credit-rejected>
+    </div>
+  </div>
+</ng-template>
+<div class="container d-flex align-items-center gap-4">
+  <button class="btn btn-lg btn-outline-primary" (click)="openModal(modalRef)">
+    Launch demo modal
+  </button>
+  <button
+    class="btn btn-lg btn-outline-primary"
+    (click)="openModal(pendingModal)"
+  >
+    Launch pendingModal
+  </button>
+  <button
+    class="btn btn-lg btn-outline-primary"
+    (click)="openModal(rejectedModal)"
+  >
+    Launch Rejected Modal
+  </button>
+</div> -->

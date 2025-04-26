@@ -1,0 +1,36 @@
+@if(isClosed){
+<div class="compsize__modal">
+  <div class="position-relative">
+    <span class="icon-cross-close close" (click)="closeBottomPopup()"></span>
+  </div>
+  <div class="content">
+    <h3>Please select your company size from below</h3>
+    <div class="tblsec">
+      <table class="table table-bordered tbl tblsec">
+        <tr>
+          <th>Select Company Size</th>
+        </tr>
+        @for (item of companySize; track $index) {
+        <tr>
+          <div class="radioinput form-check d-inline-flex align-items-center">
+            <input class="form-check-input" type="radio" name="comp" id="comp{{$index}}" value="{{item}}"
+              (change)="onCompanySizeChange($event)" />
+            <label class="form-check-label ps-2" for="comp{{$index}}">
+              @if(item==='1000-0'){1000+}@else {
+              {{item}}} employees
+            </label>
+          </div>
+        </tr>
+        }
+      </table>
+    </div>
+    <div class="d-flex align-items-center justify-content-center">
+      @if(!submitButtonDisable){
+      <button type="button" class="btn btn-primary" (click)="submitCompanySize()">Submit</button>
+      }@else{
+      <button type="button" class="btn btn-primary" disabled>Submit</button>
+      }
+    </div>
+  </div>
+</div>
+}

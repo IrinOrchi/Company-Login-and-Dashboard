@@ -1,0 +1,1111 @@
+<div class="container job-details" id="details_view_main_div" #details_view_main_div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="p-1">
+        <div class="d-flex justify-content-between align-items-center">
+          @if (jobTitle) {
+            <div class="job">
+              <span>Job Title: </span>
+              <span class="job-name ps-1">{{jobTitle}}</span>
+            </div>
+          }
+          <div class="d-flex flex-column justify-content-end align-items-end">
+            <p class="source m-0" style=" line-height: 20px; padding: 4px;">Source: Bdjobs.com Online Talent Search</p>
+            <div class="d-flex align-items-center date" style="line-height: 20px; padding: 4px;">
+              <span>Last Updated: </span>
+              <span class="fw-bold update-date">{{cvDetails?.UpdatedOnSQL?.toString() !== '0001-01-01T00:00:00Z'  ? (cvDetails?.UpdatedOnSQL | date:'d MMM yyyy') : (cvDetails?.CreatedOn  | date:'d MMM yyyy')}}</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="user_info d-flex align-items-center justify-content-between" [class.itemblur]="isLockedForPnpl">
+            <div class="d-flex flex-column pt-4">
+              @if (!isLockedForPnpl) {
+                <span class="user_name" id="user_name">{{profileName}}</span>
+              }
+              @else {
+                <span  class="user_name" id="user_name">0000 000 00000</span>
+              }
+              <div class="user_info_other">
+                @if(presentFullAddress || permanentFullAddress){
+                <div class="d-flex align-items-center justify-content-start">
+                  <img src="../../../../assets/images/limg.png">
+                  @if (!isLockedForPnpl) {
+                    
+                    <span class="ps-1">{{presentFullAddress ? presentFullAddress : permanentFullAddress}}</span>
+                  }
+                  @else {
+                    <span>000000000000000000000 00000 00000</span>
+                  }
+                </div>
+                }
+
+                @if(cvDetails && cvDetails.Mobiles && cvDetails.Mobiles.length > 0){
+                  <img src="../../../../assets/images/spimg.png">
+                  @for (item of cvDetails.Mobiles; track $index) {
+                    @if (!isLockedForPnpl) {
+                      @if($index> 0){
+                      <span class="ps-1">, {{item?.MobileNo}}</span>
+                      }
+                      @else {
+                      <span class="ps-1">{{item?.MobileNo}}</span>
+                      }
+                    }
+                    @else {
+                      <span>00000000000</span>
+                    }
+                    
+                  }
+                }
+
+                @if(cvDetails && cvDetails.Emails && cvDetails.Emails.length > 0){
+                <div class="d-flex align-items-center justify-content-start">
+                  <img src="../../../../assets/images/eimg.png">
+                  @if (!isLockedForPnpl) {
+                    @for (item of cvDetails.Emails; track $index) {
+                      @if($index> 0){
+                      <span class="ps-1">, {{item.EmailAddress}}</span>
+                      }
+                      @else {
+                      <span class="ps-1">{{item.EmailAddress}}</span>
+                      }
+                      }
+                  }
+                  @else {
+                    <span>000000000000000000000</span>
+                  }
+                  
+                </div>
+                }
+
+                <!-- @if(cvDetails && cvDetails.Emails){
+                    <div class="d-flex align-items-center justify-content-start" *ngFor="let email of cvDetails?.Emails">
+                      <img src="../../../../assets/images/eimg.png">
+                      @if(email.EmailAddress != ''){
+                        <span class="ps-1">{{email.EmailAddress}}</span>
+                      }
+                    </div>
+                  } -->
+
+                @if(linkedInAccount){
+                <div class="d-flex align-items-center justify-content-start" *ngIf="linkedInAccount !== ''">
+                  <img src="../../../../assets/images/linimg.png">
+                  @if (!isLockedForPnpl) {
+                    <span class="ps-1">{{linkedInAccount}}</span>
+                  }
+                  @else {
+                    <span>000000000000000000000</span>
+                  }
+                </div>
+                }
+
+                @if(githubAccount){
+                <div class="d-flex align-items-center justify-content-start" *ngIf="githubAccount !== ''">
+                  <img src="../../../../assets/images/gimg.png">
+                  @if (!isLockedForPnpl) {
+                    <span class="ps-1">{{githubAccount}}</span>
+                  }
+                  @else {
+                    <span>000000000000000000000</span>
+                  }
+                </div>
+                }
+
+                @if(facebookAccount){
+                <div class="d-flex align-items-center justify-content-start" *ngIf="facebookAccount !== ''">
+                  <img src="https://corporate3.bdjobs.com/images/fimg.png">
+                  @if (!isLockedForPnpl) {
+                    <span class="ps-1">{{facebookAccount}}</span>
+                  }
+                  @else {
+                    <span>000000000000000000000</span>
+                  }
+                </div>
+                }
+                @if(dribbbleaccount){
+                <div class="d-flex align-items-center justify-content-start" *ngIf="dribbbleaccount !== ''">
+                  <img src="https://corporate3.bdjobs.com/images/dimg.png">
+                  @if (!isLockedForPnpl) {
+                    <span class="ps-1">{{dribbbleaccount}}</span>
+                  }
+                  @else {
+                    <span>000000000000000000000</span>
+                  }
+                </div>
+                }
+                @if(youtubeAccount){
+                <div class="d-flex align-items-center justify-content-start" *ngIf="youtubeAccount !== ''">
+                  <img src="https://corporate3.bdjobs.com/images/yimg.png">
+                  @if (!isLockedForPnpl) {
+                    <span class="ps-1">{{youtubeAccount}}</span>
+                  }
+                  @else {
+                    <span>000000000000000000000</span>
+                  }
+                </div>
+                }
+                @if(otherAccount){
+                <div class="d-flex align-items-center justify-content-start" *ngIf="otherAccount !== ''">
+                  <img src="https://corporate3.bdjobs.com/images/oimg.png">
+                  @if (!isLockedForPnpl) {
+                    <span class="ps-1">{{otherAccount}}</span>
+                  }
+                  @else {
+                    <span>000000000000000000000</span>
+                  }
+                </div>
+                }
+
+              </div>
+
+            </div>
+            @if(cvDetails && cvDetails.PhotoUrl){
+            <div class="user-img">
+              <img src={{PhotoUrl}} alt="job seeker photo">
+            </div>
+            }
+
+          </div>
+        </div>
+
+        <div class="row features">
+
+
+          @if(cvDetails && cvDetails.CareerObjective){
+          <div class="col-md-12 feature_name">
+            <h4>Career Objective:</h4>
+          </div>
+          <div class="col-md-12 feature_detailes">
+            <p>{{sharedDataService.removeBrTags(cvDetails.CareerObjective)}}</p>
+            <!-- <p>{{cvDetails.CareerObjective}}</p> -->
+          </div>
+          }
+
+          @if(cvDetails && cvDetails.CareerSummary){
+          <div class="col-md-12 feature_name">
+            <h4>Career Summary:</h4>
+          </div>
+          <div class="col-md-12 feature_detailes">
+            @for (item of sharedDataService.splitByBrTags(cvDetails.CareerSummary); track $index) {
+            <p>{{item}}</p>}
+            <!-- <p>{{cvDetails.CareerSummary}}</p> -->
+          </div>
+          }
+
+          @if(cvDetails && cvDetails.SpecialQualification){
+          <div class="col-md-12 feature_name">
+            <h4>Special Qualification:</h4>
+          </div>
+          <div class="col-md-12 feature_detailes">
+            @for (item of sharedDataService.splitByBrTags(cvDetails.SpecialQualification); track $index) {
+            <p style="margin-bottom: 0; padding-bottom: 0;">{{item}}</p>
+            }
+
+          </div>
+          }
+
+          @if(cvDetails && experiencesInformation && experiencesInformation.length>0){
+          <div class="col-md-12 feature_name">
+            <h4>Employment History:</h4>
+          </div>
+
+          <div class="col-md-12 feature_detailes experience">
+            <span class="fw-bold " style="padding-left: 15px;">Total Year of experience: </span>
+            <span>{{calculatedTotalExperience}} yrs</span>
+          </div>
+
+          <ul class="experience_ul" style="padding-left: 16px;">
+            <li *ngFor="let experience of experiencesInformation; let i = index">
+              <div class="d-flex flex-md-column experience">
+                <span class="fw-bold">{{ i + 1 }}. {{ experience.Designation }}
+                  ({{experience.IndividualTotalExperience}}yrs)</span>
+                <span>
+                  ({{ experience.EmploymentPeriod.StartDate| date: 'd MMM yyyy' }} - {{
+                  experience.EmploymentPeriod.IsContinue ? 'Continuing' : (experience.EmploymentPeriod.EndDate | date:
+                  'd MMM yyyy') }})
+                </span>
+              </div>
+
+              <div class="d-flex flex-md-column experience">
+                <span class="fw-bold">{{ experience.CompanyName }}</span>
+                @if(experience.AreaOfExpertise){
+                <span>Area of Expertise:</span>
+                <span>
+                  @for (item of experience.AreaOfExpertise; track $index) {
+                  @if($index == 0){
+                  <span>{{item.ExpertiseName.SkillName}} {{ formatAreaOfExpertiseDuration(item.Duration) }}</span>
+                  }
+                  @else {
+                  <span>, {{item.ExpertiseName.SkillName}} {{ formatAreaOfExpertiseDuration(item.Duration) }}</span>
+                  }
+                  }
+                </span>
+                }
+              </div>
+
+              @if (experience.Responsibilities) {
+              <div class="mb-3">
+                <h5 class="font_related">Duties/Responsibilities:</h5>
+                @for (item of sharedDataService.splitByBrTags(experience.Responsibilities); track $index) {
+                <p class="padding-remove" style="padding-left: 10px;">{{item}}</p>
+                }
+              </div>
+              }
+
+            </li>
+          </ul>
+          }
+
+          <!-- milittary person -->
+          @if(cvDetails && militaryInformation){
+            <div class="col-md-12 feature_name">
+              <h4>Military Service Information:</h4>
+            </div>
+  
+            <div class="col-md-12 d-flex flex-md-column" >
+              <span class="fw-bold">Bangladesh Army <span>({{sharedDataService.calculateExperience(militaryInformation.DateOfCommissionDay,militaryInformation.DateOfRetirementDay)}} yrs)</span></span>
+              <!-- <br> -->
+              <span >
+                ({{ militaryInformation.DateOfCommissionDay| date: 'd MMMM yyyy' }} - {{(militaryInformation.DateOfRetirementDay | date:
+                'd MMMM yyyy') }})
+              </span>
+            </div>
+  
+            <ul class="experience_ul" style="padding-left: 16px;">
+              <li >
+                <div class="d-flex flex-md-column experience">
+                  <span *ngIf="militaryInformation.BaTypeName">BA NO : {{militaryInformation.BaTypeName}} {{militaryInformation.BaNoValue}}</span>
+                  <span *ngIf="militaryInformation.RanksName">Rank : {{militaryInformation.RanksName}}</span>
+                  <span *ngIf="militaryInformation.ArmsName">Arms : {{militaryInformation.ArmsName}}</span>
+                  <span *ngIf="militaryInformation.CourseValue">Course : {{militaryInformation.CourseValue}}</span>
+                  <span *ngIf="militaryInformation.TradeValue">Trade : {{militaryInformation.TradeValue}}</span>
+                </div>
+              </li>
+            </ul>
+            }
+
+          @if (academicQualifiacationSorted && academicQualifiacationSorted.length>0) {
+          <div class="col-md-12 feature_name">
+            <h4>Academic Qualification:</h4>
+          </div>
+          <div clas="col-md-12 features_details">
+            <div class="d-flex align-items-center justify-content-center px-2 px-lg-4">
+              <div class="col-md-12 features_details">
+                <div class="d-flex align-items-center justify-content-center px-2 px-lg-4">
+                  <div class="academic-container col-md-6">
+                    <table class="table academic-table" style="width: 500px;">
+                      <thead>
+                        <tr>
+                          <th scope="col" class="fw-bold" style="width:20% !important">Exam Title</th>
+                          <th scope="col" class="fw-bold" style="width: 20%;">Concentration/Major</th>
+                          <th scope="col" class="fw-bold" style="width: 20%;">Institute</th>
+                          <th scope="col" class="fw-bold" style="width: 12.5%;">Result</th>
+                          <th scope="col" class="fw-bold" style="width: 12.5%;">Pass.Year</th>
+                          <th scope="col" class="fw-bold" style="width: 15%;" *ngIf="AcademicDuration">Duration</th>
+                          @if (AcademicAchievement) {<th scope="col" class="fw-bold" style="width: 15%;">Achievement
+                          </th>}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let academicQualification of academicQualifiacationSorted">
+                          <td>{{ academicQualification.DegreeName }}</td>
+                          <td>{{ academicQualification.Concentration ?
+                            academicQualification.Concentration.ConcentrationName : '' }}</td>
+                          <td>{{ academicQualification.Institute }}@if (academicQualification.IsForeignInstitute &&
+                            academicQualification.CountryName != null)
+                            {
+                            {{academicQualification.CountryName.Name}}<br>}
+                            @if (academicQualification.IsForeignInstitute) 
+                            {
+                              <i>[Foreign Institute]</i>
+                            }
+                          </td>
+                          <td>
+                            @if(academicQualification.Result){
+                            <span>{{sharedDataService.getGradeDescription(academicQualification)}}</span>
+                            }
+                            <!-- <span *ngIf="academicQualification.Result.ResultType === 11"> {{'CGPA: '+
+                              academicQualification.Result.MarkOrCGPA +' out of 4'}}</span>
+                            <span *ngIf="academicQualification.Result.ResultType === 12">Appeared</span>
+                            <span *ngIf="academicQualification.Result.ResultType === 0">Do not mention</span>
+                            <span *ngIf="academicQualification.Result.ResultType === 8">Pass</span>
+                            <span *ngIf="academicQualification.Result.ResultType === 9">Awarded</span>
+                            <span *ngIf="academicQualification.Result.ResultType === 10">Enrolled</span>
+                            <span *ngIf="academicQualification.Result.ResultType === 13 || 14 || 15"></span> -->
+                          </td>
+                          <td>{{ academicQualification.PassingYear }}</td>
+                          <td style="align-items: center;" *ngIf="AcademicDuration">{{ academicQualification.Duration == 0 ||
+                            academicQualification.Duration == null ? '-' : academicQualification.Duration }}</td>
+                          @if (AcademicAchievement) {<td>{{ academicQualification.Achievement == '' ||
+                            academicQualification.Achievement == null ? '-' : academicQualification.Achievement }}</td>}
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          }
+
+          @if (cvDetails && cvDetails.Trainings && cvDetails.Trainings.length > 0) {
+          <div class="col-md-12 feature_name">
+            <h4>Training Summary:</h4>
+          </div>
+          <div class="col-md-12 features_details">
+            <div class="d-flex align-items-center justify-content-center px-2 px-lg-4">
+              <div class="trainning-container col-md-6">
+                <table class="table training-table" style="width: 500px;">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="fw-bold" style="width: 20%;">Training Title</th>
+                      <th scope="col" class="fw-bold" style="width: 15%;">Topic</th>
+                      <th scope="col" class="fw-bold" style="width: 15%;">Institute</th>
+                      <th scope="col" class="fw-bold" style="width: 15%;">Country</th>
+                      <th scope="col" class="fw-bold" style="width: 15%;">Location</th>
+                      <th scope="col" class="fw-bold" style="width: 10%;">Year</th>
+                      <th scope="col" class="fw-bold" style="width: 10%;">Duration</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let training of cvDetails?.Trainings" class="training-row">
+                      <td>{{ training.TrainingName }}</td>
+                      <td>{{ training.TrainingDetails }}</td>
+                      <td>{{ training.Institute }}</td>
+                      <td>{{ training.Country }}</td>
+                      <td>{{ training.Location }}</td>
+                      <td>{{ training.TrainingYear }}</td>
+                      <td>{{ training.Duration }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          }
+
+          @if (cvDetails && cvDetails.ProfessionalQualifications && cvDetails.ProfessionalQualifications.length > 0 ) {
+          <div class="col-md-12 feature_name">
+            <h4>Professional Qualification:</h4>
+          </div>
+          <div class="col-md-12 features_details">
+            <div class="d-flex align-items-center justify-content-center px-2 px-lg-4">
+              <div class="professional-qualification-container col-md-6">
+                <table class="table professional-table" style="width: 500px;">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="fw-bold" style="width: 25%;">Certification</th>
+                      <th scope="col" class="fw-bold" style="width: 25%;">Institute</th>
+                      <th scope="col" class="fw-bold" style="width: 25%;">Location</th>
+                      <th scope="col" class="fw-bold" style="width: 12.5%;">From</th>
+                      <th scope="col" class="fw-bold" style="width: 12.5%;">To</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let qualifiaction of cvDetails?.ProfessionalQualifications">
+                      <td>{{ qualifiaction.CertificationName }}</td>
+                      <td>{{ qualifiaction.Institute }}</td>
+                      <td>{{ qualifiaction.Location }}</td>
+                      <td>{{ qualifiaction.StartDate | date:'MMMM d, yyyy' }}</td>
+                      <td>{{ qualifiaction.CompletionDate | date:'MMMM d, yyyy' }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          }
+
+
+          <div class="col-md-12 feature_name">
+            <h4>Career and Application Information:</h4>
+          </div>
+
+          <div class="col-md-12 features_details">
+
+            <div class="career-container">
+              @if(cvDetails && cvDetails.LookingForJobLevel){
+              <div class="table-cell career-table">Looking For</div>
+              <div class="table-cell">
+                <span
+                  class="pe-1">:</span><span>{{sharedDataService.convertToTitleCase(cvDetails.LookingForJobLevel.Name)}}
+                  Job</span>
+              </div>
+              }
+              @if(cvDetails && cvDetails.AvailableForJobNature){
+              <div class="table-cell career-table">Available For</div>
+              <div class="table-cell">
+                <span class="pe-1">:</span><span>{{cvDetails.AvailableForJobNature.Name}}</span>
+              </div>
+              }
+              @if(cvDetails && cvDetails.PresentSalary){
+              <div class="table-cell career-table">Present Salary</div>
+              <div class="table-cell">
+                <span class="pe-1">:</span><span>Tk. {{cvDetails.PresentSalary}}</span>
+              </div>
+              }
+
+              @if(cvDetails && (cvDetails.ExpectedSalary || expectedSalary !='' )){
+              <div class="table-cell career-table">Expected Salary</div>
+              <div class="table-cell">
+                <span class="pe-1">:</span><span>Tk. {{expectedSalary !== '' ? expectedSalary : cvDetails.ExpectedSalary}}</span>
+              </div>
+              }
+
+              @if(cvDetails && cvDetails.PreferredJobCategory){
+              <div class="table-cell career-table">Preferred Job Category</div>
+              <div class="table-cell">
+                <span class="pe-1">:</span>
+                @for (item of cvDetails.PreferredJobCategory; track $index) {
+                @if($index> 0){
+                <span>,{{item.PreferredJobCategoryName}}</span>
+                }@else {
+                <span>{{item.PreferredJobCategoryName}}</span>
+                }
+                }
+              </div>
+              }
+
+              @if(cvDetails && cvDetails.PreferredDistrict){
+              <div class="table-cell career-table">Preferred District</div>
+              <div class="table-cell">
+                <span class="pe-1">:</span>
+                @for (item of cvDetails.PreferredDistrict; track $index) {
+
+                @if($index> 0){
+                <span>,{{item.Name}}</span>
+                }
+                @else {
+                <span>{{item.Name}}</span>
+                }
+                }
+              </div>
+              }
+
+              @if(cvDetails && cvDetails.PreferredCountry){
+              <div class="table-cell ">Preferred Country</div>
+              <div class="table-cell">
+                <span class="pe-1">:</span>
+                @for (item of sharedDataService.sortCountriesByName(cvDetails.PreferredCountry); track $index) {
+                @if($index> 0){
+                <span>,{{item.Name}}</span>
+                }
+                @else {
+                <span>{{item.Name}}</span>
+                }
+                }
+              </div>
+              }
+
+              @if(cvDetails && cvDetails.PreferredOrganizationTypes && cvDetails.PreferredOrganizationTypes.length > 0){
+              <div class="table-cell ">Preferred Organization Types</div>
+              <div class="table-cell">
+                <span class="pe-1">:</span>
+                @for (item of sharedDataService.sortOrganizationByName(cvDetails.PreferredOrganizationTypes); track
+                $index) {
+                @if($index> 0){
+                <span>,{{item.OrganizationTypeName}}</span>
+                }
+                @else {
+                <span>{{item.OrganizationTypeName}}</span>
+                }
+                }
+              </div>
+              }
+
+            </div>
+          </div>
+
+          @if(cvDetails && cvDetails.SkillInformations && cvDetails.SkillInformations.length > 0 ||
+          (skillDescriptions && skillDescriptions.length>0 && skillDescriptions[0] != "")){
+          <div class="col-md-12 feature_name">
+            <h4>Skill:</h4>
+          </div>
+
+          <div class="col-md-12 features_details ">
+            <div class="d-flex align-items-center justify-content-center">
+              <div class="skill-container col-md-6">
+                <table style="width: 500px; font-size: 12px;">
+                  <thead class="skill-title fw-bold">
+                    <tr>
+                      @if(cvDetails && cvDetails.SkillDescriptionDetails && cvDetails.SkillInformations.length>0){
+                      <th>Fields of skill</th>
+                      <th>Description</th>
+                      }@else if(cvDetails && cvDetails.SkillInformations.length>0) {
+                      <th>Fields of skill</th>
+                      }@else if(cvDetails && cvDetails.SkillDescriptionDetails){
+                      <th>Description</th>
+                      }
+                    </tr>
+                  </thead>
+                  <tbody class="">
+                    <tr>
+                      @if(cvDetails && cvDetails.SkillDescriptionDetails && cvDetails.SkillInformations.length>0){
+                      <td class="table-cell">
+                        <ul>
+                          @for (item of cvDetails.SkillInformations; track $index) {
+                          @if(item.Skills.SkillName){
+
+                          <li>{{item.Skills.SkillName}}</li>
+                          }
+                          }
+                        </ul><br>
+                      </td>
+                      <td class="table-cell">
+                        @for (skill of skillDescriptions; track $index) {
+                        <p class="m-0">{{skill}}</p>
+                        }
+                      </td>
+                      }@else if(cvDetails && cvDetails.SkillInformations.length>0) {
+                      <td class="table-cell">
+                        <ul>
+                          @for (item of cvDetails.SkillInformations; track $index) {
+                          @if(item.Skills.SkillName){
+
+                          <li>{{item.Skills.SkillName}}</li>
+                          }
+                          }
+                        </ul><br>
+                      </td>
+                      }@else if(skillDescriptions && skillDescriptions.length>0){
+                      <td class="table-cell">
+                        @for (skill of skillDescriptions; track $index) {
+                        <p class="m-0">{{skill}}</p>
+                        }
+                      </td>
+                      }
+                      <!-- <td class="table-cell">
+                        <ul>
+                          <li *ngFor="let skill of cvDetails.SkillInformations">
+                            {{ skill.Skills.SkillName }}
+                          </li>
+                        </ul><br>
+                      </td>
+                      @if(skillDescriptions){
+                      <td class="table-cell">
+                        @for (skill of skillDescriptions; track $index) {
+                        <p class="m-0">{{skill}}</p>
+                        }
+                      </td>
+                      } -->
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          }
+
+
+
+
+          @if(cvDetails && cvDetails.Accomplishments && cvDetails.Accomplishments.length > 0 ){
+          <div class="col-md-12 feature_name">
+            <h4>Accomplishment:</h4>
+          </div>
+          @for (item of cvDetails.Accomplishments; track $index) {
+          <div class="col-md-12">
+            <table>
+              <tr>
+                <td colspan="2">{{convertAccomplishmentType(item.AccomplishmentType)}}</td>
+              </tr>
+              <tr>
+                <td style="padding-right: 15px; vertical-align: top;">
+                  {{$index+1}}.
+                </td>
+                <td>
+                  @if(sharedDataService.isDefaultDate(item.SubmittedOn) || item.AccomplishmentTitle){
+                  <div>
+                    <span>
+                      {{item.AccomplishmentTitle}}
+                    </span>
+                  </div>
+                  <div *ngIf="sharedDataService.isDefaultDate(item.SubmittedOn)">
+                    <span>
+                      Issued On:
+                    </span>
+                    <span>
+                      {{ sharedDataService.isDefaultDate(item.SubmittedOn)| date:'d MMM yyyy' }}
+                    </span>
+                  </div>
+                  }
+                  @if(item.Url){
+                  <div>
+                    <span>
+                      URL:
+                    </span>
+                    <span>
+                      {{ item.Url }}
+                    </span>
+                  </div>
+                  }
+                  @if(item.Description){
+                  <div>
+                    {{item.Description}}
+                  </div>
+                  }
+                </td>
+              </tr>
+            </table>
+          </div>
+          }
+          }
+          @if(cvDetails && cvDetails.ExtraCurricularActivities){
+          <div class="col-md-12 feature_name">
+            <h4>Extra Curricular Activities:</h4>
+          </div>
+          <div clas="col-md-12 features_details ">
+            <!-- <ul class="font_related ps-4">
+              <li>{{cvDetails.ExtraCurricularActivities}}</li>
+            </ul> -->
+            <span>{{sharedDataService.removeBrTags(cvDetails.ExtraCurricularActivities)}}</span>
+          </div>
+          }
+
+          @if(cvDetails && cvDetails.LanguageProficiencies && cvDetails.LanguageProficiencies.length > 0){
+          <div class="col-md-12 feature_name">
+            <h4>Language Proficiency:</h4>
+          </div>
+          <div class="col-md-12 features_details">
+            <div class="d-flex align-items-center justify-content-center">
+              <div class="language-container col-md-6">
+                <table class="table" style="width: 500px;">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="fw-bold">Language</th>
+                      <th scope="col" class="fw-bold">Reading</th>
+                      <th scope="col" class="fw-bold">Writing</th>
+                      <th scope="col" class="fw-bold">Speaking</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let proficiency of cvDetails?.LanguageProficiencies">
+                      <td>{{ proficiency.LanguageName }}</td>
+                      <td>{{ proficiency.ReadingSkill }}</td>
+                      <td>{{ proficiency.WritingSkill }}</td>
+                      <td>{{ proficiency.SpeakingSkill }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          }
+
+          <div class="col-md-12 feature_name">
+            <h4>Personal Details:</h4>
+          </div>
+
+          <div class="col-md-12 features_details">
+            <div class="personal-details-container">
+              @if(cvDetails && cvDetails.FatherName){
+              <div class="table-cell ">Father's Name</div>
+              <div class="table-cell" [class.itemblur]="isLockedForPnpl">
+                @if (!isLockedForPnpl) {
+                  <span class="pe-1">:</span><span>{{cvDetails.FatherName}}</span>
+                }
+                @else {
+                  <span>000000000000000000000</span>
+                }
+              </div>
+              }
+
+              @if(cvDetails && cvDetails.MotherName){
+              <div class="table-cell ">Mother's Name</div>
+              <div class="table-cell" [class.itemblur]="isLockedForPnpl">
+                @if (!isLockedForPnpl) {
+                  <span class="pe-1">:</span><span>{{cvDetails.MotherName}}</span>
+                }
+                @else {
+                  <span>000000000000000000000</span>
+                }
+              </div>
+              }
+
+              @if(cvDetails && cvDetails.DateOfBirth){
+              <div class="table-cell ">Date of Birth</div>
+              <div class="table-cell">
+                <span class="pe-1">:</span><span>{{ cvDetails.DateOfBirth | date:'d MMM yyyy' }}</span>
+              </div>
+              }
+
+              @if(cvDetails && cvDetails.Gender && cvDetails.Gender.Name){
+              <div class="table-cell ">Gender</div>
+              <div class="table-cell">
+                <span class="pe-1">:</span><span>{{ cvDetails.Gender.Name === 'Other' ? 'Others' : cvDetails.Gender.Name }}</span>
+              </div>
+              }
+
+              @if(cvDetails && cvDetails.MaritalStatus){
+              <div class="table-cell ">Marital Status</div>
+              <div class="table-cell">
+                <span class="pe-1">:</span><span>{{cvDetails.MaritalStatus.Name}}</span>
+              </div>
+              }
+
+              @if(cvDetails && cvDetails.Nationality){
+              <div class="table-cell ">Nationality</div>
+              <div class="table-cell">
+                <span class="pe-1">:</span><span>{{cvDetails.Nationality}}</span>
+              </div>
+              }
+
+              @if(cvDetails && cvDetails.Religion){
+              <div class="table-cell ">Religion</div>
+              <div class="table-cell">
+                <span class="pe-1">:</span><span>{{cvDetails.Religion.Name}}</span>
+              </div>
+              }
+
+              @if(permanentFullAddress){
+              <div class="table-cell ">Permanent Address</div>
+              <div class="table-cell" [class.itemblur]="isLockedForPnpl">
+                @if (!isLockedForPnpl) {
+                  <span class="pe-1">:</span><span>{{permanentFullAddress}}</span>
+                }
+                @else {
+                  <span>000000000000000000000</span>
+                }
+              </div>
+              }
+
+              @if(currentLocation){
+              <div class="table-cell ">Current Location</div>
+              <div class="table-cell">
+                <span class="pe-1">:</span><span>{{currentLocation}}</span>
+              </div>
+              }
+              @if(cvDetails && cvDetails.BloodGroup){
+              <div class="table-cell ">Blood Group</div>
+              <div class="table-cell">
+                <span class="pe-1">:</span><span>{{ cvDetails.BloodGroup.Name }}</span>
+              </div>
+              }
+              @if(cvDetails && showDisability==true){
+              <div class="table-cell ">Disability ID</div>
+              <div class="table-cell">
+                <span class="pe-1">:</span><span>{{ cvDetails.Disability.NationalDisabilityId }}</span>
+              </div>
+
+              <div class="table-cell ">I have some difficulties which are given below</div>
+              <br>
+              <div class="table-cell">
+                <ul>
+                  <li *ngIf="cvDetails.Disability.DisabilitySee != null"><strong>Seeing
+                    </strong>({{cvDetails.Disability.DisabilitySee}})</li>
+                  <li *ngIf="cvDetails.Disability.DisabilityHear != null"><strong>Hearing
+                    </strong>({{cvDetails.Disability.DisabilityHear}})</li>
+                  <li *ngIf="cvDetails.Disability.DisabilitySit != null"><strong>Physical
+                    </strong>({{cvDetails.Disability.DisabilitySit}})</li>
+                  <li *ngIf="cvDetails.Disability.DisabilityRemember != null"><strong>Memory
+                    </strong>({{cvDetails.Disability.DisabilityRemember}})</li>
+                  <li *ngIf="cvDetails.Disability.DisabilityTC != null"><strong>Self-care
+                    </strong>({{cvDetails.Disability.DisabilityTC}})</li>
+                  <li *ngIf="cvDetails.Disability.DisabilityComm != null"><strong>Communication
+                    </strong>({{cvDetails.Disability.DisabilityComm}})</li>
+                </ul>
+              </div>
+              }
+            </div>
+          </div>
+
+          @if(cvDetails && cvDetails.References && cvDetails.References.length > 0){
+          <div class="col-md-12 feature_name">
+            <h4>Reference (s):</h4>
+          </div>
+          <div class="col-md-12 features_details">
+            <!-- <table style="width: 100%;">
+              <thead>
+                <tr>
+                  <td></td>
+                  <td class="fw-bold fst-italic">Reference 1</td>
+                  @if(cvDetails.References.length > 1){
+                  <td style="padding-left: 10px;" class="table-cell border-left fw-bold fst-italic">Reference 2</td>
+                  }
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="col-md-4">Name</td>
+                  <td class="col-md-4">: {{cvDetails.References[0].Name}}</td>
+                  @if(cvDetails.References.length > 1){
+                  <td style="padding-left: 10px;" class="table-cell border-left col-md-4">
+                    {{cvDetails.References[1].Name}}</td>
+                  }
+                </tr>
+                <tr>
+                  <td class="col-md-4">Organization</td>
+                  <td class="col-md-4">: {{cvDetails.References[0].Organization}}</td>
+                  @if(cvDetails.References.length > 1){
+                  <td style="padding-left: 10px;" class="table-cell border-left col-md-4">
+                    {{cvDetails.References[1].Organization}}</td>
+                  }
+                </tr>
+                <tr>
+                  <td class="col-md-4">Designation</td>
+                  <td class="col-md-4">: {{cvDetails.References[0].Designation}}</td>
+                  @if(cvDetails.References.length > 1){
+                  <td style="padding-left: 10px;" class="table-cell border-left col-md-4">
+                    {{cvDetails.References[1].Designation}}</td>
+                  }
+                </tr>
+                <tr>
+                  <td class="col-md-4">Primary Mobile No</td>
+                  <td class="col-md-4">: {{cvDetails.References[0].PrimaryPhone}}</td>
+                  @if(cvDetails.References.length > 1){
+                  <td style="padding-left: 10px;" class="table-cell border-left col-md-4">
+                    {{cvDetails.References[1].PrimaryPhone}}</td>
+                  }
+                </tr>
+                <tr>
+                  <td class="col-md-4">Primary Email</td>
+                  <td class="col-md-4">: {{cvDetails.References[0].Email}}</td>
+                  @if(cvDetails.References.length > 1){
+                  <td style="padding-left: 10px;" class="table-cell border-left col-md-4">
+                    {{cvDetails.References[1].Email}}</td>
+                  }
+                </tr>
+                <tr>
+                  <td class="col-md-4">Relation</td>
+                  <td class="col-md-4">: {{cvDetails.References[0].Relations}}</td>
+                  @if(cvDetails.References.length > 1){
+                  <td style="padding-left: 10px;" class="table-cell border-left col-md-4">
+                    {{cvDetails.References[1].Relations}}</td>
+                  }
+                </tr>
+              </tbody>
+            </table> -->
+            @if(references.length == 1){
+            <table border="0" width="500" align="justify" cellpadding="0" cellspacing="0"
+              style="word-break: break-word;">
+              <tbody>
+                <!-- Iterate over each reference -->
+                <ng-container *ngFor="let reference of references; let i = index">
+                  <tr *ngIf="i === 0" class="BDJNormalText03">
+                    <td width="22%" align="left" style="padding-left:5px;">Name</td>
+                    <td width="2%" align="center">:</td>
+                    <td width="76%" align="left">{{ reference.Name }}</td>
+                  </tr>
+
+                  <tr *ngIf="i === 0" class="BDJNormalText03">
+                    <td width="22%" align="left" style="padding-left:5px;">Organization</td>
+                    <td width="2%" align="center">:</td>
+                    <td width="76%" align="left">{{ reference.Organization }}</td>
+                  </tr>
+
+                  <tr *ngIf="i === 0" class="BDJNormalText03">
+                    <td width="22%" align="left" style="padding-left:5px;">Designation</td>
+                    <td width="2%" align="center">:</td>
+                    <td width="76%" align="left">{{ reference.Designation }}</td>
+                  </tr>
+                  @if(reference.ResidentPhone){
+                    <tr *ngIf="i === 0" class="BDJNormalText03" [class.itemblur]="isLockedForPnpl">
+                      <td width="22%" align="left" style="padding-left:5px;">Phone (Res.)</td>
+                      <td width="2%" align="center">:</td>
+                      <td width="76%" align="left">{{ reference.ResidentPhone }}</td>
+                    </tr>
+                  }
+
+                  <tr *ngIf="i === 0" class="BDJNormalText03" [class.itemblur]="isLockedForPnpl">
+                    <td width="22%" align="left" style="padding-left:5px;">Primary Mobile No</td>
+                    <td width="2%" align="center">:</td>
+                    <td width="76%" align="left">{{ reference.PrimaryPhone }}</td>
+                  </tr>
+
+                  <tr *ngIf="i === 0" class="BDJNormalText03"  [class.itemblur]="isLockedForPnpl">
+                    <td width="22%" align="left" style="padding-left:5px;">Primary Email</td>
+                    <td width="2%" align="center">:</td>
+                    <td width="76%" align="left">{{ reference.Email }}</td>
+                  </tr>
+
+                  <tr *ngIf="i === 0" class="BDJNormalText03">
+                    <td width="22%" align="left" style="padding-left:5px;">Relation</td>
+                    <td width="2%" align="center">:</td>
+                    <td width="76%" align="left">{{ reference.Relations }}</td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+            }
+            @if(references.length == 2){
+            <table border="0" width="500" align="justify" cellpadding="0" cellspacing="0"
+              style="word-break: break-word;">
+              <tbody>
+                <tr class="BDJNormalText03">
+                  <th width="12%" align="left" colspan="1"></th>
+                  <th width="12%" align="left" colspan="1">&nbsp;<span class="sr-only"></span></th>
+                  <th width="35%" align="left" class="BDJBoldText01" style="border-right:1px solid #666666;">
+                    <em>Reference: 01</em>
+                  </th>
+                  <th width="41%" align="left" class="BDJBoldText01" style="padding-left:15px;"><em>Reference: 02</em>
+                  </th>
+                </tr>
+
+                <!-- Iterate over each reference -->
+                <ng-container *ngFor="let reference of references; let i = index">
+                  <tr *ngIf="i === 0 && reference.Name " class="BDJNormalText03">
+                    <td width="22%" align="left" style="padding-left:5px;">Name</td>
+                    <td width="2%" align="center">:</td>
+                    <td width="35%" align="left" style="border-right:1px solid #666666;">{{ reference.Name }}</td>
+                    <td width="41%" align="left" style="padding-left: 10px;" *ngIf="references.length > 1">{{
+                      references[1].Name }}</td>
+                  </tr>
+
+                  <tr *ngIf="i === 0 && reference.Organization" class="BDJNormalText03">
+                    <td width="22%" align="left" style="padding-left:5px;">Organization</td>
+                    <td width="2%" align="center">:</td>
+                    <td width="35%" align="left" style="border-right:1px solid #666666;">{{ reference.Organization }}
+                    </td>
+                    <td width="41%" align="left" style="padding-left: 10px;" *ngIf="references.length > 1">{{
+                      references[1].Organization }}</td>
+                  </tr>
+
+                  <tr *ngIf="i === 0 && reference.Designation" class="BDJNormalText03">
+                    <td width="22%" align="left" style="padding-left:5px;">Designation</td>
+                    <td width="2%" align="center">:</td>
+                    <td width="35%" align="left" style="border-right:1px solid #666666;">{{ reference.Designation }}
+                    </td>
+                    <td width="41%" align="left" style="padding-left: 10px;" *ngIf="references.length > 1">{{
+                      references[1].Designation }}</td>
+                  </tr>
+
+                  <tr *ngIf="i === 0 && reference.Address" class="BDJNormalText03">
+                    <td width="22%" align="left" style="padding-left:5px;">Address</td>
+                    <td width="2%" align="center">:</td>
+                    <td width="35%" align="left" style="border-right:1px solid #666666;">{{ reference.Address }}
+                    </td>
+                    <td width="41%" align="left" style="padding-left: 10px;" *ngIf="references.length > 1">{{
+                      references[1].Address }}</td>
+                  </tr>
+                  @if (reference.ResidentPhone) {
+                  <tr *ngIf="i === 0" class="BDJNormalText03">
+                    <td align="left" style="padding-left:5px;">Phone (Res.)</td>
+                    <td align="center">:</td>
+                   
+
+                    <td align="left" style="border-right:1px solid #666666;">{{ reference.ResidentPhone }}</td>
+                    <td align="left" style="padding-left: 10px;" *ngIf="references.length > 1">{{ references[1].ResidentPhone }}
+                    </td>
+                    
+                  </tr>
+                  }
+
+                  <tr *ngIf="i === 0" class="BDJNormalText03">
+                    <td align="left" style="padding-left:5px;">Primary Mobile No</td>
+                    <td align="center">:</td>
+                    @if (reference.PrimaryPhone) {
+
+                    <td align="left" style="border-right:1px solid #666666;">{{ reference.PrimaryPhone }}</td>
+                    <td align="left" style="padding-left: 10px;" *ngIf="references.length > 1">{{ references[1].PrimaryPhone }}
+                    </td>
+                    }
+                    @else if(reference.OfficePhone)
+                    {
+                    <td align="left" style="border-right:1px solid #666666;">{{ reference.OfficePhone }}</td>
+                    <td align="left" style="padding-left: 10px;" *ngIf="references.length > 1">{{ references[1].OfficePhone }}
+                    }
+                  </tr>
+
+                  <tr *ngIf="i === 0 && reference.Email" class="BDJNormalText03">
+                    <td align="left" style="padding-left:5px;">Primary Email</td>
+                    <td align="center">:</td>
+                    <td align="left" style="border-right:1px solid #666666;">{{ reference.Email }}</td>
+                    <td align="left" style="padding-left: 10px;" *ngIf="references.length > 1">{{ references[1].Email }}
+                    </td>
+                  </tr>
+
+                  <tr *ngIf="i === 0 && reference.Relations" class="BDJNormalText03">
+                    <td align="left" style="padding-left:5px;">Relation</td>
+                    <td align="center">:</td>
+                    <td align="left" style="border-right:1px solid #666666;">{{ reference.Relations }}</td>
+                    <td align="left" style="padding-left: 10px;" *ngIf="references.length > 1">{{
+                      references[1].Relations }}</td>
+                  </tr>
+                </ng-container>
+                <tr class="BDJNormalText03">
+                  <td align="left"> </td>
+                  <td align="center"> </td>
+                  <td colspan="2" align="left"></td>
+                </tr>
+              </tbody>
+            </table>
+            }
+          </div>
+          }
+
+          <!-- @if(cvDetails && cvDetails.References && cvDetails.References.length > 0){
+              <div class="col-md-12 feature_name">
+                <h4>Reference (s):</h4>
+              </div>
+              <div clas="col-md-12 features_details">
+                <div class="reference-container">
+                  <div class="table-cell "></div>
+                  <div class="table-cell">
+                    <span class="pe-1">:</span><span class="fw-bold fst-italic">Reference 1</span>
+                  </div>
+                  @if(cvDetails.References.length > 1){
+                    <div class="table-cell border-left fw-bold fst-italic">Reference 2</div>
+                  }
+
+                  <div class="table-cell ">Name</div>
+                  <div class="table-cell">
+                    <span class="pe-1">:</span><span>{{cvDetails.References[0].Name}}</span>
+                  </div>
+                  @if(cvDetails.References.length > 1){
+                    <div class="table-cell border-left">{{cvDetails.References[1].Name}}</div>
+                  }
+
+                  <div class="table-cell ">Organization</div>
+                  <div class="table-cell">
+                    <span class="pe-1">:</span><span>{{cvDetails.References[0].Organization}}</span>
+                  </div>
+                  @if(cvDetails.References.length > 1){
+                    <div class="table-cell border-left">{{cvDetails.References[1].Organization}}</div>
+                  }
+
+                  <div class="table-cell ">Designation</div>
+                  <div class="table-cell">
+                    <span class="pe-1">:</span><span>{{cvDetails.References[0].Designation}}</span>
+                  </div>
+                  @if(cvDetails.References.length > 1){
+                    <div class="table-cell border-left">{{cvDetails.References[1].Designation}}</div>
+                  }
+
+                  <div class="table-cell ">Primary Mobile No</div>
+                  <div class="table-cell">
+                    <span class="pe-1">:</span><span>{{cvDetails.References[0].PrimaryPhone}}</span>
+                  </div>
+                  @if(cvDetails.References.length > 1){
+                    <div class="table-cell border-left">{{cvDetails.References[1].PrimaryPhone}}</div>
+                  }
+
+                  <div class="table-cell ">Primary Email</div>
+                  <div class="table-cell">
+                    <span class="pe-1">:</span><span>{{cvDetails.References[0].Email}}</span>
+                  </div>
+                  @if(cvDetails.References.length > 1){
+                    <div class="table-cell border-left">{{cvDetails.References[1].Email}}</div>
+                  }
+
+                  <div class="table-cell ">Relation</div>
+                  <div class="table-cell">
+                    <span class="pe-1">:</span><span>{{cvDetails.References[0].Relations}}</span>
+                  </div>
+                  @if(cvDetails.References.length > 1){
+                    <div class="table-cell border-left">{{cvDetails.References[1].Relations}}</div>
+                  }
+                </div>
+              </div>
+
+            } -->
+        </div>
+        <hr>
+
+      </div>
+    </div>
+  </div>
+
+  <button type="button" class="backToTop" style="display: inline;" (click)="scrollToTop()">
+    <i class="icon-angle-top"></i> Back To Top
+  </button>
+</div>

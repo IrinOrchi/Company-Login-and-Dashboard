@@ -1,0 +1,158 @@
+<div class="job-post-container-component mt-3 pb-5">
+  <app-job-post-container-header
+    [draftedJobCount]="draftedJobCount"
+    [totalJobCount]="totalJobCount"
+    [postedCount]="postedCount"
+    [publishedCount]="publishedCount"
+    [jobTypeToView]="jobTypeToView"
+    (loadJobDataEvent)="handleLoadJobDataEvent($event)"
+    (clearSearch)="handleClearSearchEvent()"
+  />
+  <!-- *ngIf="jobs.length != 0" -->
+
+  <div class="container rounded-bottom card-container">
+    @if(!isDataLoading){ @if(jobs.length > 0) { @for (job of jobs; track
+    $index){ @if(job) {
+      @if(job.isDrafted == false){
+        <app-job-post-card
+          *ngIf="jobTypeToView !== 'drafted'"
+          [jobInformation]="job"
+          [isAdminUser]="isAdminUser"
+          [jobTypeToView]="jobTypeToView"
+          [isPayOnlineButtonShow] = "isShowPayOnlineButton(job.serviceType)"
+          (archiveJobCardEvent)="onJobArchived($event)"
+          (applyProcessChangedEvent)="onApplyProcessChanged($event)"
+        />
+      }@else{
+      <div class="container" >
+        <app-draftedjob-card
+          [jobInformation]="job"
+          (draftedJobDeleted)="removeDraftedJob($event)"
+          (draftedJobReadyToProcess)="draftedJobReadyToProcess($event)"
+        >
+        </app-draftedjob-card>
+      </div>
+    }
+
+    } }
+    <div
+      class="d-flex justify-content-center"
+      *ngIf="!isLoadMoreButtonHidden && !isDataLoading"
+      >
+      @if(!isLoadMoreButtonHidden) {
+      <button class="btn btn-outline-primary" (click)="onClickLoadMore()">
+        Load More
+      </button>
+      }@else {
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      }
+    </div>
+    } @else if(totalJobCount > 0 && jobs.length == 0){
+      <div class="d-flex flex-column w-100 align-items-center justify-content-center empty-job-list-message-section" >
+          <img src="assets/images/job-not-found.svg" />
+          <p>No jobs found.</p>
+      </div>
+    } @else {
+      <!-- this is post a new job card -->
+      <app-nojob-found> </app-nojob-found>
+    }
+  }@else {
+    <div class="d-flex justify-content-center">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+    }
+  </div>
+
+  <div class="container mt-3 d-flex justify-content-end">
+    <a
+      class="link-archived-jobs"
+      href="https://corporate3.bdjobs.com/corporate_default.asp?pt=a&from=recruiter"
+      >Archived Jobs<img src="assets/images/arrow-right.svg" />
+    </a>
+  </div>
+
+  <div class="container mt-3 rounded cv-bank-main-container">
+    <div class="text-center">
+      <h3>Talent Search</h3>
+      <p class="cv-bank-feature-paragraph">
+        Access a comprehensive Talent Search right here, ensuring you have a wealth of
+        potential candidates at your fingertips.
+      </p>
+    </div>
+    <div class="d-flex justify-content-center mt-4 cvbnk">
+      <div class="cv-bank-image-container">
+        <img src="assets/images/cv-bank-dashboard-img.png" />
+      </div>
+      <div class="cv-bank-status-container">
+        <h4 class="mb-4">Talent Search Stats</h4>
+        <div class="d-flex align-items-center justify-content-center">
+          <div class="d-flex flex-column align-items-center cv-bank-status">
+            <img class="cv-bank-icon" src="assets/images/cv-bank-green.png" />
+            <div class="cv-bank-title">Bdjobs Talent Search</div>
+            <div class="cv-bank-count">{{ formatNumberWithCommas(cvBankCount) }}</div>
+          </div>
+          <div class="d-flex flex-column align-items-center cv-bank-status">
+            <img class="cv-bank-icon" src="assets/images/cv-bank-pink.png" />
+            <div class="cv-bank-title">Recently Updated CVs</div>
+            <div class="cv-bank-count">{{ formatNumberWithCommas(cvBankUpdatedCount) }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center">
+      <a
+        class="btn btn-primary mt-3"
+        href="https://recruiter.bdjobs.com/talent-search-dashboard/"
+        >Find Candidates in Talent Search</a
+      >
+    </div>
+  </div>
+
+  <div class="container mt-3">
+    <app-feature-carousel></app-feature-carousel>
+  </div>
+  @if(supportPersonName) {
+  <div class="supportpsec">
+    <div class="container py-3">
+      <div class="row align-items-center">
+        <div class="col-12 col-md-6">
+          <div class="fs-5 fw-bold">Need Assistance?</div>
+          <div class="fs-5 fw-bold">Reach out to our sales person.</div>
+        </div>
+        <div class="py-3 col-12 col-md-6 d-flex align-items-center gap-4">
+          <div class="support__img">
+            <img class="img-thumbnail" [src]="supportPersonImageUrl" />
+          </div>
+          <div class="sales__sec">
+            <p class="stitle">Sales Contact Person</p>
+            <p>{{ supportPersonName }}</p>
+            <p>{{ supportPersonDesignation }}</p>
+            <p>{{ supportPersonContact }}</p>
+            <p>{{ supportPersonEmail }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  }
+</div>
+
+<!-- <div class="job-post-container-component mt-3 mb-5">
+  <app-job-post-container-header
+    [draftedJobCount]="draftedJobCount"
+    [totalJobCount]="totalJobCount"
+    [postedCount]="postedCount"
+    [publishedCount]="publishedCount"
+  />
+
+  <div class="container">
+    <app-job-post-card
+      [jobInformation]="jobs"
+      [isAdminUser]="isAdminUser"
+      (archiveJobCardEvent)="onJobArchived($event)"
+    />
+  </div> -->

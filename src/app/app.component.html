@@ -1,0 +1,18 @@
+<!-- @if(!this.hideAppLayout) { -->
+@if(shouldShowHeader){
+  <header>
+    <app-nav-bar />
+  </header>
+}
+
+<main>
+  <router-outlet></router-outlet>
+</main>
+
+@if(shouldShowFooter){
+  <footer>
+    <app-footer />
+    <app-bottom-footer />
+  </footer>
+}
+<!-- } -->

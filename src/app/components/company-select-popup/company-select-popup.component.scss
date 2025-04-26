@@ -1,0 +1,66 @@
+.compsize__modal {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  background: #ffffff;
+  border: 1px solid #abcee1;
+  border-radius: 12px;
+  z-index: 100;
+  transition: all 0.2s ease;
+  min-width: 320px;
+  .content {
+    padding: 16px 24px;
+  }
+
+  h3 {
+    font-size: 14px;
+    font-weight: 500;
+    color: #0e73a9;
+    padding-top: 5px;
+    padding-right: 5px;
+  }
+  .tbl {
+    border: 1px solid #d3dce3;
+    padding: 12px 16px;
+    border-radius: 12px;
+
+    th {
+      padding: 8px 16px;
+      color: #595959;
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    input[type="radio"] {
+      margin-left: -0.5rem;
+      margin-top: 0;
+    }
+    label {
+      margin-left: 5px;
+      line-height: 1;
+    }
+  }
+}
+.table > :not(caption) > * > * {
+  border-bottom-width: 1px !important;
+}
+.table-bordered > :not(caption) > * > * {
+  border-width: 1px;
+}
+input[type="radio"]:checked + label {
+  color: #0e73a9 !important;
+}
+
+.tblsec {
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.close {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+}
+.close:hover {
+  cursor: pointer;
+}

@@ -1,0 +1,124 @@
+.credit {
+  background-color: orange;
+
+  .accord {
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.2) 20.15%,
+        rgba(255, 255, 255, 0.2) 72.49%
+      ),
+      linear-gradient(
+        90deg,
+        #fff 8.31%,
+        #ebf8ff 29.61%,
+        #f5fbff 65.06%,
+        #fff 100%
+      );
+  }
+}
+
+.csubtitle {
+  color: #165273;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+.cbalance {
+  border-radius: 12px;
+  border: 1px solid #abcee1;
+  background: #f5fbff;
+  padding: 32px 30px;
+}
+.cbalance .crd {
+  padding: 24px 16px;
+  border-radius: 12px;
+  border: 1px solid #0e73a9;
+  background: #fff;
+  box-shadow: 0px 4px 15px 0px rgba(0, 0, 0, 0.1);
+  height: 100%;
+}
+.cbalance .crd .title {
+  color: #0e73a9;
+  font-size: 20px;
+  font-weight: 600;
+}
+.cbalance .crd .crdtxt {
+  color: #333;
+  font-size: 16px;
+  font-weight: 400;
+}
+.cbalance .crd .count {
+  color: #333;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.crdtable thead th {
+  border-bottom: 1px solid #9fc9e0;
+  background: #ecf7fd;
+  color: #0e73a9;
+}
+.crdtable thead th:first-child {
+  border-radius: 12px 0px 0px 0px;
+}
+.crdtable thead th:last-child {
+  border-radius: 0px 12px 0px 0px;
+}
+.crdtable .table > :not(caption) > * > * {
+  border-bottom: 0;
+}
+.crdtable .table td {
+  color: #595959;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 20px 10px 10px 10px !important;
+}
+
+.crdtable {
+  border: 1px solid #9fc9e0;
+  border-radius: 12px 12px 12px 12px;
+}
+
+.addmorebtn {
+  background: #008a22;
+  width: 100%;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+}
+.usedac {
+  display: flex;
+  flex-direction: column;
+}
+
+.credit__container {
+  border-radius: 12px;
+  border: 1px solid #d3d3d3;
+  background: #fff;
+  padding: 30px;
+}
+
+.crdtitle {
+  color: #0e73a9;
+  font-size: 20px;
+  font-weight: 600;
+}
+.nohis {
+  padding: 32px 0 !important;
+}
+.nohis h4 {
+  color: #0e73a9;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.nohis p {
+  color: #333;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
+}
+.nohis {
+  width: 100%;
+}

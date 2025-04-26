@@ -1,0 +1,40 @@
+/*
+  This file is for holding application wide scss variables.
+*/
+
+$bdjobs-green: #2e7d32;
+$bdjobs-blue: #0060db;
+$bdjobs-blue-dark: #2a5992;
+$bdjobs-blue-ultralight: #f5fbff;
+$bdjobs-blue-ultralight-2: #e8eff3;
+$bdjobs-blue-corporate: #0e73a9;
+$bdjobs-blue-corporate-deep: #165273;
+$bdjobs-magenta: #880e4f;
+$bdjobs-red: #b71c1c;
+$bdjobs-red-light: #d32f2f;
+$bdjobs-purple: #6a1b9a;
+$bdjobs-orange: #f57c00;
+$bdjobs-orange-light: #fdd835;
+$bdjobs-blueish-gray: #263238;
+$bdjobs-blueish-gray-light: #546e7a;
+$bdjobs-gray: #37474f;
+$bdjobs-gray-light: #f0f2f5;
+// $bdjobs-background-light-1: #f5f5f5; // Site-wide background
+$bdjobs-background-light-1: #ffffff; // **** For testing. Will be removed ****
+$bdjobs-background-light-2: #fafafa; // For elevated contents like nav-bar
+$bdjobs-text-light: #ffffff; // Same as bootstrap default
+$bdjobs-text-light-dim: #b0bec5; // For dimmer texts that should catch less attention
+$bdjobs-text-dark: $bdjobs-blueish-gray; // Dark text color to be used against ligher backgrounds
+$bdjobs-text-dark-dim: $bdjobs-blueish-gray-light; // Dimmer dark text color that should catch less attention
+
+/* These grid points are actually bootstrap default, but putting them here to make
+this variable accessible throughout the project's stylesheets by importing this file.
+*/
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+) !default;

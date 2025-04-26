@@ -1,0 +1,62 @@
+/*
+  This is the root style file. Do not add styles here unless necessary. This file is only intended for
+  configuring bootstrap and some application wide design rules.
+*/
+
+/* Importing Custom Styles. This must be done before importing Bootstrap SCSS File */
+@import "scss/theme";
+@import "scss/variables";
+
+/* Importing Bootstrap SCSS file. */
+@import "bootstrap/scss/bootstrap";
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+}
+
+#root-component {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.carousel-indicators [data-bs-target] {
+  border-radius: 50%;
+}
+
+.modal-header {
+  border-color: #b0bec5;
+  color: $bdjobs-blue-corporate;
+}
+
+.modal-body {
+  color: $bdjobs-blue-corporate;
+}
+
+.modal-footer {
+  border-color: #b0bec5;
+}
+
+.highcharts-credits {
+  display: none !important;
+}
+
+.chart3 .tooltip {
+  opacity: 1 !important;
+}
+.chart3 .tooltip-inner {
+  max-width: 215px !important;
+}
+.chart3 .table {
+  margin-bottom: 1px !important;
+}
+
+.itemblur {
+  filter: blur(5px);
+  pointer-events: none;
+}

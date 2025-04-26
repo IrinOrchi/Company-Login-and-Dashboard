@@ -1,0 +1,121 @@
+<div class="drafted-card mb-3 shadow-sm" >
+  <div class="row">
+    <div class="col-md-7">
+      <!-- <h5 class="card-title job-title">
+        <a
+          href="https://corporate3.bdjobs.com/Applicant_Process.asp?from=recruiter&jobno={{
+            jobInformation?.jobId
+          }}&ref="
+          >{{ jobInformation?.jobTitle }}</a
+        >
+      </h5> -->
+      <h5 class="card-title job-title" style="display: inline-flex; align-items: center; gap: 6px;">
+        <a href="https://corporate3.bdjobs.com/Applicant_Process.asp?from=recruiter&jobno={{ jobInformation?.jobId }}&ref=">
+          {{ jobInformation?.jobTitle }}
+        </a>
+        @if(jobInformation?.regionalJob == 7 && jobInformation?.jobPaymentStatus == true)
+        {
+          <span class="badge" style="
+            width: 64px;
+            padding: 4px 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 28px;
+            background: #DBFEE4;
+            color: #008A22;
+            font-weight: 300;
+            margin-left: 6px;">
+            Paid
+          </span>
+        }
+      </h5>
+
+      <div class="d-flex flex-row justify-content-start align-items-center">
+        <div class="me-1">
+          <span class="textcont">
+            <span class="textsub">
+              {{ jobInformation?.isPublished ? "Published On:" : "Posted:" }}
+            </span>
+            <span *ngIf="jobInformation?.isPublished; else notPublished">
+              {{ jobInformation?.publishDate | date }}
+            </span>
+            <ng-template #notPublished>
+              {{ jobInformation?.jobPostingDate | date }}
+            </ng-template>
+          </span>
+        </div>
+  
+        <div class="short-vertical-bar"></div>
+  
+        <div class="mx-1">
+          <div class="d-flex align-items-center">
+            <span><b>Deadline:</b>&nbsp;{{ deadlineDate | date }}</span>
+            <div >
+              <input
+                class="d-none"
+                ngbDatepicker
+                [(ngModel)]="deadlineDatePickerModel"
+                #d="ngbDatepicker"              
+                [minDate]="minDateOfDeadline"
+                [maxDate]="maxDateOfDeadline"
+                (dateSelect)="onDeadlineChanged($event)"
+                [positionTarget]="deadlineDatePickerButton"
+                placement="bottom"
+              />
+              <img
+                #deadlineDatePickerButton
+                (click)="onDeadlineDatePickerOpen(); d.toggle()"
+                src="assets/images/pencil-square.svg"
+                class="card-icon edticn"
+              />
+            </div>
+          </div>
+        </div>
+      </div>      
+    </div>
+    @if(jobInformation?.regionalJob==7)
+    {
+      <div class="col-md-5 d-flex align-items-center justify-content-end gap-2"> 
+        <button class="btn btn-primary" (click)="onClickEditJob()">
+          <span class="icon-edit"></span>
+          Continue editing
+        </button>
+      </div>
+    }
+    @else {
+      <div class="col-md-5 d-flex align-items-center justify-content-end gap-2">
+        @if (jobInformation?.hasContactId) {
+          <button class="btn btn-primary" (click)="openReadyToProcessConfirmationDialog()">
+            <span class="icon-check"></span>
+            Ready To Process
+          </button>
+        }      
+        <button class="btn btn-primary" (click)="onClickEditJob()">
+          <span class="icon-edit"></span>
+          Edit Job
+        </button>
+        <button class="btn btn-danger" (click)="openDeleteJobConfirmationDialog()">
+          <span class="icon-trash"></span>
+          Delete Job
+        </button>
+      </div>
+    }
+    <!-- <div class="col-md-5 d-flex align-items-center justify-content-end gap-2">
+      @if (jobInformation?.hasContactId) {
+        <button class="btn btn-primary" (click)="openReadyToProcessConfirmationDialog()">
+          <span class="icon-check"></span>
+          Ready To Process
+        </button>
+      }      
+      <button class="btn btn-primary" (click)="onClickEditJob()">
+        <span class="icon-edit"></span>
+        Edit Job
+      </button>
+      <button class="btn btn-danger" (click)="openDeleteJobConfirmationDialog()">
+        <span class="icon-trash"></span>
+        Delete Job
+      </button>
+    </div> -->
+  </div>
+</div>

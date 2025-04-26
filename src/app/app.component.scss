@@ -1,0 +1,17 @@
+@import "@fontsource-variable/inter/wght.css";
+// @import "@fontsource-variable/noto-sans-bengali/wght.css";
+
+header {
+  flex-grow: 0;
+}
+
+main {
+  flex-grow: 2;
+  background-color: #eee;
+}
+
+footer {
+  flex-grow: 0;
+  margin-top: auto;
+  margin-bottom: 0;
+}

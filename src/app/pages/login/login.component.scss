@@ -1,0 +1,582 @@
+@import "../../../scss/variables";
+
+/* 1st part start */
+
+// .header {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   padding: 17px 0;
+//   background-color: #263238;
+//   color: white;
+// }
+
+// .nav-part1 {
+//   display: flex;
+//   align-items: center;
+//   float: left;
+// }
+
+// .nav-part1 h2 {
+//   margin-right: 30px;
+// }
+
+// .nav-part1 .btn {
+//   padding: 10px 16px;
+//   margin: 0 12px 0px 60px;
+//   border-radius: 6px;
+//   border: 1px solid white;
+//   color: white;
+//   font-size: 14px;
+//   font-weight: 500;
+// }
+
+// .nav-part2 {
+//   float: right;
+//   font-size: 20px;
+//   font-weight: 600;
+//   color: white;
+//   margin-top: 10px;
+// }
+
+// .btn:hover,
+// .btn:focus {
+//   background-color: $bdjobs-blue-corporate;
+//   color: #fff;
+// }
+
+// .btn.btn-sm {
+//   background-color: transparent;
+//   color: white;
+// }
+
+/* 1st part end */
+
+/* 2nd part start */
+
+.mainWrap {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  max-width: 100%;
+  width: 100vw;
+  height: 65vh;
+  min-height: 600px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+
+  @media (min-height: 1000px) {
+    height: 650px;
+  }
+
+  @media (max-width: 990px) {
+    height: unset;
+    align-items: unset;
+  }
+}
+
+.mainWrap .container {
+  margin: 20px 0;
+}
+
+.container .body.part1 {
+  margin-top: 6rem;
+
+  @media (max-width: 990px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: unset;
+    margin-bottom: 1.6rem;
+  }
+}
+
+.container .body.part1 h1 {
+  font-size: 42px;
+  font-weight: 700;
+  color: white;
+
+  @media (max-width: 1200px) {
+    margin-top: 4rem;
+    font-size: 28px;
+  }
+
+  @media (max-width: 990px) {
+    margin-top: 1rem;
+    text-align: center;
+  }
+}
+
+.container .body.part1 p {
+  font-size: 22px;
+  font-weight: 500;
+  margin: 24px 0 35px 0;
+  color: white;
+
+  @media (max-width: 1200px) {
+    font-size: 14px;
+  }
+
+  @media (max-width: 990px) {
+    font-size: 16px;
+    text-align: center;
+  }
+}
+
+.btn-postjob {
+  padding: 10px 50px;
+  margin: 30px 0 0 0;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 138, 34, 1);
+  color: white;
+  background-color: rgba(0, 138, 34, 1);
+  font-size: 20px;
+  font-weight: 600;
+  max-width: 240px;
+
+  &:hover {
+    background-color: $bdjobs-blue-corporate-deep;
+  }
+
+  @media (max-width: 1200px) {
+    padding: 8px 40px;
+    font-size: 14px;
+  }
+
+  @media (max-width: 990px) {
+    font-size: 16px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.container .body.part2 {
+  float: right;
+  background-color: white;
+  border-radius: 8px;
+  background: #fff;
+  padding: 25px 40px;
+  width: 510px;
+  margin-top: 2.5rem;
+
+  @media (max-width: 990px) {
+    float: unset;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+    width: unset;
+  }
+}
+
+.form-validation {
+  font-size: 1rem;
+  color: $bdjobs-red-light;
+  display: flex;
+  align-items: center;
+}
+
+.validation-icon {
+  width: 0.9rem;
+  height: auto;
+}
+
+.form-sm-margin-top {
+  @media (max-width: 990px) {
+    margin-top: 1rem;
+  }
+}
+
+.form-header {
+  text-align: center;
+  // margin-bottom: 87px;
+  // margin-bottom: 56px;
+}
+
+.form-header h3 {
+  font-size: 24px;
+  font-weight: 700;
+  color: $bdjobs-blue-corporate;
+}
+
+.form-header p {
+  font-size: 18px;
+  font-weight: 500;
+  color: $bdjobs-text-dark;
+}
+
+.form-body {
+  margin-top: 22px;
+}
+
+.form-body .form-control {
+  border-radius: 6px;
+  border: 1px solid #9c9c9c;
+  background: #fff;
+  margin: 10px 0 10px 0;
+  padding: 10px 20px;
+}
+
+.form-control::placeholder {
+  color: #595959;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.footer-part1 span {
+  font-size: 12px;
+  font-weight: 400;
+  color: $bdjobs-text-dark;
+  margin: 0 0 5px 3px;
+}
+
+.btn.btn-login {
+  width: 100%;
+  padding: 10px 16px;
+  margin: 30px 0 0 0;
+  border-radius: 6px;
+  border: 1px solid $bdjobs-blue-corporate;
+  color: white;
+  background-color: $bdjobs-blue-corporate;
+  font-size: 20px;
+  font-weight: 600;
+
+  &:hover {
+    background-color: $bdjobs-blue-corporate-deep;
+  }
+}
+
+.form-footer a {
+  color: $bdjobs-blue-corporate;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.footer-part1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @media (max-width: 990px) {
+    flex-direction: column;
+    align-items: start;
+  }
+}
+
+.footer-part2 {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 16px;
+  color: $bdjobs-text-dark;
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 990px) {
+    flex-direction: column;
+  }
+}
+
+/* 2nd part end */
+
+/* 3rd part start */
+
+.small-container {
+  // position: absolute;
+  // bottom: -111px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -5rem;
+  z-index: 3;
+
+  @media (max-width: 990px) {
+    margin-top: -2rem;
+    position: static;
+  }
+}
+
+.small-container .container {
+  background-color: white;
+  padding: 8px 0;
+  width: 876px;
+  border-radius: 6px;
+  border: 1px solid $bdjobs-blue-corporate;
+}
+
+.border-left {
+  border-left: 1px solid $bdjobs-blue-corporate;
+}
+
+.border-bottom {
+  border-bottom: 1px solid $bdjobs-blue-corporate;
+}
+
+.statsnum {
+  font-size: 20px;
+  font-weight: 700;
+  color: $bdjobs-blue-corporate;
+}
+
+.stastitle {
+  font-size: 16px;
+  font-weight: 500;
+  color: $bdjobs-text-dark;
+}
+
+.stat-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  img {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0.3rem;
+    height: 48px;
+    width: 48px;
+  }
+}
+
+.tabtxt {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+/* 3rd part end */
+
+/* 4rth part start */
+
+.mid-cont {
+  background-color: #f9fafb;
+  padding-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tab-header {
+  // min-width: 900px !important;
+  @media (max-width: 752px) {
+    flex-wrap: wrap !important;
+  }
+
+  @media (max-width: 359px) {
+    flex-wrap: nowrap !important;
+    overflow-x: scroll;
+  }
+}
+
+.nav {
+  background-color: #f9fafb;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+}
+
+.nav-pills .nav-link {
+  padding: 20px 40px;
+  font-size: 20px;
+  font-weight: 600;
+  color: $bdjobs-text-dark;
+}
+
+.nav-link {
+  @media (max-width: 1400px) {
+    padding: 20px 20px !important;
+    font-size: 1rem !important;
+  }
+
+  @media (max-width: 1000px) {
+    // padding: 20px 20px !important;
+    font-size: 0.9rem !important;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.7rem !important;
+  }
+
+  &.active {
+    background-color: #f9fafb !important;
+  }
+}
+
+.nav-pills .nav-link span {
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.nav-pills .nav-link:hover,
+.nav-pills .nav-link.active {
+  padding: 20px 40px;
+  font-size: 20px;
+  font-weight: 600;
+  color: $bdjobs-text-dark;
+  background-color: $bdjobs-background-light-1;
+  border-bottom: 4px solid $bdjobs-blue-corporate;
+  border-radius: 0;
+}
+
+.video-body {
+  background-color: #f9fafb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 30px;
+  margin-top: 1rem;
+
+  @media (max-width: 990px) {
+    flex-direction: column;
+  }
+}
+.sectitle {
+  color: #165273;
+}
+
+.tab-detail {
+  @media (max-width: 990px) {
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+.video-body h3 {
+  font-size: 30px;
+  font-weight: 700;
+  color: #165273;
+  margin-bottom: 20px;
+}
+
+.video-body p {
+  font-size: 18px;
+  font-weight: 500;
+  color: $bdjobs-text-dark;
+  margin-bottom: 20px;
+}
+
+.btn-getStart {
+  padding: 10px 50px;
+  margin: 30px 0 0 0;
+  border-radius: 6px;
+  border: 1px solid $bdjobs-blue-corporate;
+  color: white;
+  background-color: $bdjobs-blue-corporate;
+  font-size: 20px;
+  font-weight: 600;
+
+  &:hover {
+    background-color: $bdjobs-blue-corporate-deep;
+  }
+
+  @media (max-width: 990px) {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.imgPart {
+  margin-right: 64px;
+
+  @media (max-width: 990px) {
+    margin-right: unset;
+  }
+}
+
+.imgPart > img {
+  width: 32rem;
+  height: auto;
+
+  @media (max-width: 1280px) {
+    width: 28rem;
+  }
+
+  @media (max-width: 990px) {
+    width: 20rem;
+  }
+}
+
+/* 4rth part end */
+
+/* 5th part start */
+
+.sectitle {
+  color: $bdjobs-blue-corporate;
+  // color: #0e68a9;
+  // color: $bdjobs-blue-corporate;
+  color: #165273;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.seccontent {
+  color: $bdjobs-text-dark;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+/* 5th part end */
+
+/* 6th part start */
+
+.empower {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.emp-bus {
+  text-align: center;
+  background: rgba(14, 104, 169, 0.1);
+  padding: 40px 30px;
+  margin: 20px;
+}
+
+.emp-bus h4 {
+  font-size: 30px;
+  font-weight: 700;
+  color: $bdjobs-blue-corporate;
+  margin-bottom: 20px;
+}
+
+.emp-bus p {
+  font-size: 20px;
+  color: $bdjobs-text-dark;
+  padding: 25px;
+  text-align: center;
+}
+
+.inp-fld {
+  display: flex;
+  justify-content: center;
+}
+
+.inp-fld .form-control {
+  border-radius: 6px;
+  border: 1px solid #9c9c9c;
+  background: #fff;
+  margin: 10px 0 10px 0;
+  padding: 10px 20px;
+  width: 25%;
+  border-radius: 8px 0px 0px 8px;
+}
+
+.btn-submit {
+  padding: 10px 20px;
+  margin: 10px 0 10px 0;
+  border-radius: 0px 8px 8px 0px;
+  background-color: $bdjobs-blue-corporate;
+  color: white;
+  border: 1px solid $bdjobs-blue-corporate;
+  font-size: 20px;
+  font-weight: 600;
+
+  &:hover {
+    background-color: $bdjobs-blue-corporate-deep;
+  }
+}
+
+/* 6th part end */

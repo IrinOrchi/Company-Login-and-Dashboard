@@ -1,0 +1,715 @@
+<div class="card dashbrdcard shadow-sm my-3">
+  <div class="card-body">
+    <!-- card header here -->
+    <div class="crdtop row mb-2">
+      <div class="col-xs-12 col-sm-12 col-xl-8 d-flex align-items-center titletxt mb-2">
+        <h5 class="card-title job-title">
+          <!-- <a href="https://corporate3.bdjobs.com/Applicant_Process.asp?from=recruiter&jobno={{
+              jobInformation?.jobId
+            }}&ref=" (click)="onClickJobTitle()">{{ jobInformation?.jobTitle }}
+          </a> -->
+          <!-- @if(jobInformation?.jobId === 1319697)
+          {
+
+          } -->
+          <a [href]="getJobLink()" (click)="onClickJobTitle()">
+            {{ jobInformation?.jobTitle }} 
+          </a>
+          <!-- <a href="https://gateway.bdjobs.com/recruitmentCenter/applicants?jobno={{
+              jobInformation?.jobId
+            }}&ref=" (click)="onClickJobTitle()">{{ jobInformation?.jobTitle }}
+          </a> -->
+          
+        </h5>
+
+        <div class="d-inline-block ms-2">
+          @if(jobPostStatus == JOB_POST_STATUS.LIVE || jobPostStatus ==
+          JOB_POST_STATUS.PAUSED ) {
+          <select class="jobstats" [ngClass]="{
+              'form-select form-select-sm job-status-select jobstats': true,
+              pending: this.jobPostStatus == JOB_POST_STATUS.PENDING,
+              live: this.jobPostStatus == JOB_POST_STATUS.LIVE,
+              paused: this.jobPostStatus == JOB_POST_STATUS.PAUSED,
+              expired: this.jobPostStatus == JOB_POST_STATUS.EXPIRED,
+              closed: this.jobPostStatus == JOB_POST_STATUS.CLOSED,
+              onhold: this.jobPostStatus == JOB_POST_STATUS.ONHOLD
+            }" aria-label="Select job post status" [(ngModel)]="tempJobPostStatus"
+            (change)="openLivePauseConfirmationDialog()">
+            @if(jobPostStatus != JOB_POST_STATUS.LIVE) {
+            <option value="{{ JOB_POST_STATUS.LIVE }}">Live</option>
+            } @if(jobPostStatus != JOB_POST_STATUS.PAUSED) {
+            <option value="{{ JOB_POST_STATUS.PAUSED }}">Pause</option>
+            }
+          </select>
+
+          } @else {
+          <div [ngClass]="{
+              'form-select form-select-sm job-status-select': true,
+              pending: this.jobPostStatus == JOB_POST_STATUS.PENDING,
+              live: this.jobPostStatus == JOB_POST_STATUS.LIVE,
+              paused: this.jobPostStatus == JOB_POST_STATUS.PAUSED,
+              expired: this.jobPostStatus == JOB_POST_STATUS.EXPIRED,
+              closed: this.jobPostStatus == JOB_POST_STATUS.CLOSED,
+              onhold: this.jobPostStatus == JOB_POST_STATUS.ONHOLD
+            }"></div>
+          }
+        </div>
+        <!-- <div *ngIf="!jobInformation?.jobPaymentStatus" class="d-inline-block ms-2"> -->
+        <div *ngIf="isPayOnlineButtonShow && !jobInformation?.jobPaymentStatus" class="d-inline-block ms-2">
+          <button class="btn btn-success btn-sm btn-pay-online paynow" (click)="onClickPayOnline()">
+            Pay Online
+          </button>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 col-xl-4 col-sm-12 d-flex align-items-center justify-content-end mb-2">
+        <a [href]="getEditJobUrl()" class="btn btnsize btn-outline-primary mx-1 job-action-button btnsize edtbtn">
+          <div class="d-flex align-items-center">
+            <span class="icon-edit me-2"></span><span class="d-inline-block edittxt">Edit Job</span>
+          </div>
+        </a>
+        <a [href]="getRepostJobUrl()" class="btn btnsize btn-outline-primary mx-1 job-action-button edtbtn">
+          <div class="d-flex align-items-center">
+            <span class="card-button-icon repost"></span>
+            <span class="d-inline-block copypst"> Copy & Repost </span>
+          </div>
+        </a>
+
+        <div class="d-inline-flex gap-2 ms-2">
+          @if(isPublished){
+          <div ngbDropdown class="d-inline-block">
+            <button type="button" class="btn btn-sm btn-notification-toggle btnaction btnclr" id="notificationDropdown"
+              ngbDropdownToggle>
+              <span class="icon-bell"></span>
+              @if (newApplicantCount > 0) {
+              <span class="notifycircle">{{ newApplicantCountTrim }}</span>}
+            </button>
+            <div ngbDropdownMenu aria-labelledby="notificationDropdown">
+              @if (newApplicantCount > 0) {
+              <a class="btn btn-sm text-primary" ngbDropdownItem (click)="onClickNewApplications()"><span
+                  class="fw-bold">{{ newApplicantCount }}</span> new
+                applicant(s)</a>
+              } @else {
+              <span class="text-primary ms-2">No New Application</span>
+              }
+            </div>
+          </div>
+          }
+          <!-- [href]="generateNewApplicantsRedirectionURL()" -->
+          @if(isPublished){
+          <div ngbDropdown class="d-inline-block">
+            <button type="button" class="btn btn-sm btn-notification-toggle btnaction cmts" id="messageDropdown"
+              ngbDropdownToggle (click)="refreshUnreadMesageFetchingTime()">
+              <span class="icon-comments"></span>
+
+              @if(unreadMessageCount > 0 && !isMessageButtonClicked){
+              <span class="msgnew">{{ unreadMessageCountTrim }}</span>
+              }
+            </button>
+            <div ngbDropdownMenu placement="left" aria-labelledby="messageDropdown">
+              @if (shouldShowMessageList) {
+              <div *ngFor="let message of allMessages">
+                <!-- single msg card -->
+                <a [href]="
+            getApplicantUrl(
+              message.ApplicationNo,
+              unreadMessageResponse.JObID
+            )
+          " class="d-flex w-full msglnk" [ngClass]="{ 'unread-message': !message.IsRead }">
+                  <div class="msg d-flex align-items-center gap-2 px-2 mx-2 py-2">
+                    <div class="imgCircle">
+                      <img [src]="message.ApplicantPhoto" alt="{{ message.ApplicantName }}" />
+                    </div>
+                    <div class="d-flex align-items-start flex-column gap-2">
+                      <h3 class="msgtitle">{{ message.ApplicantName }}</h3>
+                      <p class="message-line">{{ message.Message }}</p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <!-- "View All" button to redirect to complete list -->
+              @if(unreadMessageResponse && unreadMessageResponse.TotalMsgCount
+              && unreadMessageResponse.TotalMsgCount > 5){
+              <div class="my-2 d-flex align-items-center justify-content-center">
+                <button class="btn btn-outline-primary" (click)="loadAllUnreadMessages(jobInformation?.jobId)">
+                  View All
+                </button>
+              </div>
+              } } @else {
+              <span class="text-primary ms-2">No new Message</span>
+              }
+            </div>
+          </div>
+          }
+          @if(isAdminUser) {
+          <button class="btn btn-sm btnaction" (click)="openUserAccessModal(userAccessModal)">
+            <img src="assets/images/user-hired.svg" class="card-button-icon large" />
+          </button>
+          }
+
+          <div ngbDropdown class="d-inline-block" *ngIf="jobTypeToView === 'published'">
+            <button class="btn btnaction btn-three-dot-menu-toggle" id="dropdownBasic1" ngbDropdownToggle>
+              <img src="assets/images/three-dots-vertical.svg" class="card-button-icon large" />
+            </button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              @if(jobInformation?.isExpired) {
+              <button (click)="openArchiveModal(content)" ngbDropdownItem>
+                <img src="assets/images/archive.svg" class="me-2" alt="archive" />
+                Archive
+              </button>
+              } @if(this.jobInformation &&
+              this.jobInformation.applyOptions.includes("Apply Online") &&
+              totalApplicantsMongoCount > 0){
+              <a href="https://corporate3.bdjobs.com/Analytics/Details.asp?from=recruiter&rptType=TU&jp_id={{
+                  jobInformation.jobId
+                }}" ngbDropdownItem>
+                <img src="assets/images/analytics.svg" class="me-2" alt="analytics" />
+                Analytics</a>
+              }@else if(!jobInformation?.isExpired){
+              <span class="no-actions-msg"> No Action Available</span>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex flex-row justify-content-start align-items-center crdinfo">
+      <div class="me-1">
+        <span class="textcont">
+          <span class="textsub">
+            {{ jobInformation?.isPublished ? "Published On:" : "Posted:" }}
+          </span>
+          <span *ngIf="jobInformation?.isPublished; else notPublished">
+            {{ jobInformation?.publishDate | date : "dd MMM yyyy" }}
+          </span>
+          <ng-template #notPublished>
+            {{ jobInformation?.jobPostingDate | date : "dd MMM yyyy" }}
+          </ng-template>
+        </span>
+      </div>
+
+      <div class="short-vertical-bar"></div>
+
+      <div class="mx-1">
+        <div class="d-flex align-items-center">
+          <span><b>Deadline:</b>&nbsp;{{
+            deadlineDate | date : "dd MMM yyyy"
+            }}</span>
+          <!-- Hidden input for datepicker -->
+          <div *ngIf="shouldShowDeadlineEditor()">
+            <input class="d-none" ngbDatepicker #d="ngbDatepicker" [(ngModel)]="deadlineDatePickerModel"
+              [minDate]="minDateOfDeadline" [maxDate]="maxDateOfDeadline" (dateSelect)="onDeadlineChanged($event)"
+              [positionTarget]="deadlineDatePickerButton" placement="bottom" />
+            <img #deadlineDatePickerButton (click)="onDeadlineDatePickerOpen(); d.toggle()"
+              src="assets/images/pencil-square.svg" class="card-icon edticn" />
+          </div>
+        </div>
+      </div>
+
+      <div class="short-vertical-bar"></div>
+
+      <div class="mx-1">
+        <span class="textcont">
+          <span class="textsub">Service Type:</span>
+          {{ jobInformation?.serviceType }}</span>
+      </div>
+
+      <!-- <div class="short-vertical-bar"></div>
+
+      <div class="mx-1 d-flex">
+        <span class="textcont">
+          <span class="textsub">Job Viewed:</span>
+          <span class="textsub p-1">Summary:</span>
+          {{ jobInformation?.jobViewedCountForJobSummary }}
+          <div class="short-vertical-bar d-inline"></div>
+          <span class="textsub">Details:</span>
+          {{ jobInformation?.jobViewedCountForJobDetails }}
+        </span>
+      </div> -->
+      
+    </div>
+
+    @if(this.jobInformation && this.jobInformation.isPublished &&
+    !this.jobInformation.applyOptions.includes("Apply Online")) {
+    <div class="d-flex flex-row align-items-center mt-3">
+      <div>
+        <b>Selected Application Process:</b>&nbsp;<span class="text-primary">{{ jobInformation.applyOptions }}&nbsp;|
+          <img src="assets/images/info-circle-fill-blue.svg" class="icon-apply-option-info" />82% Employers choose Apply
+          Online
+        </span>
+      </div>
+    </div>
+    <div class="d-flex flex-row align-items-center justify-content-around mt-3">
+      <div class="feature-apply-online-panel">
+        @if(!jobInformation.isExpired) {
+        <div class="text-primary">To get smart filtering features</div>
+        <button class="btn btn-primary mt-3 btn-apply-online" (click)="onClickChangeToApplyOnline()">
+          Change to apply online
+        </button>
+        }
+      </div>
+      <div>
+        <img src="assets/images/blur.jpg" class="w-100" />
+      </div>
+    </div>
+    } @else { @if(jobInformation?.isPublished) {
+    <!-- custom new row column design -->
+    @if(totalApplicantsMongoCount !== 0){
+    <div class="">
+      <div class="row justify-content-between">
+        <div class="col-md-4 col-sm-12 row pe-0">
+          <div class="col-md-4 col-sm-12">
+            <div class="d-flex align-items-center justify-content-center flex-column application">
+              <!-- <a class="applicantcnt" href="https://corporate3.bdjobs.com/Applicant-Hiring-Activity-Process.asp?jobno={{
+                  jobInformation?.jobId
+                }}&pgtype=&tc={{
+                  jobInformation?.totalApplications
+                }}&from=recruiter" (click)="onClickAllApplications()">
+                {{ formatNumberWithCommas(totalApplicantsMongoCount) }}
+              </a> -->
+              <a class="applicantcnt" [href]="getApplicantLink()" (click)="onClickAllApplications()">
+                {{ formatNumberWithCommas(totalApplicantsMongoCount) }}
+              </a>
+              <!-- {{ jobInformation?.totalApplications }} -->
+              <span class="applicanttxt">Applications</span>
+            </div>
+          </div>
+          <div class="col-md-8 col-sm-12 profilematch pe-0">
+            <h2 class="sectitle">
+              Profile Matching
+              <span class="icon-info" [ngbTooltip]="profileMatchingTipContent" placement="right"></span>
+            </h2>
+
+            <!-- graph 1 -->
+            <div class="d-flex align-items-center justify-content-center chart1">
+              <div class="graph1">
+                <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions"></highcharts-chart>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6 custom-col experience">
+          <h2 class="sectitle">
+            Experience
+            <span class="icon-info" [ngbTooltip]="experienceTipContent" placement="right"></span>
+          </h2>
+
+          <!-- graph 2 -->
+          <div class="d-flex align-items-center justify-content-center chart2">
+            <highcharts-chart [Highcharts]="Highcharts" [options]="chartOption2"></highcharts-chart>
+          </div>
+        </div>
+        <div class="col-md-2 col-sm-6 custom-col salaryexp">
+          <h2 class="sectitle">
+            Salary Expectations
+            <span class="icon-info" [ngbTooltip]="salaryExpectationIButtonTipContent" placement="right"></span>
+          </h2>
+
+          <!-- [autoClose]="'outside'"
+          triggers="click" -->
+
+          <!-- graph 3 -->
+          <div class="chart3">
+            <div class="outer-circle mb-2" placement="right" tooltipClass="custom-tooltip-class"
+              [ngbTooltip]="salaryExpectationTipContent" [disableTooltip]="shouldShowSalaryExpectationToolTip()">
+              <div [style.width.%]="percentageStyle" [style.height.%]="percentageStyle" class="inner-circle">
+                <span class="percenttxt">{{ percentageOfSalaryApplicants }}</span>
+              </div>
+            </div>
+
+            <div class="d-flex flex-column">
+              @if(majorityApplicantGivenSalaryStartText !== '0K' &&
+              majorityApplicantGivenSalaryEndText !== '0K'){
+              <span class="smalltxt">
+                <b> {{ percentageOfSalaryApplicants }} </b> Applicants want your mentioned salary range
+              </span>
+              <span class="smalltxt">
+                <span class="icon-taka"></span> <b> {{majorityApplicantGivenSalaryStartEndText}} </b>
+              </span>
+              }
+              @else if (
+              majorityApplicantGivenSalaryStartText === '0K' &&
+              majorityApplicantGivenSalaryEndText !== '0K'
+              ) {
+              <span class="smalltxt">
+                <b> {{ percentageOfSalaryApplicants }} </b> Applicants want your mentioned salary At Most <span
+                  class="icon-taka"></span> <b> {{majorityApplicantGivenSalaryEndText}}</b>
+              </span>
+              }@else if (
+              majorityApplicantGivenSalaryStartText !== '0K' &&
+              majorityApplicantGivenSalaryEndText === '0K'
+              ) {
+              <span class="smalltxt">
+                <b> {{ percentageOfSalaryApplicants }} </b> Applicants want your mentioned salary At Least <span
+                  class="icon-taka"></span> <b> {{majorityApplicantGivenSalaryStartText}} </b>
+              </span>
+              }@else {
+              <span class="smalltxt">
+                <b> {{ percentageOfSalaryApplicants }} </b> Applicants want your mentioned salary range <span
+                  class="icon-taka"></span> {{majorityApplicantGivenSalaryStartEndText}}
+              </span>
+              }
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-sm-12 row px-0">
+          <div class="col-md-6 col-sm-6 yettoview">
+            <div class="job-post-status-section justify-content-center text-center viewed">
+              <div class="viewnum">
+                <div class="viewed-number">
+                  <a [href]="getApplicantHiringActivityLink((jobInformation?.jobId || '').toString(), ApplicantProcessDataViewedCount)">
+                    {{ ApplicantProcessDataViewedCount }}
+                  </a>
+                </div>
+                <div class="d-flex align-items-center gap-1 justify-content-center">
+                  <!-- <img class="card-button-icon" src="assets/images/eye.svg" /> -->
+                  <span class="icon-eye icn"></span>
+                  <div class="text">Viewed</div>
+                </div>
+              </div>
+              <div class="mb-2 yetview">
+                <div class="yet-to-view-number">
+                  <a [href]="getApplicantHiringActivityYetToViewLink((jobInformation?.jobId || '').toString(), ApplicantProcessDataNotViewedCount)">
+                    {{ ApplicantProcessDataNotViewedCount }}
+                  </a>
+                </div>
+                <div class="d-flex align-items-center gap-1">
+                  <span class="icon-eye-slash icn"></span>
+                  <div class="text">Yet to view</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-6 shrtlst">
+            <div class="job-post-status-section justify-content-center align-items-center text-center shortlst">
+              <!-- <div class="mb-2 shortlst">
+                <div class="shortlisted-number">
+                  @if(domainUrl==='recruiter')
+                  {
+                    <a href="https://corporate3.bdjobs.com/Applicant-Hiring-Activity-Process.asp?from=recruiter&jobno={{
+                      jobInformation?.jobId
+                    }}&pgtype=sl&tc={{ ApplicantProcessDataShortlistedCount }}">
+                    {{ ApplicantProcessDataShortlistedCount }}
+                  </a> 
+                  }
+                  @else {
+                    <a href="https://gateway.bdjobs.com/recruitmentCenter/applicants?jobno={{
+                      jobInformation?.jobId
+                    }}&pgtype=sl&tc={{ ApplicantProcessDataShortlistedCount }}">
+                    {{ ApplicantProcessDataShortlistedCount }}</a>
+                  }
+                </div>
+
+                <div class="d-flex align-items-center gap-1">
+                  <span class="icon-user-hired ico"></span>
+                  <div class="textstats">Shortlisted</div>
+                </div>
+              </div> -->
+              
+              <div class="mb-2 shortlst">
+                <div class="shortlisted-number">
+                  <a [href]="getApplicantHiringActivityShortlistedLink((jobInformation?.jobId || '').toString(), ApplicantProcessDataShortlistedCount)">
+                    {{ ApplicantProcessDataShortlistedCount }}
+                  </a>
+                </div>
+                <div class="d-flex align-items-center gap-1">
+                  <span class="icon-user-hired ico"></span>
+                  <div class="textstats">Shortlisted</div>
+                </div>
+              </div>
+              
+              @if(jobInformation?.lastActivityName !== null || jobInformation?.lastActivityName !== ''){
+              @if(jobInformation && jobInformation.lastActivityApplicantsCount > 0 &&
+              jobInformation.lastActivityName.toLowerCase()
+              !== 'shortlist'){
+              <div class="shortlisted-number">
+                <!-- <a
+                        href="https://corporate3.bdjobs.com/Applicant-Hiring-Activity-Process.asp?from=recruiter&jobno={{
+                          jobInformation?.jobId
+                        }}&pgtype=sl&tc={{ jobInformation?.lastActivityApplicantsCount }}"
+                      >
+                        {{ jobInformation?.lastActivityApplicantsCount }}
+                    </a> -->
+                <span>{{ jobInformation.lastActivityApplicantsCount }}</span>
+              </div>
+              }
+              <div class="lstct">
+                <div class="last-activity-name d-flex align-items-center gap-1">
+                  @if (jobInformation?.lastActivityName == 'written') {
+                  <div class="lastActivityDiv">
+                    <span class="icon-shortlist-written ico"> </span>
+                    <span class="ms-2 truncate">
+                      {{
+                      getActivityDisplayName(jobInformation?.lastActivityName)
+                      }}</span>
+                  </div>
+                  } @else if (jobInformation?.lastActivityName == 'facetoface')
+                  {
+                  <div class="lastActivityDiv">
+                    <span class="icon-Shortlist-for-Face-to-Face ico"> </span>
+                    <span class="ms-2 truncate">
+                      {{
+                      getActivityDisplayName(jobInformation?.lastActivityName)
+                      }}</span>
+                  </div>
+                  } @else if (jobInformation?.lastActivityName == 'video') {
+                  <div class="lastActivityDiv">
+                    <span class="icon-video-camera ico"> </span>
+                    <span class="ms-2 truncate">
+                      {{
+                      getActivityDisplayName(jobInformation?.lastActivityName)
+                      }}</span>
+                  </div>
+                  } @else if (jobInformation?.lastActivityName == 'onlinetest')
+                  {
+                  <div class="lastActivityDiv">
+                    <span class="icon-onlinetest ico"></span>
+                    <span class="ms-2 truncate">
+                      {{
+                      getActivityDisplayName(jobInformation?.lastActivityName)
+                      }}</span>
+                  </div>
+                  }@else if (jobInformation?.lastActivityName == 'aiasmnt')
+                  {
+                  <div class="lastActivityDiv">
+                    <span class="icon-onlinetest ico"></span>
+                    <span class="ms-2 truncate">
+                      {{
+                      getActivityDisplayName(jobInformation?.lastActivityName)
+                      }}</span>
+                  </div>
+                  }@else if (jobInformation?.lastActivityName == 'record')
+                  {
+                  <div class="lastActivityDiv">
+                    <span class="icon-video-camera ico"></span>
+                    <span class="ms-2 truncate">
+                      {{
+                      getActivityDisplayName(jobInformation?.lastActivityName)
+                      }}</span>
+                  </div>
+                  }@else if (jobInformation?.lastActivityName == 'other')
+                  {
+                  <div class="lastActivityDiv">
+                    <span class="icon-Shortlist-for-other ico"></span>
+                    <span class="ms-2 truncate">
+                      {{
+                      getActivityDisplayName(jobInformation?.lastActivityName)
+                      }}</span>
+                  </div>
+                  }
+                </div>
+              </div>
+              }
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    } @else {
+    <!-- zero applicant -->
+    <div class="zeroappl d-flex align-items-center justify-content-center">
+      <div class="d-flex pt-3 flex-column align-items-center justify-content-center">
+        <img src="assets/images/noapplicant.png" class="noapplicant__img" alt="" />
+        <p class="noappltxt">No applicant applied yet</p>
+      </div>
+    </div>
+    } } @else if(jobTypeToView !== "drafted") {
+    <div class="d-flex justify-content-around my-4">
+      <app-stepper [jobInformation]="jobInformation"></app-stepper>
+    </div>
+    } @else{
+    <div class="d-flex justify-content-around my-4">
+      <!-- <h5>drafted</h5> -->
+      <!-- <app-stepper [jobInformation]="jobInformation"></app-stepper> -->
+    </div>
+    } }
+  </div>
+
+
+
+<!-- @if (this.jobPostStatus==JOB_POST_STATUS.ONHOLD) {
+  <div class="notification-card">
+    <div class="icon">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        class="icon-svg"
+      >
+        <circle cx="12" cy="12" r="10" stroke="currentColor"></circle>
+        <line x1="12" y1="8" x2="12" y2="12" stroke="currentColor"></line>
+        <circle cx="12" cy="16" r="1" fill="currentColor"></circle>
+      </svg>
+    </div>
+    <p class="message">
+      Call For Support 09638666444, 01897627858
+    </p>
+  </div>
+}
+   -->
+
+
+
+
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Archive Job</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('')"></button>
+  </div>
+  <div class="modal-body">
+    <p>Do you want to archive this job?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="modal.dismiss('')">
+      Cancel
+    </button>
+    <button type="button" class="btn btn-danger" (click)="modal.close('Ok')">
+      Ok
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #userAccessModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Access Control</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('')"></button>
+  </div>
+  @if(userAccessFormArray.length > 0) {
+  <div class="modal-body">
+    <table class="table border-primary">
+      <thead>
+        <tr>
+          <th scope="col">User Name</th>
+          <th scope="col">Access Duration</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(userAccessFormGroup of userAccessFormArray.controls; track $index)
+        {
+        <tr>
+          <td class="access-control-username-td">
+            <form [formGroup]="userAccessFormGroup">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" formControlName="hasAccess"
+                  [id]="'flexCheckDefault' + $index" />
+                <label class="form-check-label" [for]="'flexCheckDefault' + $index">
+                  {{ userAccessFormGroup.get("userName")?.value ?? "" }}
+                </label>
+              </div>
+            </form>
+          </td>
+          <td>
+            <form [formGroup]="userAccessFormGroup">
+              @if(userAccessFormGroup.get('hasAccess')?.value ?? true) {
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                  formControlName="hasUnlimitedAccess" value="1" id="inlineRadio1" />
+                <label class="form-check-label" for="inlineRadio1">Unlimited</label>
+              </div>
+              } @if(userAccessFormGroup.get('hasAccess')?.value ?? true) {
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                  formControlName="hasUnlimitedAccess" value="0" id="inlineRadio2" />
+                <label class="form-check-label" for="inlineRadio2">Till</label>
+              </div>
+              } @if(userAccessFormGroup.get('hasAccess')?.value ?? true &&
+              userAccessFormGroup.get("hasUnlimitedAccess")?.value == "0")
+              {
+              <div class="input-group mt-1">
+                <input class="form-control col-md-3" placeholder="dd/mm/yyyy" formControlName="accessExpiryDate"
+                  name="accessDataPicker" [minDate]="minDateOfDeadline" ngbDatepicker #ad="ngbDatepicker"
+                  (click)="ad.toggle()" [inputMode]="" readonly />
+                <button class="btn btn-primary btn-select-date-range" (click)="ad.toggle()" type="button">
+                  <img class="modal-icon" src="assets/images/date-range.svg" />
+                </button>
+              </div>
+              }
+            </form>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer d-flex">
+    <div class="ml-5" style="position: absolute;
+    left: 0;
+    padding-left: 5px;"> <span class="icon-user-plus"></span><a class="text-primary"
+        href="https://corporate3.bdjobs.com/CompanyUserManagement_add.asp">Add new
+        user</a></div>
+    <div>
+      <button type="button" class="btn btn-outline-primary" (click)="modal.dismiss('')">
+        Cancel
+      </button>
+      <button type="button" class="btn btn-primary" (click)="modal.close('Ok')">
+        Save
+      </button>
+    </div>
+
+  </div>
+  }@else {
+  <div class="modal-body">
+    <div class="ml-5" style="position: absolute;
+    left: 0;
+    padding-left: 5px;"> <span class="icon-user-plus"></span><a class="text-primary"
+        href="https://corporate3.bdjobs.com/CompanyUserManagement_add.asp">Add new
+        user</a></div>
+    <div class="text-center text-primary">
+      No user found to give job access.
+    </div>
+  </div>
+  }
+</ng-template>
+
+<ng-template #salaryExpectationTipContent>
+  <div>
+    @if(jobInformation && jobInformation.salaryChartData && jobInformation.salaryChartData.length > 0){
+    <table class="table custom-tooltip-table-class">
+      <thead>
+        <tr>
+          <th scope="col">Salary Range</th>
+          <th scope="col">Applicants %</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of salaryChartDataWithMax; track $index) {
+        @if(getApplicantsSalaryExpectationPercentage(item.applicantsCount) > 0){
+        <tr>
+          <td [ngStyle]="{'background-color': item.hasMaxApplicants == true ? '#90caf9' : 'white' }">{{
+            formatRangeValue(item.startRange) }} - {{ formatRangeValue(item.endRange) }}</td>
+          <td [ngStyle]="{'background-color': item.hasMaxApplicants == true ? '#90caf9' : 'white' }">{{
+            getApplicantsSalaryExpectationPercentage(item.applicantsCount)}}%</td>
+        </tr>
+        }
+        }
+      </tbody>
+      <!-- [ngStyle]="{'background-image': item.countSerial === 2 ? 'url(\'assets/images/most-salary-expectation-bg.png\')' : 'none', 'background-size': 'cover'}" -->
+    </table>
+    }@else {
+    <div>
+      <p>No Data to Show!.</p>
+    </div>
+    }
+
+  </div>
+</ng-template>
+
+<ng-template #profileMatchingTipContent>
+  This pyramid chart shows the total number of applicants along with the
+  percentage of profiles that match, and it ranks them from highest to lowest
+  matching percentage.</ng-template>
+<ng-template #experienceTipContent>
+  This donut chart shows an overview of the total number of years of experience
+  for all applicants.
+</ng-template>
+<ng-template #salaryExpectationIButtonTipContent>
+  This chart shows the range of salaries that most applicants want.
+</ng-template>

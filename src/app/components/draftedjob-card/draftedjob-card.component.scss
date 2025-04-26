@@ -1,0 +1,41 @@
+@import "../../../scss/variables";
+
+.job-title {
+    font-weight: bold;
+    color: #212121;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    a {
+      text-decoration: none;
+      color: #212121;
+      transition: all 0.3s;
+  
+      &:hover {
+        color: #0e73a9;
+      }
+    }
+  }
+
+  .drafted-card {
+    border-radius: 6px;
+    border: 1px solid rgba(14, 115, 169, 0.35);
+    background: #FFF;
+    padding: 16px 12px;
+  }
+
+  .short-vertical-bar {
+    border-left: 1px solid $bdjobs-blue-corporate;
+    height: 16px;
+    margin: 0 0.4rem;
+  }
+  
+  .card-icon {
+    width: 0.8rem;
+    height: auto;
+    margin-left: 0.5rem;
+  }
+
+  .edticn:hover {
+    cursor: pointer;
+  }

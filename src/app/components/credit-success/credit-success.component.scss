@@ -1,0 +1,41 @@
+p {
+    margin: 0;
+  }
+  .pendingcontainer {
+    border-radius: 12px;
+    padding: 40px 30px;
+  }
+  .pendingcontainer .title {
+    color: #0e73a9;
+    font-size: 24px;
+    font-weight: 600;
+  }
+  .pendingcontainer .ref {
+    color: #333;
+    font-size: 20px;
+    font-weight: 500;
+  }
+  
+  .refinput {
+    min-width: 400px;
+  }
+  
+  .pentxt {
+    color: #595959;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: normal;
+  }
+  
+  .penstats {
+    color: #25a768;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: normal;
+  }
+  @media only screen and (max-width: 425px) {
+    .refinput {
+      min-width: 250px;
+    }
+  }
+  

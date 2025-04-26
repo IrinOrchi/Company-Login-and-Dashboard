@@ -1,0 +1,72 @@
+/*
+
+  This file contains bootstrap theme settings. Only put theme settings in this file.
+*/
+
+@import "variables";
+
+/* Color Palette Settings */
+$primary: $bdjobs-blue-corporate !default;
+$secondary: $bdjobs-orange !default;
+$success: $bdjobs-green !default;
+$info: $bdjobs-blue !default;
+$warning: $bdjobs-orange !default;
+$danger: $bdjobs-red !default;
+$light: $bdjobs-background-light-1 !default;
+$dark: $bdjobs-blueish-gray !default;
+
+/* Body Color Settings */
+$body-color: $bdjobs-blueish-gray !default;
+$body-bg: $bdjobs-background-light-1 !default;
+
+$body-secondary-bg: $bdjobs-background-light-2 !default;
+$body-tertiary-bg: $bdjobs-background-light-2 !default;
+
+/* Border Color Settings */
+$border-color: $bdjobs-blueish-gray !default;
+$border-color-translucent: rgba($bdjobs-blueish-gray, 0.175) !default;
+
+/* Rounded Element Settings */
+// $enable-rounded: false !default;
+
+/* Box Shadoe Settings */
+$box-shadow: 0 0.5rem 1rem rgba($bdjobs-blueish-gray, 0.15) !default;
+$box-shadow-sm: 0 0.125rem 0.25rem rgba($bdjobs-blueish-gray, 0.075) !default;
+$box-shadow-lg: 0 1rem 3rem rgba($bdjobs-blueish-gray, 0.175) !default;
+$box-shadow-inset: inset 0 1px 2px rgba($bdjobs-blueish-gray, 0.075) !default;
+
+/* Font Settings */
+$font-family-sans-serif: "Inter Variable", "Noto Sans Bengali Variable",
+  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans",
+  "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+  "Segoe UI Symbol", "Noto Color Emoji" !default;
+
+$font-size-base: 0.9rem !default;
+
+/* NavBar Settings */
+$navbar-light-color: $bdjobs-blueish-gray !default;
+$navbar-light-hover-color: $primary !default;
+$navbar-light-active-color: $primary !default;
+$navbar-light-disabled-color: $bdjobs-blueish-gray-light !default;
+
+// Not setting up navbar-dark colors as there's no plan to implement dark theme for now
+
+/* Emphasis Color Settings */
+$dark-text-emphasis: $bdjobs-blueish-gray !default;
+$light-text-emphasis: $bdjobs-blueish-gray !default;
+$body-emphasis-color: $bdjobs-blueish-gray !default;
+
+/* Dropdown Settings */
+$dropdown-bg: $bdjobs-background-light-2 !default;
+$dropdown-header-color: $bdjobs-blueish-gray !default;
+
+/* Dropdown Link Settings */
+$dropdown-link-hover-bg: $bdjobs-background-light-1 !default;
+
+/* Dropdown Item Settings */
+$dropdown-item-padding-y: 0.1rem !default;
+
+/* Custom Carousel Indicators */
+$carousel-indicator-height: 12px;
+$carousel-indicator-width: 12px;
+$carousel-indicator-active-bg: $bdjobs-blue-corporate;

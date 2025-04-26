@@ -1,0 +1,195 @@
+@import "../../../scss/variables";
+
+.job-post-container-component {
+  .card-container {
+    border-left: 1px solid $bdjobs-text-light-dim;
+    border-right: 1px solid $bdjobs-text-light-dim;
+    border-bottom: 1px solid $bdjobs-text-light-dim;
+    background-color: $bdjobs-blue-ultralight-2;
+    padding: 1rem;
+  }
+}
+
+.link-archived-jobs {
+  text-decoration: none;
+
+  img {
+    margin-left: 0.3rem;
+  }
+}
+
+.cv-bank-main-container {
+  border: 1px solid #b0bec5;
+  padding-top: 0.5rem;
+  padding-bottom: 1rem;
+}
+
+.cv-bank-feature-paragraph {
+  font-size: 1rem;
+}
+
+.cv-bank-image-container {
+  // padding-left: 2rem;
+  padding-right: 2.5rem;
+  border-right: 1px solid $bdjobs-text-light-dim;
+  width: 40%;
+
+  img {
+    height: 14rem;
+    width: auto;
+  }
+}
+
+.cv-bank-status-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  // min-width: 300px;
+  width: 40%;
+  padding-left: 7rem;
+}
+
+.cv-bank-status {
+  width: 200px;
+}
+
+.cv-bank-icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 0.5rem;
+}
+
+.cv-bank-title {
+  font-size: 1rem;
+}
+
+.cv-bank-count {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.empty-job-list-message-section {
+  min-height: 200px;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+
+  img {
+    width: 10rem;
+    height: auto;
+  }
+
+  p {
+    color: $bdjobs-blue-corporate;
+    font-size: 1.5rem;
+  }
+}
+
+.support-person-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 120px;
+  background-color: $bdjobs-gray-light;
+  padding: 0 10rem;
+}
+
+.support-feature-text {
+  height: 100%;
+}
+
+.support-person-info {
+  p {
+    margin-bottom: 0.3rem;
+    font-size: 1rem;
+
+    &.title {
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+  }
+}
+
+.support-person-image-container {
+  img {
+    border: 2px solid $bdjobs-blue-corporate;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 2px solid #0e73a9;
+  }
+}
+
+.support-person-info-text {
+  width: 100%;
+  padding: 4rem 2rem;
+}
+
+@media screen and (max-width:768px) {
+  .cvbnk {
+    flex-direction: column !important;
+  }
+
+  .cv-bank-status-container {
+    width: 100%;
+    padding-left: 0;
+    margin-top: 10px;
+  }
+
+  .cv-bank-image-container {
+    width: 100%;
+    padding-right: 0;
+    border-right: transparent;
+  }
+
+  .cv-bank-image-container img {
+    width: 100%;
+  }
+}
+
+.supportpsec {
+  background-color: #F0F2F5;
+}
+
+.support__img {
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+
+
+  img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+  }
+
+
+}
+
+@media (max-width:768px) {
+  .cv-bank-title {
+    font-size: 11px !important;
+  }
+
+  .cv-bank-count {
+    font-size: 14px !important;
+  }
+}
+
+
+.sales__sec {
+  p {
+    color: #595959;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    margin-bottom: 5px;
+  }
+
+  .stitle {
+    color: #333;
+    font-size: 16px;
+    font-weight: 600;
+  }
+}

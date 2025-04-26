@@ -1,0 +1,155 @@
+<div class="job-post-container-header-component">
+  <div class="container rounded-top d-flex flex-column">
+    <div class="d-flex flex-row justify-content-between headrebg">
+      <ul class="nav">
+        <li class="nav-item">
+          <a
+            class="nav-link first d-flex align-items-center justify-content-center"
+            [class.active]="activeTab === 'published'"
+            (click)="setActiveTab('published', $event)"
+            href="#"
+          >
+            Published ({{ publishedCount }})
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a
+            class="nav-link d-flex align-items-center justify-content-center"
+            [class.active]="activeTab === 'posted'"
+            (click)="setActiveTab('posted', $event)"
+            href="#"
+          >
+            Processing ({{ postedCount }})
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a
+            class="nav-link d-flex align-items-center justify-content-center"
+            [class.active]="activeTab === 'drafted'"
+            (click)="setActiveTab('drafted', $event)"
+            href="#"
+            >
+            Drafted ({{ draftedJobCount }})
+          </a>
+        </li>
+
+        @if(jobFairJobCount > 0){
+          <li class="nav-item">
+            <a
+              class="nav-link d-flex align-items-center justify-content-center"
+              href="https://corporate3.bdjobs.com/corporate_default.asp?pt=f&from=recruiter"
+              >Job Fair
+            </a>
+          </li>
+        }       
+
+        <!-- <li class="nav-item">
+          <a
+            class="nav-link d-flex align-items-center justify-content-center"
+            [class.active]="activeTab === 'all'"
+            (click)="setActiveTab('all', $event)"
+            href="#"
+          >
+            All ({{ totalJobCount }})
+          </a>
+        </li> -->
+      </ul>
+
+      <div class="py-2">
+        <form class="form-inline d-flex my-1">
+          <div
+            class="dateinput input-group mx-2 d-inline-flex align-items-center justify-content-between"
+            >
+            <input
+              #myRangeInput
+              class="form-control"
+              placeholder="Select date range"
+              name="dp"
+              [(ngModel)]="model"
+              ngbDatepicker
+              [dayTemplate]="t"
+              [displayMonths]="2"
+              [maxDate]="maxDate"
+              [minDate]="minDate"
+              #d="ngbDatepicker"
+              [autoClose]="'outside'"
+              (closed)="updateJobSearchDto()"
+              (keyup)="onDatePickerInputKeyUp()"
+              (click)="d.toggle()"
+              (paste)="onDateRangePaste($event)"
+              readonly
+            />
+
+            <span
+              class="icon-times closeicn"
+              (click)="clearDateRange()"
+              *ngIf="model"
+            ></span>
+
+            <ng-template #t let-date="date" let-focused="focused">
+              <span
+                class="custom-day"
+                [class.range]="
+                  isFrom(date) ||
+                  isTo(date) ||
+                  isInside(date) ||
+                  isHovered(date)
+                "
+                [class.faded]="isHovered(date) || isInside(date)"
+                (click)="onDateSelection(date)"
+                (mouseenter)="hoveredDate = date"
+                (mouseleave)="hoveredDate = null"
+              >
+                {{ date.day }}
+              </span>
+            </ng-template>
+            <div class="input-group-append">
+              <button
+                class="btn btn-primary btn-select-date-range"
+                (click)="d.toggle()"
+                type="button"
+              >
+                <img
+                  class="container-header-icon"
+                  src="assets/images/date-range.svg"
+                />
+              </button>
+            </div>
+          </div>
+          <div class="input-group mx-2 position-relative">
+            <input
+              name="jobTitle"
+              class="form-control jtitleplc"
+              placeholder="Search by job title"
+              maxlength="100"
+              [(ngModel)]="jobTitle"
+              (keyup.enter)="updateJobSearchDto()"
+            />
+
+            <span *ngIf="jobTitle">
+              <span
+                class="icon-times jobtclose"
+                (click)="clearJobTitle()"
+              ></span>
+            </span>
+            
+            <div class="input-group-append">
+              <button
+                class="btn btn-primary btn-select-date-range"
+                type="button"
+                (click)="updateJobSearchDto()"
+              >
+                <img
+                  class="container-header-icon"
+                  src="assets/images/search.svg"
+                />
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,111 @@
+@import "../../../../scss/variables";
+
+.job-post-container-header-component {
+  .container {
+    // min-height: 3rem;
+    border-top: 1px solid $bdjobs-text-light-dim;
+    border-left: 1px solid $bdjobs-text-light-dim;
+    border-right: 1px solid $bdjobs-text-light-dim;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .nav {
+    padding: 0;
+  }
+
+  .nav-link {
+    border-top: 3px solid transparent;
+    font-weight: 500;
+    color: $bdjobs-blueish-gray-light !important;
+    border-left: 1px solid $bdjobs-text-light-dim;
+    height: 100%;
+
+    &:hover {
+      color: $bdjobs-blue-corporate !important;
+    }
+
+    &.active {
+      background-color: $bdjobs-blue-ultralight-2 !important;
+      border-top-color: $bdjobs-blue-corporate !important;
+      color: $bdjobs-blue-corporate !important;
+    }
+
+    &.first {
+      border-left: unset !important;
+    }
+  }
+}
+
+.custom-day {
+  text-align: center;
+  padding: 0.185rem 0.25rem;
+  display: inline-block;
+  height: 2rem;
+  width: 2rem;
+}
+.custom-day.focused {
+  background-color: $bdjobs-background-light-1;
+}
+.custom-day.range,
+.custom-day:hover {
+  background-color: $bdjobs-blue-corporate-deep;
+  color: white;
+}
+.custom-day.faded {
+  background-color: $bdjobs-blue-corporate;
+}
+
+.btn-select-date-range {
+  border-radius: 0 0.375rem 0.375rem 0;
+}
+
+.container-header-icon {
+  width: 1rem;
+  height: auto;
+  padding-bottom: 0.2rem;
+}
+
+.headerbg {
+  background-color: #FAFAFA;
+}
+
+.jpheader__r {
+  padding: 5px 0;
+}
+
+.dateinput {
+  position: relative;
+
+  .closeicn {
+  position: absolute;
+  right: 48px;
+  top: 10px;
+  height: 20px;
+  width: 20px;
+  z-index: 10;
+  font-size: 14px;
+  color: #0E73A9;
+  }
+  .closeicn:hover {
+    cursor: pointer;
+  }
+
+}
+
+.jtitleplc {
+  padding-right: 28px !important;
+}
+.jobtclose {
+  position: absolute;
+  right: 42px;
+  top: 10px;
+  height: 20px;
+  width: 20px;
+  z-index: 10;
+  font-size: 14px;
+  color: #0E73A9;
+}
+.jobtclose:hover {
+  cursor: pointer;
+}

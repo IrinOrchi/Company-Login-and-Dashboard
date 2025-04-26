@@ -1,0 +1,23 @@
+.emptycontainer {
+  border-radius: 12px;
+  padding: 40px 30px;
+}
+.emptycontainer .title {
+  color: #0e73a9;
+  font-size: 24px;
+  font-weight: 600;
+}
+.emptycontainer .ref {
+  color: #333;
+  font-size: 20px;
+  font-weight: 500;
+}
+.refinput {
+  min-width: 400px;
+}
+
+@media only screen and (max-width: 425px) {
+  .refinput {
+    min-width: 250px;
+  }
+}

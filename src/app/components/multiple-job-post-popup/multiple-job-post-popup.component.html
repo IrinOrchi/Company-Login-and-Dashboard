@@ -1,0 +1,45 @@
+<div *ngIf="isPopupVisible" class="popup-overlay">
+    <div class="popup-container">
+      <!-- Cross icon in the top-right corner -->
+      <i class="icon icon-cross-close text-[24px] close-icon" (click)="closePopup()"></i>
+  
+      <div class="popup-header">
+        <div class="popup-icon">
+          <div class="d-flex justify-content-center">
+            <span
+              class="d-inline-flex justify-content-center icon-briefcase text-success p-2 fs-2 me-2 mt-1 rounded-circle"
+              style="background-color: rgb(214, 250, 214);"
+            ></span>
+          </div>
+        </div>
+      </div>
+  
+      <div class="popup-content">
+        <div class="popup-title">{{jobList.length}} Paid Jobs to Post!</div>
+        <div class="popup-description">
+          Note: If you post a job later, then the job’s deadline will not extend further from the given deadline
+        </div>
+  
+        <div style="height: 16px;"></div>
+  
+        <div class="job-list" [style.max-height]="jobListHeight">
+          <div
+            *ngFor="let job of jobList"
+            class="job-item"
+            [class.active]="selectedJob === job"
+            (click)="selectJob(job)"
+          >
+            <div class="radio-button" [class.selected]="selectedJob === job"></div>
+            <div class="job-info">
+              <div class="job-title">{{ job.jobTitle }}</div>
+              <div class="job-deadline">Deadline: {{ job.deadline | date: 'dd MMM, yyyy' }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="popup-footer">
+        <button class="post-job-button" (click)="postJob()">Post this Job</button>
+      </div>    
+    </div>
+  </div>

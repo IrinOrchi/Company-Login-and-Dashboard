@@ -1,0 +1,100 @@
+@import "../../../scss/variables";
+
+.stepper {
+  width: 600px;
+}
+
+.steps {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.step-button {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  background-color: $bdjobs-blue-corporate;
+  color: white;
+  transition: 0.3s;
+}
+.step-button:hover {
+  cursor: unset;
+}
+.done {
+  background-color: $bdjobs-blue-corporate-deep;
+  color: #fff;
+}
+
+.step-item {
+  z-index: 10;
+  text-align: center;
+}
+
+.step-title {
+  color: $bdjobs-blue-corporate;
+  font-weight: 500;
+  padding-top: 0.3rem;
+}
+
+.stepper-icon {
+  width: 19px;
+  height: 19px;
+}
+
+#progress {
+  appearance: none;
+  position: absolute;
+  width: 88%;
+  z-index: 5;
+  height: 5px;
+  margin-left: 3.2rem;
+  margin-bottom: 1.5rem;
+  background-color: #d3dce3;
+  margin-bottom: 27px;
+}
+
+/* to customize progress bar */
+#progress::-webkit-progress-value {
+  background-color: $bdjobs-blue-corporate;
+}
+
+// #progress::-webkit-progress-bar {
+//   background-color: $bdjobs-blue-corporate;
+// }
+
+#progress::-moz-progress-bar {
+  background: $bdjobs-blue-corporate;
+}
+
+@media only screen and (max-width: 768px) {
+  .stepper {
+    width: 325px;
+  }
+  #progress {
+    width: 78%;
+  }
+  .step-item {
+    text-wrap: nowrap;
+  }
+}
+.btn-nid-verification {
+  font-size: 0.6rem;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  height: 30px;
+  white-space: nowrap;
+}
+
+.steps.step1 {
+  position: relative;
+}
+
+.steps .btn-nid-verification {
+  position: absolute;
+  bottom: -23px;
+  left: 19px;
+  height: 19px;
+}

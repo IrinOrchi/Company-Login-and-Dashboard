@@ -1,0 +1,31 @@
+<div class="bg-white">
+
+  <app-control-bar [activeTab]="activeTab"></app-control-bar>
+
+  <div class="container d-flex flex-row justify-content-end pt-3">
+
+
+    <a class="btn btn-success mx-1" href="https://recruiter.bdjobs.com/jobposting/">Post a New Job</a>
+    @if(((nidVerify || verificationStatus || paymentProcess) && !outsideBangladesh)|| outsideBangladesh){
+    <a class="btn btn-primary mx-1" href="https://recruiter.bdjobs.com/talent-search-dashboard/">
+      <img src="assets/images/search.svg" class="button-icon" />
+      Search Talent
+    </a>}
+    @else{
+    <button class="btn btn-primary" (click)="open()"><img src="assets/images/search.svg" class="button-icon" />
+      Search Talent</button>
+    }
+    <!-- @if(isNidButtonVisible){
+    <a class="btn btn-outline-primary mx-1" href="https://corporate3.bdjobs.com/nidVerification.asp">
+      NID Verification
+    </a>
+    } -->
+
+  </div>
+  <app-multiple-job-post-popup></app-multiple-job-post-popup>
+  <app-job-post-container />
+  @if(companySizePopUp !== "submitted"){
+  <app-company-select-popup></app-company-select-popup>
+  }
+
+</div>

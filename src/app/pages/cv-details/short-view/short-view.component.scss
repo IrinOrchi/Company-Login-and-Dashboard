@@ -1,0 +1,101 @@
+$color_1: #666;
+$color_2: #000;
+$color_3: #2F64A3;
+$color_4: #494949;
+$color_5: #000000;
+$color_6: #B32D7D;
+$background-color_1: #F5F5F5;
+
+.short_cv {
+	color: $color_1;
+	overflow-y: hidden;
+}
+.border_wrap {
+	border: 1px solid #dcdcdc;
+}
+.source {
+	font-size: 11px;
+	color: $color_1;
+}
+.date {
+	font-size: 12px;
+	padding-bottom: 5px;
+}
+.update-date {
+	font-style: italic;
+}
+.left-side {
+	background-color: $background-color_1;
+	vertical-align: top;
+}
+.user_photo {
+	max-width: 124px;
+	height: 131px;
+}
+.user-name {
+	h3 {
+		font-size: 20px;
+		font-weight: 400;
+		color: $color_2;
+		margin: 24px 0 20px 0;
+	}
+}
+.user-address{
+    font-size: 14px;
+    color: #000;
+    word-break: break-word;
+}
+.user-address {
+	span {
+		font-size: 14px;
+		color: $color_2;
+	}
+}
+.title {
+	color: $color_3;
+	font-size: 18px;
+	img {
+		margin-right: 5px;
+	}
+}
+.personal_detrails {
+	span {
+		color: $color_4;
+		font-size: 14px;
+	}
+}
+.p-title {
+	color: $color_5;
+	font-size: 14px;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+.others_details {
+	color: $color_4;
+	font-size: 14px;
+}
+.border_half {
+	padding: 25px 0 10px 0;
+	border-bottom: 1px solid #CBCBCB;
+}
+.job {
+	font-size: 18px;
+}
+.job-name {
+	color: $color_6;
+	font-weight: bold;
+}
+
+.backToTop {
+	position: fixed;
+	bottom: 50px;
+	right: 10px;
+	cursor: pointer;
+	display: none;
+	background-color: #616161;
+	border: none;
+	z-index: 2;
+	color: #fff;
+	padding: 6px 12px;
+	border-radius: 4px;
+  }
