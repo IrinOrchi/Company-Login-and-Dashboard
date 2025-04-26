@@ -1,15 +1,15 @@
 <div class="control-bar-component">
-  <div class="container d-flex flex-column justify-content-center">
-    <div class="d-flex flex-row justify-content-between">
+  <div class="container min-h-14">
+    <div class="flex flex-row justify-between">
       <nav class="activity-nav">
-        <ul class="nav d-flex align-items-center justify-content-start">
+        <ul class="flex items-center justify-start gap-3">
           @if(activeTab === 'dashboard'){
-          <li class="nav-item nav-underline">
-            <a class="nav-link active hand-cursor" aria-current="page" (click)="navigateToDashboard()">Job Dashboard</a>
+          <li class="relative">
+            <a class="text-primary font-medium cursor-pointer border-b-2 border-[#0e73a9] pb-1" aria-current="page" (click)="navigateToDashboard()">Job Dashboard</a>
           </li>
           }@else {
-          <li class="nav-item">
-            <a class="nav-link hand-cursor" aria-current="page" (click)="navigateToDashboard()">Job Dashboard</a>
+          <li class="relative">
+            <a class="text-primary font-medium cursor-pointer hover:text-[#165273]" aria-current="page" (click)="navigateToDashboard()">Job Dashboard</a>
           </li>
           }
 
@@ -19,34 +19,33 @@
             <a class="nav-link" [class.active]="activeTab === 'Job Dashboard'" (click)="changeTab('Job Dashboard')">Job
               Dashboard</a>
           </li> -->
-          <li class="nav-item">
-
+          <li class="relative">
             @if(((nidVerify || verificationStatus || paymentProcess) && !outsideBangladesh)|| outsideBangladesh){
-            <a [ngClass]="activeTab==='CV Bank' ? 'nav-underline':''" class="nav-link" href="https://recruiter.bdjobs.com/talent-search-dashboard/">
-              <img style="width: 120px;height: 72px;" src="assets/images/Talent Search Logo-02.svg" alt="Talent Search">
+            <a [ngClass]="activeTab==='CV Bank' ? 'border-b-2 border-[#0e73a9] pb-1' : ''" class="text-primary font-medium" href="https://recruiter.bdjobs.com/talent-search-dashboard/">
+              <img class="w-[120px] h-[72px]" src="assets/images/Talent Search Logo-02.svg" alt="Talent Search">
             </a>
             }@else{
-            <a [ngClass]="activeTab==='CV Bank' ? 'nav-underline':''" class="nav-link hand-cursor" (click)="open()">
-              <img style="width: 120px;height: 72px;" src="assets/images/Talent Search Logo-02.svg" alt="Talent Search">
+            <a [ngClass]="activeTab==='CV Bank' ? 'border-b-2 border-[#0e73a9] pb-1' : ''" class="text-primary font-medium cursor-pointer" (click)="open()">
+              <img class="w-[120px] h-[72px]" src="assets/images/Talent Search Logo-02.svg" alt="Talent Search">
             </a>
             }
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://corporate3.bdjobs.com/Analytics/default.asp?from=recruiter">Analytics</a>
+          <li class="relative">
+            <a class="text-primary font-medium hover:text-[#165273]" href="https://corporate3.bdjobs.com/Analytics/default.asp?from=recruiter">Analytics</a>
           </li>
         </ul>
       </nav>
 
-      <div class="d-flex flex-row flex-wrap justify-items-end align-items-center company-info-container">
+      <div class="flex flex-row flex-wrap justify-end items-center gap-0.5 company-info-container">
 
 
         <!-- sms package  -->
         @if (hasSmsPackage) {}
-        <div class="row d-none d-lg-block">
-          <div class="col">
-            <div ngbDropdown class="d-inline-block" (openChange)="onSmsDropdownOpenChange($event)">
-              <button type="button" class="btn text-primary px-2 " id="dropdownBasic1" ngbDropdownToggle>
-                <div class="d-inline-block control-bar-circular-progress cvprogress">
+        <div class="hidden lg:block">
+          <div class="flex items-center">
+            <div class="relative inline-block">
+              <button type="button" class="text-primary px-2 py-1.5 flex items-center gap-1.5 hover:bg-gray-100 rounded" (click)="toggleDropdown('sms')">
+                <div class="inline-block control-bar-circular-progress cvprogress">
                   <app-circular-progress
                     [value]="smsPackagePercentage"
                     [pathColor]="'#0e73a9'"
@@ -55,13 +54,14 @@
                     size="100%"
                   ></app-circular-progress>
                 </div>
-                SMS
+                <span>SMS</span>
+                <span class="icon icon-sort-down text-[8px]"></span>
               </button>
 
-              <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="circle-progress-dropdown">
-                <div class="d-flex p-2 package-dropdown-menu">
-                  <div class=" dropdown-menu-progress-section">
-                    <div class="d-inline-block control-bar-circular-progress cvprogress">
+              <div *ngIf="activeDropdown === 'sms'" class="absolute left-1/2 transform -translate-x-1/2 mt-2 w-[200px] bg-white rounded-md shadow-lg border border-gray-200 z-50">
+                <div class="flex p-2 min-w-[250px] justify-start items-center gap-2">
+                  <div class="w-[30%]">
+                    <div class="inline-block control-bar-circular-progress cvprogress">
                       <app-circular-progress
                         [value]="smsPackagePercentage"
                         [pathColor]="'#0e73a9'"
@@ -71,38 +71,30 @@
                       ></app-circular-progress>
                     </div>
                   </div>
-                  <div class="d-flex flex-column dropdown-menu-details-section">
+                  <div class="w-[70%] ml-0.5">
                     <div>
-                      <div class="package-title">Available SMS</div>
-                      <div class="package-status">
+                      <div class="text-sm font-medium">Available SMS</div>
+                      <div class="text-[13px] font-bold text-[#0e73a9]">
                         {{ smsRemaining }}/{{ smsPurchased }}
                       </div>
                     </div>
                     <div>
-                      <div class="package-title">Send SMS</div>
-                      <div class="package-status">{{ smsSend }}</div>
+                      <div class="text-sm font-medium">Send SMS</div>
+                      <div class="text-[13px] font-bold text-[#0e73a9]">{{ smsSend }}</div>
                     </div>
                   </div>
                 </div>
-
-                <!-- <div class="dropdown-divider"></div>
-                <a class="btn text-primary" href="" ngbDropdownItem>View
-                  Packages
-                  <img src="assets/images/arrow-right.svg" class="dropdown-menu-icon" /></a> -->
-
               </div>
             </div>
           </div>
         </div>
 
         @if(hasJobPostingAccess) {
-        <div class="row  d-none d-lg-block">
-          <div class="col">
-            <div ngbDropdown class="d-inline-block" (openChange)="onJobPostDropdownOpenChange($event)">
-
-              <button type="button" class="btn text-primary px-2" id="dropdownBasic1" ngbDropdownToggle>
-
-                <div class="d-inline-block control-bar-circular-progress cvprogress">
+        <div class="hidden lg:block">
+          <div class="flex items-center">
+            <div class="relative inline-block">
+              <button type="button" class="text-primary px-2 py-1.5 flex items-center gap-1.5 hover:bg-gray-100 rounded" (click)="toggleDropdown('jobPosting')">
+                <div class="inline-block control-bar-circular-progress cvprogress">
                   <app-circular-progress
                     [value]="jobPostingAccessPercentage"
                     [pathColor]="'#0e73a9'"
@@ -111,12 +103,13 @@
                     size="37px"
                   ></app-circular-progress>
                 </div>
-                Job Posting
+                <span>Job Posting</span>
+                <span class="icon icon-sort-down text-[8px]"></span>
               </button>
-              <div aria-labelledby="dropdownBasic1" class="circle-progress-dropdown" ngbDropdownMenu>
-                <div class="d-flex p-2 package-dropdown-menu">
-                  <div class=" dropdown-menu-progress-section">
-                    <div class="d-inline-block control-bar-circular-progress cvprogress">
+              <div *ngIf="activeDropdown === 'jobPosting'" class="absolute left-1/2 transform -translate-x-1/2 mt-2 w-[200px] bg-white rounded-md shadow-lg border border-gray-200 z-50">
+                <div class="flex p-2 min-w-[250px] justify-start items-center gap-2">
+                  <div class="w-[30%]">
+                    <div class="inline-block control-bar-circular-progress cvprogress">
                       <app-circular-progress
                         [value]="jobPostingAccessPercentage"
                         [pathColor]="'#0e73a9'"
@@ -126,45 +119,37 @@
                       ></app-circular-progress>
                     </div>
                   </div>
-                  <div class="d-flex flex-column dropdown-menu-details-section">
-                    <div>
-                      <div class="package-title">Standard Listing</div>
-                      <div class="package-status">
-                        {{ remainingBasicJobs }}/{{ maxBasicJobs }}
-                      </div>
+                  <div class="w-[70%] ml-0.5">
+                    <div class="flex justify-between items-center">
+                      <div class="text-sm font-medium">Standard Listing</div>
+                      <div class="text-[13px] font-bold text-[#0e73a9]">{{ remainingBasicJobs }}/{{ maxBasicJobs }}</div>
                     </div>
-                    <div>
-                      <div class="package-title">Premium Listing</div>
-                      <div class="package-status">
-                        {{ remainingStandoutJobs }}/{{ maxStandoutJobs }}
-                      </div>
+                    <div class="flex justify-between items-center">
+                      <div class="text-sm font-medium">Premium Listing</div>
+                      <div class="text-[13px] font-bold text-[#0e73a9]">{{ remainingStandoutJobs }}/{{ maxStandoutJobs }}</div>
                     </div>
-                    <div>
-                      <div class="package-title">Premium Plus</div>
-                      <div class="package-status">
-                        {{ remainingStandoutPremiumJobs }}/{{
-                        maxStandoutPremiumJobs
-                        }}
-                      </div>
+                    <div class="flex justify-between items-center">
+                      <div class="text-sm font-medium">Premium Plus</div>
+                      <div class="text-[13px] font-bold text-[#0e73a9]">{{ remainingStandoutPremiumJobs }}/{{ maxStandoutPremiumJobs }}</div>
                     </div>
                   </div>
                 </div>
-                <div class="dropdown-divider"></div>
-                <a class="btn text-primary" href="https://corporate3.bdjobs.com/ServiceHistory.asp?from=recruiter"
-                  ngbDropdownItem>View Packages
-                  <img src="assets/images/arrow-right.svg" class="dropdown-menu-icon" /></a>
+                <div class="border-t border-gray-200"></div>
+                <a class="flex items-center justify-center px-4 py-2 text-primary gap-1 no-underline bg-white" href="https://corporate3.bdjobs.com/ServiceHistory.asp?from=recruiter">
+                  View Packages
+                  <img src="assets/images/arrow-right.svg" class="w-4 h-4" />
+                </a>
               </div>
             </div>
           </div>
         </div>
 
         } @if(hasCVBankAccess) {
-        <div class="row  d-none d-lg-block">
-          <div class="col">
-            <div ngbDropdown class="d-inline-block cv-bank-stat-dropdown"
-              (openChange)="onCvBankDropdownOpenChange($event)">
-              <button type="button" class="btn text-primary px-2 " id="dropdownBasic1" ngbDropdownToggle>
-                <div class="d-inline-block control-bar-circular-progress cvprogress">
+        <div class="hidden lg:block">
+          <div class="px-1">
+            <div class="relative inline-block">
+              <button type="button" class="text-primary px-2 py-1.5 flex items-center gap-1.5 hover:bg-gray-100 rounded" (click)="toggleDropdown('cvBank')">
+                <div class="inline-block control-bar-circular-progress cvprogress">
                   <app-circular-progress
                     [value]="cvBankPercentage"
                     [pathColor]="'#A65108'"
@@ -173,13 +158,13 @@
                     size="100%"
                   ></app-circular-progress>
                 </div>
-                Talent Search
+                <span>Talent Search</span>
+                <span class="icon icon-sort-down text-[8px]"></span>
               </button>
-
-              <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="circle-progress-dropdown">
-                <div class="d-flex p-2 package-dropdown-menu">
-                  <div class=" dropdown-menu-progress-section">
-                    <div class="d-inline-block control-bar-circular-progress cvprogress">
+              <div *ngIf="activeDropdown === 'cvBank'" class="absolute left-1/2 transform -translate-x-1/2 mt-2 w-[200px] bg-white rounded-md shadow-lg border border-gray-200 z-50">
+                <div class="flex p-2 min-w-[250px] justify-start items-center gap-2">
+                  <div class="w-[30%]">
+                    <div class="inline-block control-bar-circular-progress cvprogress">
                       <app-circular-progress
                         [value]="cvBankPercentage"
                         [pathColor]="'#A65108'"
@@ -189,23 +174,24 @@
                       ></app-circular-progress>
                     </div>
                   </div>
-                  <div class="d-flex flex-column dropdown-menu-details-section">
+                  <div class="w-[70%] ml-0.5">
                     <div>
-                      <div class="package-title">Available CVs</div>
-                      <div class="package-status brown">
+                      <div class="text-sm font-medium">Available CVs</div>
+                      <div class="text-[13px] font-bold text-[#A65108]">
                         {{ remainingCV }}/{{ maxCV }}
                       </div>
                     </div>
                     <div>
-                      <div class="package-title">Viewed CVs</div>
-                      <div class="package-status brown">{{ viewedCV }}</div>
+                      <div class="text-sm font-medium">Viewed CVs</div>
+                      <div class="text-[13px] font-bold text-[#A65108]">{{ viewedCV }}</div>
                     </div>
                   </div>
                 </div>
-                <div class="dropdown-divider"></div>
-                <a class="btn text-primary" href="https://corporate3.bdjobs.com/ServiceHistory.asp?from=recruiter"
-                  ngbDropdownItem>View Packages
-                  <img src="assets/images/arrow-right.svg" class="dropdown-menu-icon" /></a>
+                <div class="border-t border-gray-200"></div>
+                <a class="flex items-center justify-center px-4 py-2 text-primary gap-1 hover:no-underline bg-white" href="https://corporate3.bdjobs.com/ServiceHistory.asp?from=recruiter">
+                  View Packages
+                  <img src="assets/images/arrow-right.svg" class="w-4 h-4" />
+                </a>
               </div>
             </div>
           </div>
@@ -223,139 +209,79 @@
           </div>
         </div> -->
         <!-- credit system -->
-        <div class="row  d-none d-lg-block">
-          <div class="col">
-            <div ngbDropdown class="d-inline-block">
-              <button type="button" class="btn text-primary px-2" id="creditdrp" ngbDropdownToggle>
-                <img _ngcontent-ng-c3823379224="" src="../../../assets/images/credit-system.svg" alt=""
-                  class="crdmenuimg" />Credit : @if (isNotCreditExpired) {
+        <div class="hidden lg:block">
+          <div class="flex items-center">
+            <div class="relative inline-block">
+              <button type="button" class="text-primary px-2 py-1.5 flex items-center gap-1.5 hover:bg-gray-100 rounded" (click)="toggleDropdown('credit')">
+                <img src="../../../assets/images/credit-system.svg" alt="" class="h-[26px]" />
+                <span>Credit : @if (isNotCreditExpired) {
                 <span>{{ creditSystem?.remainingCredit }}</span>
                 }@else{
                 <span>0</span>
-                }
+                }</span>
+                <span class="icon icon-sort-down text-[8px]"></span>
               </button>
-
 
               @if(creditSystem?.haveTokenAccess &&
               creditSystem?.tokenStatus?.toLowerCase() == "approved" ){
-              <!-- has credit -->
-              <!-- <div ngbDropdownMenu aria-labelledby="creditdrp" class="creditbg">
+              <div *ngIf="activeDropdown === 'credit'" class="absolute left-1/2 transform -translate-x-1/2 mt-2 w-[200px] bg-white rounded-md shadow-lg border border-gray-200 z-50">
                 <div class="p-1">
-                  <div class="d-flex gap-2 align-items-center">
-                    <img src="../../../assets/images/credit-system.svg" alt="" />
-                    <div class="d-flex flex-column gap-1">
+                  <div class="flex gap-2 items-center">
+                    <img src="../../../assets/images/credit-system.svg" alt="" class="h-[35px]" />
+                    <div class="flex flex-col gap-1">
                       <div>
-                        <h3 class="crdtitle">Available Credit</h3>
-                        <p class="crdamount">{{creditSystem?.RemainingCredit}}/{{creditSystem?.TotalCredit}}</p>
-                      </div>
-                      <div>
-                        <h3 class="crdtitle">Validity</h3>
-                        @if(isNotCreditExpired){
-                        <p class="crdamount">{{gatewayDataSharingService.formatDate(creditSystem?.ValidityDate??'')}}
-                        </p>
-                        }@else {
-                        <p class="crdamount text-danger">Expired</p>
-                        }
-
-                      </div>
-                    </div>
-                  </div>
-                  <hr />
-                  <div class="text-center">
-                    <button type="button" class="btn btn-primary" (click)="navigateToCreditSystem()">Credit Overview
-                      <span class="icon-right-arrow-big"></span>
-                    </button>
-                  </div>
-                </div>
-              </div> -->
-              <div ngbDropdownMenu aria-labelledby="creditdrp" class="creditbg">
-                <div class="p-1">
-                  <div class="d-flex gap-2 align-items-center">
-                    <img src="../../../assets/images/credit-system.svg" alt="" style="height: 35px;" />
-                    <div class="d-flex flex-column gap-1">
-                      <div>
-                        <h3 class="crdtitle">Available Credit</h3>
-                        <p class="crdamount">
+                        <h3 class="text-xs font-medium text-gray-700">Available Credit</h3>
+                        <p class="text-xs font-bold text-[#0e73a9]">
                           {{ creditSystem?.remainingCredit }}/{{
                           creditSystem?.totalCredit
                           }}
                         </p>
                       </div>
                       <div>
-                        <h3 class="crdtitle">Validity</h3>
+                        <h3 class="text-xs font-medium text-gray-700">Validity</h3>
                         @if(isNotCreditExpired){
-                        <p class="crdamount">
+                        <p class="text-xs font-bold text-[#0e73a9]">
                           {{
                           gatewayDataSharingService.formatDate(creditSystem?.validityDate??'')
                           }}
                         </p>
                         }@else {
-                        <p class="crdamount text-danger">Expired</p>
+                        <p class="text-xs font-bold text-red-500">Expired</p>
                         }
                       </div>
                     </div>
                   </div>
-                  <hr />
+                  <hr class="my-2" />
                   <div class="text-center">
-                    <button type="button" class="btn btn-primary credbtn" (click)="navigateToCreditSystem()"
-                      style="font-size: 13px;">
-                      <span class="crdt_overview me-1">Credit Overview</span> <span
-                        class="icon-right-arrow-big crdt_overview"></span>
+                    <button type="button" class="bg-[#0e73a9] text-white px-4 py-2 rounded text-sm flex items-center justify-center gap-1 cursor-pointer hover:bg-[#0e73a9] hover:text-white active:bg-[#0e73a9] active:text-white" (click)="navigateToCreditSystem()">
+                      <span class="text-white">Credit Overview</span>
+                      <span class="icon-right-arrow-big text-white"></span>
                     </button>
                   </div>
                 </div>
               </div>
               }@else{
-
-              <!-- no credit -->
-              <!-- <div ngbDropdownMenu aria-labelledby="creditdrp" class="creditbg">
+              <div *ngIf="activeDropdown === 'credit'" class="absolute left-1/2 transform -translate-x-1/2 mt-2 w-[200px] bg-white rounded-md shadow-lg border border-gray-200 z-50">
                 <div class="p-1">
-                  <div class="d-flex flex-column align-items-center justify-content-center">
+                  <div class="flex flex-col items-center justify-center">
                     <img src="../../../assets/images/empty-credit.svg" alt="" />
-                    <p class="mb-0 mt-2">You have no credit</p>
+                    <p class="mt-2 mb-0">You have no credit</p>
                   </div>
-                  <hr />
-
-                  <div class="text-center">
-                    @if(creditSystem?.TokenStatus?.toLowerCase()=="pending" && creditSystem?.TokenSubmitted == true){
-                    <button type="button" class="btn btn-primary" (click)="openPendingModal()">
-                      Add Credit
-                    </button>
-                    }@else if(creditSystem?.TokenStatus?.toLowerCase() == "rejected"){
-                    <button type="button" class="btn btn-primary" (click)="openRejectedModal()">
-                      Add Credit
-                    </button>
-                    }@else {
-                    <button type="button" class="btn btn-primary" (click)="openModal(modalRef)">
-                      Add Credit
-                    </button>
-                    }
-
-
-                  </div>
-                </div>
-              </div> -->
-              <div ngbDropdownMenu aria-labelledby="creditdrp" class="creditbg">
-                <div class="p-1">
-                  <div class="d-flex flex-column align-items-center justify-content-center">
-                    <img src="../../../assets/images/empty-credit.svg" alt="" />
-                    <p class="mb-0 mt-2">You have no credit</p>
-                  </div>
-                  <hr />
+                  <hr class="my-2" />
 
                   <div class="text-center">
                     @if(creditSystem?.tokenStatus?.toLowerCase()=="pending" &&
                     creditSystem?.tokenSubmitted == true){
-                    <button type="button" class="btn btn-primary" (click)="openPendingModal()">
+                    <button type="button" class="text-white bg-[#0e73a9] hover:bg-[#165273] px-4 py-2 rounded" (click)="openPendingModal()">
                       Add Credit
                     </button>
                     }@else if(creditSystem?.tokenStatus?.toLowerCase() ==
                     "rejected"){
-                    <button type="button" class="btn btn-primary" (click)="openRejectedModal()">
+                    <button type="button" class="text-white bg-[#0e73a9] hover:bg-[#165273] px-4 py-2 rounded" (click)="openRejectedModal()">
                       Add Credit
                     </button>
                     }@else {
-                    <button type="button" class="btn btn-primary" (click)="openModal(modalRef)">
+                    <button type="button" class="text-white bg-[#0e73a9] hover:bg-[#165273] px-4 py-2 rounded" (click)="openModal(modalRef)">
                       Add Credit
                     </button>
                     }
@@ -369,64 +295,50 @@
 
         <!-- notification  -->
         @if (false) {
-        <div class="row ">
-          <div class="col">
-            <div ngbDropdown class="d-inline-block notify_drpdwn">
-              <button type="button" class="btn text-primary" id="creditdrp" ngbDropdownToggle>
-                <img class="control-bar-icon" src="assets/images/bell-fill.svg" class="notify_bell" />
+        <div class="flex">
+          <div class="w-full">
+            <div class="inline-block relative">
+              <button type="button" class="text-primary" id="creditdrp" ngbDropdownToggle>
+                <img class="w-6 h-6" src="assets/images/bell-fill.svg" alt="notify_bell" />
               </button>
 
-              <div ngbDropdownMenu aria-labelledby="creditdrp" class="circle-progress-dropdown notify_width">
-                <div class="">
-                  <div class="px-3 pb-3 pt-2 notify_header">
+              <div ngbDropdownMenu aria-labelledby="creditdrp" class="absolute right-0 mt-2 w-80 bg-white rounded-md shadow-lg border border-gray-200 z-50">
+                <div>
+                  <div class="px-3 pb-3 pt-2 border-b border-gray-200">
                     <span>Notification</span>
                   </div>
-                  <div class="notify_body">
-                    <div class="ntfPc  new_notify">
-
-                      <div class="notify-icon new_active">
-                        <span class="icon-comments icBlue"></span>
+                  <div class="max-h-96 overflow-y-auto">
+                    <div class="flex items-start p-3 hover:bg-gray-50 border-b border-gray-100">
+                      <div class="flex-shrink-0">
+                        <span class="text-blue-500 icon-comments"></span>
                       </div>
-
-                      <div class="red_dot"></div>
-
-                      <div class="notify_dtls">
-                        <div>
-                          <h5 class="notify_title">10 New Messages</h5>
-
-                          <div class="ntfDtls"><span>You got 10 new message form the
-                              candidates of
-                              your 'Deputy Manager
-                              of Human Resources Department' job.</span>
+                      <div class="ml-3 flex-1">
+                        <div class="relative">
+                          <div class="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></div>
+                          <h5 class="text-sm font-medium">10 New Messages</h5>
+                          <div class="text-sm text-gray-600">
+                            <span>You got 10 new message form the candidates of your 'Deputy Manager of Human Resources Department' job.</span>
                           </div>
-                          <span class="ntfTime">30 mins ago</span>
+                          <span class="text-xs text-gray-500">30 mins ago</span>
                         </div>
                       </div>
-
                     </div>
 
-                    <div class="ntfPc ">
-
-                      <div class="notify-icon">
-                        <span class="icon-briefcase icGreen"></span>
+                    <div class="flex items-start p-3 hover:bg-gray-50 border-b border-gray-100">
+                      <div class="flex-shrink-0">
+                        <span class="text-green-500 icon-briefcase"></span>
                       </div>
-
-                      <div class="notify_dtls">
-                        <h5 class="notify_title">Payment is pending</h5>
-
-                        <div class="ntfDtls"><span>You got 10 new message form the
-                            candidates of
-                            your 'Deputy Manager
-                            of Human Resources Department' job.</span>
+                      <div class="ml-3 flex-1">
+                        <h5 class="text-sm font-medium">Payment is pending</h5>
+                        <div class="text-sm text-gray-600">
+                          <span>You got 10 new message form the candidates of your 'Deputy Manager of Human Resources Department' job.</span>
                         </div>
-
-                        <a href="#" class="another_link"><span>pay Now</span><span
-                            class="icon-right-arrow-big"></span></a>
-
-                        <span class="ntfTime">30 mins ago</span>
-
+                        <a href="#" class="inline-flex items-center text-sm text-primary hover:text-primary-dark">
+                          <span>pay Now</span>
+                          <span class="icon-right-arrow-big ml-1"></span>
+                        </a>
+                        <span class="block text-xs text-gray-500">30 mins ago</span>
                       </div>
-
                     </div>
                   </div>
                 </div>
@@ -438,72 +350,62 @@
 
         <!-- <img class="control-bar-icon" src="assets/images/envelope.svg" />  -->
 
-        <div class="row d-none d-lg-block">
-          <div class="col">
-            <div ngbDropdown class="d-inline-block compdrp">
-              <button type="button" class="btn text-primary cmpbtn" id="dropdownBasic1" ngbDropdownToggle>
-                <div class="d-inline-block company-profile-image">
-                  <img [src]="companyLogoURL" />
+        <div class="hidden lg:block">
+          <div class="flex items-center">
+            <div class="relative inline-block">
+              <button type="button" class="text-primary px-2 py-1.5 flex items-center gap-1.5 hover:bg-gray-100 rounded" (click)="toggleDropdown('company')">
+                <div class="inline-block w-8 h-8 rounded-full border border-[#0e73a9]">
+                  <img [src]="companyLogoURL" class="w-full h-full rounded-full" />
                 </div>
-                <span class="text-trucate d-inline-block">{{ truncateText(companyName) }}</span>
+                <span class="truncate inline-block">{{ truncateText(companyName) }}</span>
+                <span class="icon icon-sort-down text-[8px]"></span>
               </button>
-              <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="circle-progress-dropdown ul_payment">
-                <a class="btn btn-dropdown-menu payment_link"
-                  href="https://corporate3.bdjobs.com/Billings.asp?from=recruiter" ngbDropdownItem><span
-                    class="icon-taka itaka"></span>
-                  <span class="icolor">Billings</span></a>
-                <a class="btn btn-dropdown-menu payment_link"
-                  href="https://corporate3.bdjobs.com/ServiceHistory.asp?from=recruiter" ngbDropdownItem><span
-                    class="icon-service-list"></span>
-                  <span class="icolor">Subscribed Services</span></a>
-                <a class="btn btn-dropdown-menu payment_link"
-                  href="https://corporate3.bdjobs.com/corporate_editaccount.asp?from=recruiter" ngbDropdownItem><span
-                    class="icon-edit"></span>
-                  <span class="icolor">Edit Account</span></a>
-                <!-- <a class="btn btn-dropdown-menu payment_link"
-                  href="https://Corporate3.bdjobs.com/MessageToApplicant/Message_Default.asp" ngbDropdownItem><span
-                    class="icon-com"></span>
-                  <span class="icolor">Communication</span></a> -->
-                  <a class="btn btn-dropdown-menu payment_link"
-                  href="https://recruiter.bdjobs.com/communication" ngbDropdownItem><span
-                    class="icon-com"></span>
-                  <span class="icolor">Communication</span></a>
-                <a class="btn btn-dropdown-menu payment_link"
-                  href="https://corporate3.bdjobs.com/support.asp?from=recruiter" ngbDropdownItem><span
-                    class="icon-help"></span>
-                  <span class="icolor">Support </span></a>
-                <a class="btn btn-dropdown-menu payment_link"
-                  href="https://corporate3.bdjobs.com/CompanyUserManagementSetting.asp?from=recruiter"
-                  ngbDropdownItem><span class="icon-cog"></span>
-                  <span class="icolor">Settings</span></a>
-                <div class="dropdown-divider"></div>
+              <div *ngIf="activeDropdown === 'company'" class="absolute left-1/2 transform -translate-x-1/2 mt-2 w-[200px] bg-white rounded-md shadow-lg border border-gray-200 z-50">
+                <a href="https://corporate3.bdjobs.com/Billings.asp?from=recruiter">
+                  <span class="icon-taka"></span>
+                  <span>Billings</span>
+                </a>
+                <a href="https://corporate3.bdjobs.com/ServiceHistory.asp?from=recruiter">
+                  <span class="icon-service-list"></span>
+                  <span>Subscribed Services</span>
+                </a>
+                <a href="https://corporate3.bdjobs.com/corporate_editaccount.asp?from=recruiter">
+                  <span class="icon-edit"></span>
+                  <span>Edit Account</span>
+                </a>
+                <a href="https://recruiter.bdjobs.com/communication">
+                  <span class="icon-com"></span>
+                  <span>Communication</span>
+                </a>
+                <a href="https://corporate3.bdjobs.com/support.asp?from=recruiter">
+                  <span class="icon-help"></span>
+                  <span>Support</span>
+                </a>
+                <a href="https://corporate3.bdjobs.com/CompanyUserManagementSetting.asp?from=recruiter">
+                  <span class="icon-cog"></span>
+                  <span>Settings</span>
+                </a>
+                <div class="border-t border-gray-200"></div>
                 @if (isAdminUser) {
-                <a class="btn btn-dropdown-menu payment_link"
-                  href="https://corporate3.bdjobs.com/loginInfo.asp?from=recruiter" ngbDropdownItem><span
-                    class="icon-lock-reset"></span>
-                  <span class="icolor">Change Password</span></a>
-                <a class="btn btn-dropdown-menu payment_link"
-                  href="https://corporate3.bdjobs.com/CompanyUserManagement.asp?from=recruiter" ngbDropdownItem><span
-                    class="icon-user-cog"></span>
-                  <span class="icolor">User
-                    Management</span></a>
+                <a href="https://corporate3.bdjobs.com/loginInfo.asp?from=recruiter">
+                  <span class="icon-lock-reset"></span>
+                  <span>Change Password</span>
+                </a>
+                <a href="https://corporate3.bdjobs.com/CompanyUserManagement.asp?from=recruiter">
+                  <span class="icon-user-cog"></span>
+                  <span>User Management</span>
+                </a>
                 } @else{
-                <a class="btn btn-dropdown-menu payment_link"
-                  href="https://corporate3.bdjobs.com/CompanyUserManagement.asp?from=recruiter" ngbDropdownItem><span
-                    class="icon-user-cog"></span>
-                  <span class="icolor">User Settings</span></a>
+                <a href="https://corporate3.bdjobs.com/CompanyUserManagement.asp?from=recruiter">
+                  <span class="icon-user-cog"></span>
+                  <span>User Settings</span>
+                </a>
                 }
-                <div class="dropdown-divider"></div>
-
-                <a class="btn btn-dropdown-menu payment_link" href="https://Corporate3.bdjobs.com/logout.asp"
-                (click)="onClickSignOut()"
-                  ngbDropdownItem><span class="icon-sign-off"></span>
-                  <span class="icolor">Sign Out</span></a>
-
-                <!-- <button ngbDropdownItem (click)="onClickSignOut()">
+                <div class="border-t border-gray-200"></div>
+                <a href="https://Corporate3.bdjobs.com/logout.asp" (click)="onClickSignOut()">
                   <span class="icon-sign-off"></span>
-                  <span class="icolor">Sign Out</span>
-                </button> -->
+                  <span>Sign Out</span>
+                </a>
               </div>
             </div>
           </div>
@@ -511,7 +413,7 @@
 
 
 
-        <button type="button" (click)="sidebarShow()" class="side_btn d-lg-none" id="menubtn">
+        <button type="button" (click)="sidebarShow()" class="lg:hidden p-2 hover:bg-gray-100 rounded" id="menubtn">
           ☰
         </button>
       </div>
@@ -519,66 +421,83 @@
   </div>
 </div>
 @if(isSidebar){
-<div [ngClass]="{'active': isSidebar}" class="sidebar_panel d-lg-none">
+<div [ngClass]="{'active': isSidebar}" class="fixed inset-y-0 right-0 w-64 bg-white shadow-lg lg:hidden">
 
-  <button class="close_sidebar_btn" id="cancel" (click)="sidebarClose()">
-    <span class="icon-times-o itcancel"></span>
-    <span> CLOSE</span>
+  <button class="flex items-center px-4 py-2 text-primary hover:bg-gray-100" id="cancel" (click)="sidebarClose()">
+    <span class="icon-times-o"></span>
+    <span class="ml-2">CLOSE</span>
   </button>
 
-  <hr>
-
+  <hr class="border-gray-200">
 
   <div ngbAccordion [closeOthers]="true">
-    <div ngbAccordionItem [collapsed]="false">
+    <div ngbAccordionItem [collapsed]="false" (shown)="onFirstAccordionChange(true)" (hidden)="onFirstAccordionChange(false)">
       <h2 ngbAccordionHeader>
-        <button ngbAccordionButton>
-          <div class="d-flex align-items-center justify-content-center">
-            <div class="header_com_logo">
-
-              <img class="com_img" [src]="companyLogoURL" alt="User photo">
-
+        <button ngbAccordionButton class="w-full">
+          <div class="flex items-center justify-center">
+            <div class="w-10 h-10 rounded-full border border-[#0e73a9]">
+              <img class="w-full h-full rounded-full" [src]="companyLogoURL" alt="User photo">
             </div>
-            <span class="acc-name">{{ truncateText(companyName) }}</span>
-            <span class="caret bar_text_top"></span>
+            <span class="ml-2">{{ truncateText(companyName) }}</span>
+            <span class="caret ml-2"></span>
           </div>
         </button>
       </h2>
       <div ngbAccordionCollapse>
-
         <div ngbAccordionBody>
           <ng-template>
             <div>
-              <ul class="ul_payment">
-                <li><a href="https://Corporate3.bdjobs.com/Billings.asp" class="payment_link"><span
-                      class="icon-taka itaka"></span>
-                    <span class="icolor">Billings</span></a></li>
-                <li><a href="https://Corporate3.bdjobs.com/ServiceHistory.asp" class="payment_link"><span
-                      class="icon-service-list"></span>
-                    <span class="icolor">Subscribed Services</span></a></li>
-                <li><a href="https://Corporate3.bdjobs.com/corporate_editaccount.asp" class="payment_link"><span
-                      class="icon-edit"></span>
-                    <span class="icolor">Edit Account</span></a></li>
-                <!-- <li><a href="https://Corporate3.bdjobs.com/MessageToApplicant/Message_Default.asp"
-                    class="payment_link"><span class="icon-com"></span>
-                    <span class="icolor">Communication</span></a></li> -->
-                    <li><a href="https://recruiter.bdjobs.com/communication"
-                      class="payment_link"><span class="icon-com"></span>
-                      <span class="icolor">Communication</span></a></li>
-                <li><a href="https://Corporate3.bdjobs.com/support.asp" class="payment_link"><span
-                      class="icon-help"></span>
-                    <span class="icolor">Support </span></a></li>
-                <li><a href="https://Corporate3.bdjobs.com/CompanyUserManagementSetting.asp" class="payment_link"><span
-                      class="icon-cog"></span>
-                    <span class="icolor">Settings </span></a></li>
+              <ul class="space-y-2">
+                <li>
+                  <a href="https://Corporate3.bdjobs.com/Billings.asp" class="flex items-center px-4 py-2 text-primary hover:bg-gray-100">
+                    <span class="icon-taka text-[#337ab7]"></span>
+                    <span class="ml-2.5">Billings</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://Corporate3.bdjobs.com/ServiceHistory.asp" class="flex items-center px-4 py-2 text-primary hover:bg-gray-100">
+                    <span class="icon-service-list text-[#337ab7]"></span>
+                    <span class="ml-2.5">Subscribed Services</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://Corporate3.bdjobs.com/corporate_editaccount.asp" class="flex items-center px-4 py-2 text-primary hover:bg-gray-100">
+                    <span class="icon-edit"></span>
+                    <span class="ml-2.5">Edit Account</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://recruiter.bdjobs.com/communication" class="flex items-center px-4 py-2 text-primary hover:bg-gray-100">
+                    <span class="icon-com"></span>
+                    <span class="ml-2.5">Communication</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://Corporate3.bdjobs.com/support.asp" class="flex items-center px-4 py-2 text-primary hover:bg-gray-100">
+                    <span class="icon-help"></span>
+                    <span class="ml-2.5">Support</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://Corporate3.bdjobs.com/CompanyUserManagementSetting.asp" class="flex items-center px-4 py-2 text-primary hover:bg-gray-100">
+                    <span class="icon-cog"></span>
+                    <span class="ml-2.5">Settings</span>
+                  </a>
+                </li>
                 <hr>
-                <li><a href="https://Corporate3.bdjobs.com/CompanyUserManagement.asp" class="payment_link"><span
-                      class="icon-lock-reset"></span>
-                    <span class="icolor">Change Password</span></a></li>
+                <li>
+                  <a href="https://Corporate3.bdjobs.com/CompanyUserManagement.asp" class="flex items-center px-4 py-2 text-primary hover:bg-gray-100">
+                    <span class="icon-lock-reset"></span>
+                    <span class="ml-2.5">Change Password</span>
+                  </a>
+                </li>
                 <hr>
-                <li><a href="https://Corporate3.bdjobs.com/logout.asp" class="payment_link"><span
-                      class="icon-sign-off"></span>
-                    <span class="icolor">Sign Out</span></a></li>
+                <li>
+                  <a href="https://Corporate3.bdjobs.com/logout.asp" class="flex items-center px-4 py-2 text-primary hover:bg-gray-100">
+                    <span class="icon-sign-off"></span>
+                    <span class="ml-2.5">Sign Out</span>
+                  </a>
+                </li>
               </ul>
             </div>
           </ng-template>
@@ -586,198 +505,119 @@
       </div>
     </div>
 
-    <div ngbAccordionItem class="px-3">
-      <h2 ngbAccordionHeader class="acc_border">
-        <button ngbAccordionButton class="px-0 bar_text">
-          <div>Credit :
-            @if (isNotCreditExpired) {
-            <span>{{ creditSystem?.remainingCredit }}</span>
-            }@else{
-            <span>0</span>
-            }
+    <div ngbAccordionItem [collapsed]="true" (shown)="onSecondAccordionChange(true)" (hidden)="onSecondAccordionChange(false)">
+      <h2 ngbAccordionHeader>
+        <button ngbAccordionButton class="w-full">
+          <div class="flex items-center justify-center">
+            <div class="w-10 h-10 rounded-full border border-[#0e73a9]">
+              <img class="w-full h-full rounded-full" [src]="companyLogoURL" alt="User photo">
+            </div>
+            <span class="ml-2">Credit</span>
+            <span class="transform transition-transform duration-200 ml-2" [class.rotate-180]="!isSecondOpen">
+              <span class="icon-sort-down text-[8px]"></span>
+            </span>
           </div>
         </button>
       </h2>
       <div ngbAccordionCollapse>
-        <div ngbAccordionBody class="px-0">
+        <div ngbAccordionBody>
           <ng-template>
-            <div class="p-0">
-              <div class="d-flex gap-2 align-items-center py-4 px-2">
-                <img src="../../../assets/images/credit-system.svg" alt="" style="height: 35px;" />
-                <div class="d-flex flex-column gap-1">
                   <div>
-                    <h3 class="crdtitle">Available Credit</h3>
-                    <p class="crdamount">
-                      {{ creditSystem?.remainingCredit }}/{{
-                      creditSystem?.totalCredit
-                      }}
-                    </p>
-                  </div>
-                  <div>
-                    <h3 class="crdtitle">Validity</h3>
-                    @if(isNotCreditExpired){
-                    <p class="crdamount">
-                      {{
-                      gatewayDataSharingService.formatDate(creditSystem?.validityDate??'')
-                      }}
-                    </p>
-                    }@else {
-                    <p class="crdamount text-danger">Expired</p>
-                    }
-                  </div>
-                </div>
-              </div>
-              <hr />
-              <div class="text-center pb-3">
-                <button type="button" class="btn credbtn" (click)="navigateToCreditSystem()" style="font-size: 13px;">
-                  Credit Overview <span class="icon-right-arrow-big"></span>
-                </button>
-              </div>
+              <ul class="space-y-2">
+                <li>
+                  <a href="https://Corporate3.bdjobs.com/Billings.asp" class="flex items-center px-4 py-2 text-primary hover:bg-gray-100">
+                    <span class="icon-taka text-[#337ab7]"></span>
+                    <span class="ml-2.5">Billings</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://Corporate3.bdjobs.com/ServiceHistory.asp" class="flex items-center px-4 py-2 text-primary hover:bg-gray-100">
+                    <span class="icon-service-list text-[#337ab7]"></span>
+                    <span class="ml-2.5">Subscribed Services</span>
+                  </a>
+                </li>
+              </ul>
             </div>
-          </ng-template>
-        </div>
-      </div>
-    </div>
-    <div ngbAccordionItem class="px-3">
-      <h2 ngbAccordionHeader class="acc_border">
-        <button ngbAccordionButton class="px-0 bar_text">
-          Job Posting
-        </button>
-      </h2>
-      <div ngbAccordionCollapse>
-        <div ngbAccordionBody class="px-0">
-          <ng-template>
-            <div class="d-flex p-2 package-dropdown-menu">
-              <div class=" dropdown-menu-progress-section">
-                <div class="d-inline-block control-bar-circular-progress cvprogress">
-                  <app-circular-progress
-                    [value]="jobPostingAccessPercentage"
-                    [pathColor]="'#0e73a9'"
-                    [textColor]="'#0e73a9'"
-                    [strokeWidth]="10"
-                    size="100%"
-                  ></app-circular-progress>
-                </div>
-              </div>
-              <div class="d-flex flex-column dropdown-menu-details-section">
-                <div>
-                  <div class="package-title">Standard Listing</div>
-                  <div class="package-status">
-                    {{ remainingBasicJobs }}/{{ maxBasicJobs }}
-                  </div>
-                </div>
-                <div>
-                  <div class="package-title">Premium Listing</div>
-                  <div class="package-status">
-                    {{ remainingStandoutJobs }}/{{ maxStandoutJobs }}
-                  </div>
-                </div>
-                <div>
-                  <div class="package-title">Premium Plus</div>
-                  <div class="package-status">
-                    {{ remainingStandoutPremiumJobs }}/{{
-                    maxStandoutPremiumJobs
-                    }}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <hr>
-            <a class="btn text-primary text-center pb-3"
-              href="https://corporate3.bdjobs.com/ServiceHistory.asp?from=recruiter" ngbDropdownItem>View
-              Packages
-              <img src="assets/images/arrow-right.svg" class="dropdown-menu-icon" /></a>
-          </ng-template>
-        </div>
-      </div>
-    </div>
-    <div ngbAccordionItem class="px-3">
-      <h2 ngbAccordionHeader class="acc_border">
-        <button ngbAccordionButton class="px-0 bar_text">
-          SMS
-        </button>
-      </h2>
-      <div ngbAccordionCollapse>
-        <div ngbAccordionBody class="px-0">
-          <ng-template>
-            <div class="d-flex p-2 package-dropdown-menu">
-              <div class=" dropdown-menu-progress-section">
-                <div class="d-inline-block control-bar-circular-progress cvprogress">
-                  <app-circular-progress
-                    [value]="smsPackagePercentage"
-                    [pathColor]="'#0e73a9'"
-                    [textColor]="'#0e73a9'"
-                    [strokeWidth]="10"
-                    size="37px"
-                  ></app-circular-progress>
-                </div>
-              </div>
-              <div class="d-flex flex-column dropdown-menu-details-section">
-                <div>
-                  <div class="package-title">Available SMS</div>
-                  <div class="package-status">
-                    {{ remainingCV }}/{{ maxCV }}
-                  </div>
-                </div>
-                <div>
-                  <div class="package-title">Send SMS</div>
-                  <div class="package-status">{{ viewedCV }}</div>
-                </div>
-              </div>
-            </div>
-            <hr>
-            <a class="btn text-primary text-center pb-3"
-              href="https://corporate3.bdjobs.com/ServiceHistory.asp?from=recruiter" ngbDropdownItem>View
-              Packages
-              <img src="assets/images/arrow-right.svg" class="dropdown-menu-icon" /></a>
-          </ng-template>
-        </div>
-      </div>
-    </div>
-    <div ngbAccordionItem class="px-3">
-      <h2 ngbAccordionHeader class="acc_border">
-        <button ngbAccordionButton class="px-0 bar_text">
-          Talent Search
-        </button>
-      </h2>
-      <div ngbAccordionCollapse>
-        <div ngbAccordionBody class="px-0">
-          <ng-template>
-            <div class="d-flex p-2 package-dropdown-menu">
-              <div class=" dropdown-menu-progress-section">
-                <div class="d-inline-block control-bar-circular-progress cvprogress">
-                  <app-circular-progress
-                    [value]="cvBankPercentage"
-                    [pathColor]="'#A65108'"
-                    [textColor]="'#A65108'"
-                    [strokeWidth]="10"
-                    size="100%"
-                  ></app-circular-progress>
-                </div>
-              </div>
-              <div class="d-flex flex-column dropdown-menu-details-section">
-                <div>
-                  <div class="package-title">Available CVs</div>
-                  <div class="package-status brown">
-                    {{ remainingCV }}/{{ maxCV }}
-                  </div>
-                </div>
-                <div>
-                  <div class="package-title">Viewed CVs</div>
-                  <div class="package-status brown">{{ viewedCV }}</div>
-                </div>
-              </div>
-            </div>
-            <hr>
-            <a class="btn text-primary text-center pb-3"
-              href="https://corporate3.bdjobs.com/ServiceHistory.asp?from=recruiter" ngbDropdownItem>View
-              Packages
-              <img src="assets/images/arrow-right.svg" class="dropdown-menu-icon" /></a>
           </ng-template>
         </div>
       </div>
     </div>
 
+    <div ngbAccordionItem [collapsed]="true" (shown)="onThirdAccordionChange(true)" (hidden)="onThirdAccordionChange(false)">
+      <h2 ngbAccordionHeader>
+        <button ngbAccordionButton class="w-full">
+          <div class="flex items-center justify-center">
+            <div class="w-10 h-10 rounded-full border border-[#0e73a9]">
+              <img class="w-full h-full rounded-full" [src]="companyLogoURL" alt="User photo">
+            </div>
+            <span class="ml-2">Job Posting</span>
+            <span class="transform transition-transform duration-200 ml-2" [class.rotate-180]="!isThirdOpen">
+              <span class="icon-sort-down text-[8px]"></span>
+            </span>
+          </div>
+        </button>
+      </h2>
+      <div ngbAccordionCollapse>
+        <div ngbAccordionBody>
+          <ng-template>
+                <div>
+              <ul class="space-y-2">
+                <li>
+                  <a href="https://recruiter.bdjobs.com/job-posting" class="flex items-center px-4 py-2 text-primary hover:bg-gray-100">
+                    <span class="icon-job-posting"></span>
+                    <span class="ml-2.5">Post a Job</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://recruiter.bdjobs.com/job-list" class="flex items-center px-4 py-2 text-primary hover:bg-gray-100">
+                    <span class="icon-job-list"></span>
+                    <span class="ml-2.5">Job List</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+
+    <div ngbAccordionItem [collapsed]="true" (shown)="onFourthAccordionChange(true)" (hidden)="onFourthAccordionChange(false)">
+      <h2 ngbAccordionHeader>
+        <button ngbAccordionButton class="w-full">
+          <div class="flex items-center justify-center">
+            <div class="w-10 h-10 rounded-full border border-[#0e73a9]">
+              <img class="w-full h-full rounded-full" [src]="companyLogoURL" alt="User photo">
+            </div>
+            <span class="ml-2">Other Features</span>
+            <span class="transform transition-transform duration-200 ml-2" [class.rotate-180]="!isFourthOpen">
+              <span class="icon-sort-down text-[8px]"></span>
+            </span>
+    </div>
+        </button>
+      </h2>
+      <div ngbAccordionCollapse>
+        <div ngbAccordionBody>
+          <ng-template>
+                <div>
+              <ul class="space-y-2">
+                <li>
+                  <a href="https://recruiter.bdjobs.com/resume-search" class="flex items-center px-4 py-2 text-primary hover:bg-gray-100">
+                    <span class="icon-resume-search"></span>
+                    <span class="ml-2.5">Resume Search</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://recruiter.bdjobs.com/company-profile" class="flex items-center px-4 py-2 text-primary hover:bg-gray-100">
+                    <span class="icon-company-profile"></span>
+                    <span class="ml-2.5">Company Profile</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
   </div>
 
 </div>
@@ -785,34 +625,40 @@
 
 
 <ng-template #modalRef let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+  <div class="flex justify-end p-4">
+    <button type="button" class="text-gray-500 hover:text-gray-700" aria-label="Close" (click)="d('Cross click')">
+      <span class="icon-times"></span>
+    </button>
   </div>
-  <div class="modal-body">
+  <div class="p-4">
     <div class="container mb-4">
       <app-credit-redeem></app-credit-redeem>
     </div>
   </div>
 </ng-template>
 <!-- pending modal -->
-<!-- <ng-template #pendingModal let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+<ng-template #pendingModal let-c="close" let-d="dismiss">
+  <div class="flex justify-end p-4">
+    <button type="button" class="text-gray-500 hover:text-gray-700" aria-label="Close" (click)="d('Cross click')">
+      <span class="icon-times"></span>
+    </button>
   </div>
-  <div class="modal-body">
+  <div class="p-4">
     <div class="container mb-4">
       <app-credit-pending></app-credit-pending>
     </div>
   </div>
-</ng-template> -->
+</ng-template>
 <!-- rejected modal -->
-<!-- <ng-template #rejectedModal let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+<ng-template #rejectedModal let-c="close" let-d="dismiss">
+  <div class="flex justify-end p-4">
+    <button type="button" class="text-gray-500 hover:text-gray-700" aria-label="Close" (click)="d('Cross click')">
+      <span class="icon-times"></span>
+    </button>
   </div>
-  <div class="modal-body">
+  <div class="p-4">
     <div class="container mb-4">
       <app-credit-rejected></app-credit-rejected>
     </div>
   </div>
-</ng-template> -->
+</ng-template>

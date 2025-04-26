@@ -14,6 +14,65 @@
     margin-left: 0.3rem;
     margin-right: 0.3rem;
   }
+
+  .relative.inline-block {
+    .absolute {
+      border: 1px solid #d0d1d3 !important;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      top: 100% !important;
+      margin-top: 0.25rem !important;
+      
+      a {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 0.75rem;
+        color: #0e73a9;
+        transition: all 0.2s ease;
+        white-space: nowrap;
+        
+        &:hover {
+          background-color: #165273 !important;
+          color: white !important;
+          
+          span, 
+          .icon-taka,
+          .icon-service-list,
+          .icon-edit,
+          .icon-com,
+          .icon-help,
+          .icon-cog,
+          .icon-lock-reset,
+          .icon-user-cog,
+          .icon-sign-off {
+            color: white !important;
+          }
+        }
+
+        span {
+          margin-left: 0.5rem;
+        }
+
+        .icon-taka,
+        .icon-service-list,
+        .icon-edit,
+        .icon-com,
+        .icon-help,
+        .icon-cog,
+        .icon-lock-reset,
+        .icon-user-cog,
+        .icon-sign-off {
+          color: #337ab7;
+          margin-right: 0.25rem;
+        }
+      }
+    }
+
+    button {
+      &:hover {
+        background-color: transparent !important;
+      }
+    }
+  }
 }
 
 .activity-nav {
@@ -472,9 +531,123 @@
 
 .credbtn {
   color: #0E73A9;
+  &:hover {
+    background-color: #0E73A9 !important;
+    color: #fff !important;
+  }
 }
+
 .crdt_overview {
   color: #fff;
+}
+
+.credit-overview-btn {
+  background-color: #0e73a9 !important;
+  color: white !important;
+  transition: none !important;
+  cursor: pointer !important;
+  
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: #0e73a9 !important;
+    color: white !important;
+    transform: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+  }
+}
+
+// Target all View Packages links with more specific selectors
+.relative.inline-block .absolute a[href*="ServiceHistory.asp"],
+.relative.inline-block .absolute a.btn.text-primary[href*="ServiceHistory.asp"],
+.relative.inline-block .absolute a.flex.items-center[href*="ServiceHistory.asp"] {
+  background-color: white !important;
+  color: #0e73a9 !important;
+  transition: none !important;
+  cursor: pointer !important;
+  
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    background-color: white !important;
+    color: #0e73a9 !important;
+    transform: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    text-decoration: none !important;
+  }
+}
+
+// Remove hover effect from the button class used in View Packages
+.btn.text-primary {
+  &:hover {
+    background-color: white !important;
+    color: #0e73a9 !important;
+  }
+  
+  &:focus {
+    background-color: white !important;
+    color: #0e73a9 !important;
+    box-shadow: none !important;
+    outline: none !important;
+  }
+}
+
+// Remove hover effect from the credbtn class used in Credit Overview
+.credbtn {
+  color: #0E73A9;
+  &:hover {
+    background-color: #0E73A9 !important;
+    color: #fff !important;
+  }
+  
+  &:focus {
+    background-color: #0E73A9 !important;
+    color: #fff !important;
+    box-shadow: none !important;
+    outline: none !important;
+  }
+}
+
+// Override any other hover effects that might be applied
+.relative.inline-block {
+  .absolute {
+    a {
+      &:hover {
+        &.no-hover {
+          background-color: white !important;
+          color: #0e73a9 !important;
+        }
+      }
+      
+      &:focus {
+        &.no-hover {
+          background-color: white !important;
+          color: #0e73a9 !important;
+          box-shadow: none !important;
+          outline: none !important;
+        }
+      }
+    }
+  }
+}
+
+// Global focus styles to prevent focus outlines
+button:focus, a:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+// Override any button styles that might be affecting the Credit Overview button
+button.bg-\[\#0e73a9\] {
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: #0e73a9 !important;
+    color: white !important;
+  }
 }
 
 .red_dot {
@@ -510,4 +683,137 @@
     top: 26px;
     left: 3px;
   }
+}
+
+.no-hover {
+  &:hover {
+    background-color: #0e73a9 !important;
+    color: white !important;
+  }
+}
+
+// Override any other hover effects that might be applied
+.relative.inline-block {
+  .absolute {
+    a {
+      &:hover {
+        &.no-hover {
+          background-color: transparent !important;
+          color: inherit !important;
+        }
+      }
+    }
+  }
+}
+
+// New class to completely disable hover effects
+.no-hover-effect {
+  pointer-events: auto !important;
+  transition: none !important;
+  
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    background-color: inherit !important;
+    color: inherit !important;
+    transform: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    text-decoration: none !important;
+  }
+}
+
+// Specific styles for Credit Overview button
+.credit-overview-btn {
+  background-color: #0e73a9 !important;
+  color: white !important;
+  transition: none !important;
+  cursor: pointer !important;
+  
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: #0e73a9 !important;
+    color: white !important;
+    transform: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+  }
+}
+
+// Target all View Packages links
+a[href*="ServiceHistory.asp"] {
+  transition: none !important;
+  cursor: pointer !important;
+  
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: transparent !important;
+    color: inherit !important;
+    transform: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+  }
+}
+
+// Remove hover effect from the button class used in View Packages
+.btn.text-primary {
+  &:hover {
+    background-color: transparent !important;
+    color: inherit !important;
+  }
+  
+  &:focus {
+    background-color: transparent !important;
+    color: inherit !important;
+    box-shadow: none !important;
+    outline: none !important;
+  }
+}
+
+// Remove hover effect from the credbtn class used in Credit Overview
+.credbtn {
+  color: #0E73A9;
+  &:hover {
+    background-color: #0E73A9 !important;
+    color: #fff !important;
+  }
+  
+  &:focus {
+    background-color: #0E73A9 !important;
+    color: #fff !important;
+    box-shadow: none !important;
+    outline: none !important;
+  }
+}
+
+// Override any other hover effects that might be applied
+.relative.inline-block {
+  .absolute {
+    a {
+      &:hover {
+        &.no-hover {
+          background-color: transparent !important;
+          color: inherit !important;
+        }
+      }
+      
+      &:focus {
+        &.no-hover {
+          background-color: transparent !important;
+          color: inherit !important;
+          box-shadow: none !important;
+          outline: none !important;
+        }
+      }
+    }
+  }
+}
+
+// Global focus styles to prevent focus outlines
+button:focus, a:focus {
+  outline: none !important;
+  box-shadow: none !important;
 }

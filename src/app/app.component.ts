@@ -44,8 +44,8 @@ export class AppComponent implements OnInit {
     });
 
     if (isDevMode()) {
-      window.localStorage.setItem('CompanyId', 'ZRLzPRS6');
-      window.localStorage.setItem('UserId', 'ZRYxIRZx');
+      window.localStorage.setItem('CompanyId', 'ZxU0PRC=');
+      window.localStorage.setItem('UserId', 'ZRd9PxCu');
     }
   }
 }

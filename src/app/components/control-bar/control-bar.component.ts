@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, HostListener, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   NgbAccordionModule,
@@ -41,6 +41,16 @@ import { CircularProgressComponent } from '../circular-progress/circular-progres
 })
 export class ControlBarComponent implements OnInit {
   outsideBangladesh?: boolean;
+  activeDropdown: string | null = null;
+  isFirstOpen = true;
+  isSecondOpen = false;
+  isThirdOpen = false;
+  isFourthOpen = false;
+
+  toggleDropdown(dropdownName: string) {
+    this.activeDropdown = this.activeDropdown === dropdownName ? null : dropdownName;
+  }
+
   openRejectedModal() {
     this.openFunctionalModal(CreditRejectedComponent);
   }
@@ -82,13 +92,22 @@ export class ControlBarComponent implements OnInit {
   // activeTab: string | undefined;
   isNotCreditExpired: boolean = false;
   @Input() activeTab?: string;
+
+  @HostListener('document:click', ['$event'])
+  clickout(event: Event) {
+    if (!this.elementRef.nativeElement.contains(event.target)) {
+      this.activeDropdown = null;
+    }
+  }
+
   constructor(
     private cookieService: CookieService,
     private creditSystemService: CreditSystemService,
     private modalService: NgbModal,
     public gatewayDataSharingService: GatewayDataSharingService,
     private loginService: LoginService,
-    private router: Router
+    private router: Router,
+    private elementRef: ElementRef
   ) { }
 
   setCreditSystem() {
@@ -388,6 +407,22 @@ export class ControlBarComponent implements OnInit {
   }
   sidebarClose(): void{
     this.isSidebar = false;
+  }
+
+  onFirstAccordionChange(isOpen: boolean) {
+    this.isFirstOpen = isOpen;
+  }
+
+  onSecondAccordionChange(isOpen: boolean) {
+    this.isSecondOpen = isOpen;
+  }
+
+  onThirdAccordionChange(isOpen: boolean) {
+    this.isThirdOpen = isOpen;
+  }
+
+  onFourthAccordionChange(isOpen: boolean) {
+    this.isFourthOpen = isOpen;
   }
 
   truncateText(compName: string): string {

@@ -1,8 +1,7 @@
 @import "../../../scss/variables";
 
 .corporate-navbar {
-  min-height: 4rem;
-  // background-color: #d2d1ed;
+  padding: 0.25rem 0;
   background-color: #e8eff3;
   color: $bdjobs-text-light;
 }
@@ -16,6 +15,7 @@
   width: 16rem;
   height: auto;
   margin-right: 0.4rem;
+  padding: 0.15rem 0;
 
   @media (max-width: 576px) {
     width: 10rem;

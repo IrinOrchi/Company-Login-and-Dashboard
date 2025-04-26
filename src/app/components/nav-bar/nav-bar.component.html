@@ -1,81 +1,83 @@
-<nav class="navbar navbar-light corporate-navbar">
-  <div class="container">
-    <div class="d-flex flex-row align-items-center">
-      <div class="d-lg-none">
-        <button
-          class="navbar-toggler"
-          type="button"
-          (click)="isMenuCollapsed = !isMenuCollapsed"
+<nav class="corporate-navbar">
+  <div class="container mx-auto px-4 py-0.5">
+    <div class="flex justify-between items-center">
+      <div class="flex items-center">
+        <div class="lg:hidden">
+          <!-- <button
+            class="p-2 rounded-md hover:bg-gray-100"
+            type="button"
+            (click)="isMenuCollapsed = !isMenuCollapsed"
+          >
+            &#9776;
+          </button> -->
+        </div>
+
+        <a
+          class="flex items-center"
+          href="https://recruiter.bdjobs.com"
         >
-          &#9776;
-        </button>
+          <img src="assets/images/bdjobs-recruiter-logo.svg" class="logo" />
+        </a>
+        <!-- <a
+          class="btn btn-outline-info ms-2 d-none d-lg-block"
+          href="https://bdjobs.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Visit Bdjobs Home</a
+        > -->
+
+        <!-- <div class="d-none d-lg-flex align-items-center ms-4">
+          <div class="navbar-store-text">GET IT ON</div>
+          <a
+            href="https://play.google.com/store/apps/details?id=com.bdjobs.recruiter"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              class="navbar-store-icon play"
+              src="assets/images/google-play-logo.svg"
+            />
+          </a>
+          <div class="navbar-store-text">|</div>
+          <a
+            href="https://apps.apple.com/us/app/bdjobs-employer/id1479828492"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              class="navbar-store-icon apple"
+              src="assets/images/apple-logo.svg"
+            />
+          </a>
+        </div> -->
       </div>
 
-      <a
-        class="navbar-brand d-flex flex-row align-items-center"
-        href="https://recruiter.bdjobs.com"
-      >
-        <img src="assets/images/bdjobs-recruiter-logo.svg" class="logo" />
-      </a>
-      <!-- <a
-        class="btn btn-outline-info ms-2 d-none d-lg-block"
-        href="https://bdjobs.com/"
-        target="_blank"
-        rel="noopener noreferrer"
-        >Visit Bdjobs Home</a
-      > -->
-
-      <!-- <div class="d-none d-lg-flex align-items-center ms-4">
-        <div class="navbar-store-text">GET IT ON</div>
-        <a
-          href="https://play.google.com/store/apps/details?id=com.bdjobs.recruiter"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img
-            class="navbar-store-icon play"
-            src="assets/images/google-play-logo.svg"
-          />
+      <div class="hidden lg:block ml-auto">
+        <a class="btn custom-service-btn" href="https://corporate3.bdjobs.com/services.asp?from=recruiter">
+          Service Packages
         </a>
-        <div class="navbar-store-text">|</div>
-        <a
-          href="https://apps.apple.com/us/app/bdjobs-employer/id1479828492"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img
-            class="navbar-store-icon apple"
-            src="assets/images/apple-logo.svg"
-          />
-        </a>
+      </div>
+<!-- 
+      <div [ngbCollapse]="isMenuCollapsed" class="lg:hidden absolute top-16 left-0 right-0 bg-white shadow-lg">
+        <ul class="py-2">
+          <li class="py-2">
+            <a
+              class="block px-4 py-2 hover:bg-gray-100"
+              (click)="isMenuCollapsed = true"
+              href="https://bdjobs.com/"
+              >Visit Bdjobs Home</a
+            >
+          </li>
+          <li class="py-2">
+            <a
+              class="block px-4 py-2 hover:bg-gray-100"
+              (click)="isMenuCollapsed = true"
+              href="https://corporate3.bdjobs.com/services.asp?from=recruiter"
+              >Service Packages</a
+            >
+          </li>
+        </ul>
       </div> -->
-    </div>
-
-    <div class="d-none d-lg-flex flex-row align-center">
-      <a class="btn custom-service-btn" href="https://corporate3.bdjobs.com/services.asp?from=recruiter">
-        Service Packages
-      </a>
-    </div>
-
-    <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a
-            class="nav-link"
-            (click)="isMenuCollapsed = true"
-            href="https://bdjobs.com/"
-            >Visit Bdjobs Home</a
-          >
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link"
-            (click)="isMenuCollapsed = true"
-            href="https://corporate3.bdjobs.com/services.asp?from=recruiter"
-            >Service Packages</a
-          >
-        </li>
-      </ul>
     </div>
   </div>
 </nav>
