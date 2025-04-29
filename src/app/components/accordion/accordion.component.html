@@ -1,35 +1,49 @@
-<div ngbAccordion>
-  <div ngbAccordionItem [collapsed]="false">
-    <h2>
-      <button ngbAccordionButton class="actitle">Bdjobs Credits</button>
-    </h2>
-    <div ngbAccordionCollapse>
-      <div ngbAccordionBody>
-        <ng-template>
-          <div class="row">
-            <div class="col-md-7">
-              <p>
-                Welcome to BDJobs Credit System, where we revolutionize your recruitment process with seamless
-                flexibility and unparalleled savings. Our innovative credit system is designed to empower our corporate
-                clients, like you, to optimize your hiring strategy and find the best talent for your organization
-                effortlessly.
-              </p>
-              <p><strong>Benefits:</strong></p>
-              <ul>
-                <!-- <li></li> -->
-                <li>Cost-Efficient Recruiting</li>
-                <li>Streamlined Process</li>
-                <li>Enhanced Flexibility</li>
-                <li>Time-Saving Solution</li>
-              </ul>
-            </div>
+<div class="w-full mb-2">
 
-            <div class="col-md-5">
-              <img src="../../../assets/images/credit-accordion.png" alt="" />
-            </div>
+      <button 
+        (click)="toggleAccordion()"
+        class="w-full text-left px-4 py-3 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:border-[#adcee1] focus:border-2 focus:rounded-md flex justify-between items-center"
+        [class.border-blue-50]="!isOpen"
+        [class.h-14]="!isOpen"
+      >
+        <span class="text-[#165273] text-[32px] font-bold">Bdjobs Credits</span>
+        <svg 
+          [class.rotate-180]="isOpen"
+          class="w-5 h-5 transform transition-transform duration-200" 
+          fill="none" 
+          stroke="currentColor" 
+          viewBox="0 0 24 24"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+    </div>
+    <div 
+      [class.hidden]="!isOpen"
+      class="transition-all duration-200 ease-in-out"
+    >
+      <div class="p-6">
+        <div class="flex flex-wrap">
+          <div class="w-full md:w-7/12">
+            <p class="text-gray-600 mb-4 text-base leading-relaxed">
+              Welcome to BDJobs Credit System, where we revolutionize your recruitment process with seamless
+              flexibility and unparalleled savings. Our innovative credit system is designed to empower our corporate
+              clients, like you, to optimize your hiring strategy and find the best talent for your organization
+              effortlessly.
+            </p>
+            <p class="font-semibold text-gray-800 mb-3 text-base">Benefits:</p>
+            <ul class="list-disc pl-4 space-y-2 text-gray-600 text-base">
+              <li>Cost-Efficient Recruiting</li>
+              <li>Streamlined Process</li>
+              <li>Enhanced Flexibility</li>
+              <li>Time-Saving Solution</li>
+            </ul>
           </div>
-        </ng-template>
+
+          <div class="w-full md:w-5/12">
+            <img src="../../../assets/images/credit-accordion.png" alt="BDJobs Credit System" class="w-full h-auto object-contain" />
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
+ 
