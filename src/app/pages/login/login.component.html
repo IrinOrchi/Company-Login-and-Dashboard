@@ -4,9 +4,9 @@
     class="mainWrap"
     style="background-image: url('assets/images/employer-bg-login.jpg')"
   >
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-wrap -mx-4">
-        <div class="w-full lg:w-1/2 px-4 order-2 lg:order-1">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 col-md-12 order-2 order-lg-1">
           <div class="body part1">
             <h1>
               Connecting Employers <br />
@@ -27,7 +27,7 @@
 
         <form
           (keyup.enter)="onClickLoginButton()"
-          class="w-full lg:w-1/2 px-4 order-1 lg:order-2"
+          class="col-lg-6 col-md-12 order-1 order-lg-2"
         >
           <div class="body part2">
             <div class="form-header">
@@ -49,7 +49,7 @@
                 type="text"
                 name="username"
                 id="username"
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                class="form-control"
                 placeholder="Enter your username"
                 [(ngModel)]="userName"
                 aria-label="Username"
@@ -58,7 +58,7 @@
                 type="password"
                 name="password"
                 id="password"
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                class="form-control"
                 placeholder="Enter your password"
                 [(ngModel)]="password"
                 aria-label="Password"
@@ -68,6 +68,18 @@
 
             <div class="form-footer">
               <div class="footer-part1">
+                <!-- <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    [(ngModel)]="rememberUser"
+                    id="chkRememberMe"
+                  />
+                  <label class="form-check-label" for="chkRememberMe">
+                    Remember me
+                  </label>
+                </div> -->
+
                 <a href="https://corporate3.bdjobs.com/password?from=recruiter"
                   >Forgot username or password?</a
                 >
@@ -75,14 +87,14 @@
 
               <div>
                 @if(this.isLoginApiCallPending === true) {
-                <div class="flex justify-center my-3">
-                  <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500" role="status">
-                    <span class="sr-only">Loading...</span>
+                <div class="text-center my-3">
+                  <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
                   </div>
                 </div>
                 } @else {
                 <button
-                  class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                  class="btn btn-primary btn-login"
                   type="submit"
                   (click)="onClickLoginButton()"
                 >
@@ -92,9 +104,11 @@
               </div>
 
               <div class="footer-part2">
-                <div class="inline-block">Don't have an account?</div>
+                <div class="d-inline-block">Don't have an account?</div>
                 &nbsp;
-                <a href="https://recruiter.bdjobs.com/RecruiterAccount/register"
+                <!-- <a href="https://corporate3.bdjobs.com/Corporate_NewAccount.asp?from=recruiter"
+                  >Create Account</a -->
+                  <a href="https://recruiter.bdjobs.com/RecruiterAccount/register"
                   >Create Account</a
                 >
               </div>
@@ -103,25 +117,26 @@
         </form>
 
         <!-- Mobile Stats -->
-        <div class="w-full lg:w-1/2 px-4 lg:hidden order-3 mt-5">
+        <!-- Chowdhury Mohammad Irfanuddin -->
+        <div class="col-lg-6 col-md-12 d-lg-none order-3 mt-5">
           <div class="small-container">
-            <div class="max-w-7xl mx-auto text-center">
-              <div class="flex flex-wrap -mx-4">
-                <div class="w-full p-3 border-b border-gray-200">
+            <div class="container text-center">
+              <div class="row p-0">
+                <div class="stat-info p-3 border-bottom">
                   <img src="assets/images/dataFile.svg" alt="logo" />
                   <p class="tabtxt">Bdjobs Talent Search</p>
                   <span class="statsnum">{{ totalCvBankCount }}</span>
                 </div>
               </div>
-              <div class="flex flex-wrap -mx-4">
-                <div class="w-full p-3 border-b border-gray-200">
+              <div class="row p-0">
+                <div class="stat-info p-3 border-bottom">
                   <img src="assets/images/baggage.svg" alt="logo" />
                   <p class="tabtxt">Live Jobs</p>
                   <span class="statsnum">{{ totalJobAdCount }}</span>
                 </div>
               </div>
-              <div class="flex flex-wrap -mx-4">
-                <div class="w-full p-3">
+              <div class="row p-0">
+                <div class="stat-info p-3">
                   <img src="assets/images/build.svg" alt="logo" />
                   <p class="tabtxt">Apply Online</p>
                   <span class="statsnum">{{ totalJobApplicationCount }}</span>
@@ -137,25 +152,25 @@
   <!-- 3rd portion -->
 
   <!-- Desktop -->
-  <div class="small-container hidden lg:flex">
-    <div class="max-w-7xl mx-auto text-center">
-      <div class="flex flex-wrap -mx-4">
-        <div class="w-1/3 px-4">
+  <div class="small-container d-none d-lg-flex">
+    <div class="container text-center">
+      <div class="row">
+        <div class="col p-0">
           <div class="stat-info py-2 px-3">
             <img src="assets/images/dataFile.svg" alt="logo" />
             <p class="tabtxt">Bdjobs Talent Search</p>
             <span class="statsnum">{{ totalCvBankCount }}</span>
           </div>
         </div>
-        <div class="w-1/3 px-4">
-          <div class="stat-info py-2 px-3 border-l border-gray-200">
+        <div class="col p-0">
+          <div class="stat-info py-2 px-3 border-left">
             <img src="assets/images/baggage.svg" alt="logo" />
             <p class="tabtxt">Live Jobs</p>
             <span class="statsnum">{{ totalJobAdCount }}</span>
           </div>
         </div>
-        <div class="w-1/3 px-4">
-          <div class="stat-info py-2 px-3 border-l border-gray-200">
+        <div class="col p-0">
+          <div class="stat-info py-2 px-3 border-left">
             <img src="assets/images/build.svg" alt="logo" />
             <p class="tabtxt">Apply Online</p>
             <span class="statsnum">{{ totalJobApplicationCount }}</span>
@@ -168,17 +183,17 @@
   <!-- video portion 4rd-->
 
   <div class="mid-cont">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="container">
       <ul
-        class="flex flex-wrap -mb-px"
+        class="nav nav-pills mb-3 tab-header"
         id="pills-tab"
         role="tablist"
         ngbNav
         #nav="ngbNav"
         [(activeId)]="active"
       >
-        <li class="mr-2" [ngbNavItem]="1">
-          <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300" id="pills-home-tab" ngbNavLink>
+        <li class="nav-item" [ngbNavItem]="1">
+          <button class="nav-link" id="pills-home-tab" ngbNavLink>
             One-Stop Recruiting
           </button>
 
@@ -213,8 +228,8 @@
           </ng-template>
         </li>
         
-        <li class="mr-2" [ngbNavItem]="2">
-          <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300" id="pills-profile-tab" ngbNavLink>
+        <li class="nav-item" [ngbNavItem]="2">
+          <button class="nav-link" id="pills-profile-tab" ngbNavLink>
             Comprehensive Talent Search
           </button>
 
@@ -248,8 +263,8 @@
           </ng-template>
         </li>
 
-        <li class="mr-2" [ngbNavItem]="3">
-          <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300" id="pills-login-tab" ngbNavLink>
+        <li class="nav-item" [ngbNavItem]="3">
+          <button class="nav-link" id="pills-login-tab" ngbNavLink>
             Precise Job Posting
           </button>
 
@@ -282,8 +297,8 @@
           </ng-template>
         </li>
 
-        <li class="mr-2" [ngbNavItem]="4">
-          <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300" id="pills-body-tab" ngbNavLink>
+        <li class="nav-item" [ngbNavItem]="4">
+          <button class="nav-link" id="pills-body-tab" ngbNavLink>
             Insightful Analytics
           </button>
 
