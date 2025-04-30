@@ -14,56 +14,56 @@
       <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div class="mb-4">
           <div class="crd h-[200px] flex flex-col justify-between">
-            <div>
+            <div class="flex flex-col gap-2">
               <img src="../../../assets/images/ccount.png" alt="" />
               <h4 class="title">Total Credits</h4>
+              <p class="mt-2"><span>{{totalCredit()}}</span> Credits</p>
             </div>
-            <p><span>{{totalCredit()}}</span> Credits</p>
           </div>
         </div>
         <div class="mb-4">
           <div class="crd usedac h-[200px] flex flex-col justify-between">
-            <div>
+            <div class="flex flex-col gap-2">
               <img src="../../../assets/images/cused.png" alt="" />
               <h4 class="title">Credits Used</h4>
-            </div>
-            <div>
-              <p class="crdtxt"><span class="count">{{usedCredit()}}</span> Credits</p>
-              @if(usedCredit() > 0){
-                <div class="w-full bg-gray-200 rounded-full h-2.5 mb-3">
-                  <div class="bg-[#0e73a9] h-2.5 rounded-full" [style.width.%]="usedCreditProgress()"></div>
-                </div>
-              }
+              <div>
+                <p class="crdtxt mt-2"><span class="count">{{usedCredit()}}</span> Credits</p>
+                @if(usedCredit() > 0){
+                  <div class="w-full bg-gray-200 rounded-full h-4 mt-4">
+                    <div class="bg-[#0e73a9] h-4 rounded-full" [style.width.%]="usedCreditProgress()"></div>
+                  </div>
+                }
+              </div>
             </div>
           </div>
         </div>
         <div class="mb-4">
           <div class="crd h-[200px] flex flex-col justify-between">
-            <div>
+            <div class="flex flex-col gap-2">
               <img src="../../../assets/images/cleft.png" alt="" />
               <h4 class="title">Remaining Credits</h4>
-            </div>
-            <div>
-              <p class="crdtxt"><span class="count">{{leftCredit()}}</span> Credits</p>
-              @if(leftCredit() > 0){
-                <div class="w-full bg-gray-200 rounded-full h-2.5 mb-3">
-                  <div class="bg-[#0e73a9] h-2.5 rounded-full" [style.width.%]="leftCreditProgress()"></div>
-                </div>
-              }
+              <div>
+                <p class="crdtxt mt-2"><span class="count">{{leftCredit()}}</span> Credits</p>
+                @if(leftCredit() > 0){
+                  <div class="w-full bg-gray-200 rounded-full h-4 mt-4">
+                    <div class="bg-[#0e73a9] h-4 rounded-full" [style.width.%]="leftCreditProgress()"></div>
+                  </div>
+                }
+              </div>
             </div>
           </div>
         </div>
         <div class="mb-4">
           <div class="crd h-[200px] flex flex-col justify-between">
-            <div>
+            <div class="flex flex-col gap-2">
               <img src="../../../assets/images/cvalidity.png" alt="" />
               <h4 class="title">Credit Validity</h4>
+              @if(isNotCreditExpired()){
+                <p class="mt-2">Valid till {{validity()}}</p>
+              }@else{
+                <p class="mt-2 text-red-500">Expired</p>
+              }
             </div>
-            @if(isNotCreditExpired()){
-            <p>Valid till {{validity()}}</p>
-            }@else{
-            <p class="text-red-500">Expired</p>
-            }
           </div>
         </div>
       </div>
@@ -108,23 +108,23 @@
 
     @if(hasCreditData()){
     <!-- All credit History -->
-    <div>
-      <h3 class="crdtitle">History</h3>
+    <div class="mt-8">
+      <h3 class="crdtitle mb-2 pl-2">History</h3>
       <div class="crdtable">
         <table class="min-w-full">
           <thead class="bg-gray-800 text-white">
             <tr>
-              <th class="px-4 py-2">Date</th>
-              <th class="px-4 py-2">Activity</th>
-              <th class="px-4 py-2">Credit Used</th>
+              <th class="px-4 py-3 border-b border-white">Date</th>
+              <th class="px-4 py-3 border-b border-white">Activity</th>
+              <th class="px-4 py-3 border-b border-white">Credit Used</th>
             </tr>
           </thead>
           <tbody>
             @for (credit of creditSystem()?.TokenData || []; track $index) {
-            <tr class="border-b">
-              <td class="px-4 py-2">{{credit?.tDate ? formatDate(credit.tDate) : ''}}</td>
-              <td class="px-4 py-2">Posted Job</td>
-              <td class="px-4 py-2">{{credit?.tCreditUsed}}</td>
+            <tr>
+              <td class="px-4 py-3">{{credit?.tDate ? formatDate(credit.tDate) : ''}}</td>
+              <td class="px-4 py-3">Posted Job</td>
+              <td class="px-4 py-3">{{credit?.tCreditUsed}}</td>
             </tr>
             }
           </tbody>
