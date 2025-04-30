@@ -1,12 +1,12 @@
 <!-- image portion 2nd -->
-<div class="wrap">
+<div class="w-full">
   <div
     class="mainWrap"
     style="background-image: url('assets/images/employer-bg-login.jpg')"
   >
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-6 col-md-12 order-2 order-lg-1">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-wrap -mx-4">
+        <div class="w-full lg:w-1/2 px-4 order-1">
           <div class="body part1">
             <h1>
               Connecting Employers <br />
@@ -27,7 +27,7 @@
 
         <form
           (keyup.enter)="onClickLoginButton()"
-          class="col-lg-6 col-md-12 order-1 order-lg-2"
+          class="w-full lg:w-1/2 px-4 order-2"
         >
           <div class="body part2">
             <div class="form-header">
@@ -104,11 +104,9 @@
               </div>
 
               <div class="footer-part2">
-                <div class="d-inline-block">Don't have an account?</div>
+                <div class="inline-block">Don't have an account?</div>
                 &nbsp;
-                <!-- <a href="https://corporate3.bdjobs.com/Corporate_NewAccount.asp?from=recruiter"
-                  >Create Account</a -->
-                  <a href="https://recruiter.bdjobs.com/RecruiterAccount/register"
+                <a href="https://recruiter.bdjobs.com/RecruiterAccount/register"
                   >Create Account</a
                 >
               </div>
@@ -117,26 +115,21 @@
         </form>
 
         <!-- Mobile Stats -->
-        <!-- Chowdhury Mohammad Irfanuddin -->
-        <div class="col-lg-6 col-md-12 d-lg-none order-3 mt-5">
+        <div class="w-full lg:hidden px-4 order-3 mt-5">
           <div class="small-container">
             <div class="container text-center">
-              <div class="row p-0">
-                <div class="stat-info p-3 border-bottom">
+              <div class="flex flex-wrap -mx-4">
+                <div class="stat-info p-3 border-b w-full">
                   <img src="assets/images/dataFile.svg" alt="logo" />
                   <p class="tabtxt">Bdjobs Talent Search</p>
                   <span class="statsnum">{{ totalCvBankCount }}</span>
                 </div>
-              </div>
-              <div class="row p-0">
-                <div class="stat-info p-3 border-bottom">
+                <div class="stat-info p-3 border-b w-full">
                   <img src="assets/images/baggage.svg" alt="logo" />
                   <p class="tabtxt">Live Jobs</p>
                   <span class="statsnum">{{ totalJobAdCount }}</span>
                 </div>
-              </div>
-              <div class="row p-0">
-                <div class="stat-info p-3">
+                <div class="stat-info p-3 w-full">
                   <img src="assets/images/build.svg" alt="logo" />
                   <p class="tabtxt">Apply Online</p>
                   <span class="statsnum">{{ totalJobApplicationCount }}</span>
@@ -149,39 +142,30 @@
     </div>
   </div>
 
-  <!-- 3rd portion -->
-
-  <!-- Desktop -->
-  <div class="small-container d-none d-lg-flex">
+  <!-- Desktop Stats -->
+  <div class="small-container hidden lg:block">
     <div class="container text-center">
-      <div class="row">
-        <div class="col p-0">
-          <div class="stat-info py-2 px-3">
-            <img src="assets/images/dataFile.svg" alt="logo" />
-            <p class="tabtxt">Bdjobs Talent Search</p>
-            <span class="statsnum">{{ totalCvBankCount }}</span>
-          </div>
+      <div class="flex flex-wrap -mx-4">
+        <div class="stat-info py-2 px-3 w-1/3">
+          <img src="assets/images/dataFile.svg" alt="logo" />
+          <p class="tabtxt">Bdjobs Talent Search</p>
+          <span class="statsnum">{{ totalCvBankCount }}</span>
         </div>
-        <div class="col p-0">
-          <div class="stat-info py-2 px-3 border-left">
-            <img src="assets/images/baggage.svg" alt="logo" />
-            <p class="tabtxt">Live Jobs</p>
-            <span class="statsnum">{{ totalJobAdCount }}</span>
-          </div>
+        <div class="stat-info py-2 px-3 border-l w-1/3">
+          <img src="assets/images/baggage.svg" alt="logo" />
+          <p class="tabtxt">Live Jobs</p>
+          <span class="statsnum">{{ totalJobAdCount }}</span>
         </div>
-        <div class="col p-0">
-          <div class="stat-info py-2 px-3 border-left">
-            <img src="assets/images/build.svg" alt="logo" />
-            <p class="tabtxt">Apply Online</p>
-            <span class="statsnum">{{ totalJobApplicationCount }}</span>
-          </div>
+        <div class="stat-info py-2 px-3 border-l w-1/3">
+          <img src="assets/images/build.svg" alt="logo" />
+          <p class="tabtxt">Apply Online</p>
+          <span class="statsnum">{{ totalJobApplicationCount }}</span>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- video portion 4rd-->
-
+  <!-- Features Section -->
   <div class="mid-cont">
     <div class="container">
       <ul
@@ -340,14 +324,14 @@
     </div>
   </div>
 
-  <!-- slider portion 5th-->
+  <!-- Features Carousel Section -->
   <div class="container my-4">
-    <div class="row py-3 my-3">
-      <div class="col-md-12 text-center">
+    <div class="flex flex-wrap -mx-4 py-3 my-3">
+      <div class="w-full px-4 text-center">
         <h2 class="sectitle">
           Begin a Successful Hiring Journey with Proven Solutions
         </h2>
-        <p class="px-1 px-md-5" style="font-size: 16px">
+        <p class="px-1 lg:px-5" style="font-size: 16px">
           Our solutions ensures your hiring process is not only successful but
           also highly effective in finding the right talent for your
           organization.
@@ -355,7 +339,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="flex flex-wrap -mx-4">
       <app-feature-carousel></app-feature-carousel>
     </div>
 
