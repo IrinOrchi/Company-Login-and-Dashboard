@@ -13,42 +13,54 @@
     <div class="cbalance">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div class="mb-4">
-          <div class="crd">
-            <img src="../../../assets/images/ccount.png" alt="" />
-            <h4 class="title">Total Credits</h4>
-            <p><span>{{totalCredit}}</span> Credits</p>
+          <div class="crd h-[200px] flex flex-col justify-between">
+            <div>
+              <img src="../../../assets/images/ccount.png" alt="" />
+              <h4 class="title">Total Credits</h4>
+            </div>
+            <p><span>{{totalCredit()}}</span> Credits</p>
           </div>
         </div>
         <div class="mb-4">
-          <div class="crd usedac">
-            <div class="flex-grow">
+          <div class="crd usedac h-[200px] flex flex-col justify-between">
+            <div>
               <img src="../../../assets/images/cused.png" alt="" />
               <h4 class="title">Credits Used</h4>
             </div>
             <div>
-              <p class="crdtxt"><span class="count">{{usedCredit}}</span> Credits</p>
-              <ngb-progressbar class="mb-3" type="primary" [value]="usedCreditProgress" />
+              <p class="crdtxt"><span class="count">{{usedCredit()}}</span> Credits</p>
+              @if(usedCredit() > 0){
+                <div class="w-full bg-gray-200 rounded-full h-2.5 mb-3">
+                  <div class="bg-[#0e73a9] h-2.5 rounded-full" [style.width.%]="usedCreditProgress()"></div>
+                </div>
+              }
             </div>
           </div>
         </div>
         <div class="mb-4">
-          <div class="crd">
-            <div class="flex-grow">
+          <div class="crd h-[200px] flex flex-col justify-between">
+            <div>
               <img src="../../../assets/images/cleft.png" alt="" />
               <h4 class="title">Remaining Credits</h4>
             </div>
-            <p class="crdtxt"><span class="count">{{leftCredit}}</span> Credits</p>
-            <ngb-progressbar class="mb-3" type="primary" [value]="leftCreditProgress" />
+            <div>
+              <p class="crdtxt"><span class="count">{{leftCredit()}}</span> Credits</p>
+              @if(leftCredit() > 0){
+                <div class="w-full bg-gray-200 rounded-full h-2.5 mb-3">
+                  <div class="bg-[#0e73a9] h-2.5 rounded-full" [style.width.%]="leftCreditProgress()"></div>
+                </div>
+              }
+            </div>
           </div>
         </div>
         <div class="mb-4">
-          <div class="crd">
-            <div class="flex-grow">
+          <div class="crd h-[200px] flex flex-col justify-between">
+            <div>
               <img src="../../../assets/images/cvalidity.png" alt="" />
               <h4 class="title">Credit Validity</h4>
             </div>
-            @if(isNotCreditExpired){
-            <p>Valid till {{validity}}</p>
+            @if(isNotCreditExpired()){
+            <p>Valid till {{validity()}}</p>
             }@else{
             <p class="text-red-500">Expired</p>
             }
@@ -68,21 +80,21 @@
             <div class="mb-3">
               <label for="from" class="form-label crdtitle">From Date</label>
               <input class="w-full px-3 py-2 border rounded" type="date" placeholder="Default input" aria-label="default input example"
-                [(ngModel)]="fromDate" />
+                [value]="fromDate()" (input)="fromDate.set($any($event.target).value)" />
             </div>
           </div>
           <div>
             <div class="mb-3">
               <label for="from" class="form-label crdtitle">To Date</label>
               <input class="w-full px-3 py-2 border rounded" type="date" placeholder="Default input" aria-label="default input example"
-                [(ngModel)]="toDate" />
+                [value]="toDate()" (input)="toDate.set($any($event.target).value)" />
             </div>
           </div>
           <div>
             <div class="mb-3">
               <label for="from" class="form-label crdtitle">Filter</label>
               <select class="w-full px-3 py-2 border rounded" id="inputGroupSelect04" aria-label="Example select with button addon"
-                [(ngModel)]="selectedFilter">
+                [value]="selectedFilter()" (change)="selectedFilter.set($any($event.target).value)">
                 <option selected value="p">Posted Job</option>
               </select>
             </div>
@@ -94,7 +106,7 @@
       </form>
     </div>
 
-    @if(creditSystem && creditSystem.TokenData.length>0 ){
+    @if(hasCreditData()){
     <!-- All credit History -->
     <div>
       <h3 class="crdtitle">History</h3>
@@ -108,29 +120,27 @@
             </tr>
           </thead>
           <tbody>
-            @for (credit of creditSystem.TokenData; track $index) {
+            @for (credit of creditSystem()?.TokenData || []; track $index) {
             <tr class="border-b">
-              <td class="px-4 py-2">{{creditSystemService.formatDate(credit.tDate)}}</td>
+              <td class="px-4 py-2">{{credit?.tDate ? formatDate(credit.tDate) : ''}}</td>
               <td class="px-4 py-2">Posted Job</td>
-              <td class="px-4 py-2">{{credit.tCreditUsed}}</td>
+              <td class="px-4 py-2">{{credit?.tCreditUsed}}</td>
             </tr>
             }
           </tbody>
         </table>
       </div>
     </div>
+    } @else {
+    <div class="credit__container mt-4">
+      <div class="flex flex-col items-center justify-center nohis">
+        <img src="../../../../assets/images/no-history.svg" alt="" />
+        <h4>Oops!</h4>
+        <p>You don't have any credit history yet!</p>
+      </div>
+    </div>
     }
   </div>
-
-  @if (!tokenData || tokenData.length == 0) {
-  <div class="credit__container mt-4">
-    <div class="flex flex-col items-center justify-center nohis">
-      <img src="../../../../assets/images/no-history.svg" alt="" />
-      <h4>Oops!</h4>
-      <p>You don't have any credit history yet!</p>
-    </div>
-  </div>
-  }
 </div>
 
 <!-- modals -->
