@@ -64,14 +64,9 @@ export class CreditComponent {
   }
 
   getCreditDetails(filter: string, fromDate: string, toDate: string) {
-    let companyId = '';
-    this.loginService.getCompanyId().subscribe({
-      next: (cid) => {
-        if (cid) companyId = cid;
-      },
-    });
+    const companyId = window.localStorage.getItem('CompanyId') ?? '';
     this.creditSystemService
-      .getCreditDetails(companyId ?? '', filter, fromDate, toDate)
+      .getCreditDetails(companyId, filter, fromDate, toDate)
       .subscribe({
         next: (response: CreditDetailsData) => {
           this.creditSystem.set(response);
