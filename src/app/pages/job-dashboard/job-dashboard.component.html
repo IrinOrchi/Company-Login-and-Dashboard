@@ -2,25 +2,24 @@
 
   <app-control-bar [activeTab]="activeTab"></app-control-bar>
 
-  <div class="container d-flex flex-row justify-content-end pt-3">
-
-
-    <a class="btn btn-success mx-1" href="https://recruiter.bdjobs.com/jobposting/">Post a New Job</a>
+  <div class="container d-flex flex-row justify-content-end align-items-center pt-3 gap-2">
+    <a class="btn btn-success" href="https://recruiter.bdjobs.com/jobposting/">Post a New Job</a>
     @if(((nidVerify || verificationStatus || paymentProcess) && !outsideBangladesh)|| outsideBangladesh){
-    <a class="btn btn-primary mx-1" href="https://recruiter.bdjobs.com/talent-search-dashboard/">
-      <img src="assets/images/search.svg" class="button-icon" />
+    <a class="btn btn-primary d-flex align-items-center" href="https://recruiter.bdjobs.com/talent-search-dashboard/">
+      <img src="assets/images/search.svg" class="button-icon me-1" />
       Search Talent
     </a>}
     @else{
-    <button class="btn btn-primary" (click)="open()"><img src="assets/images/search.svg" class="button-icon" />
-      Search Talent</button>
+    <button class="btn btn-primary d-flex align-items-center" (click)="open()">
+      <img src="assets/images/search.svg" class="button-icon me-1" />
+      Search Talent
+    </button>
     }
     <!-- @if(isNidButtonVisible){
     <a class="btn btn-outline-primary mx-1" href="https://corporate3.bdjobs.com/nidVerification.asp">
       NID Verification
     </a>
     } -->
-
   </div>
   <app-multiple-job-post-popup></app-multiple-job-post-popup>
   <app-job-post-container />
