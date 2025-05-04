@@ -9,30 +9,20 @@
           >{{ jobInformation?.jobTitle }}</a
         >
       </h5> -->
-      <h5 class="card-title job-title" style="display: inline-flex; align-items: center; gap: 6px;">
+      <h5 class="inline-flex items-center gap-1.5">
         <a href="https://corporate3.bdjobs.com/Applicant_Process.asp?from=recruiter&jobno={{ jobInformation?.jobId }}&ref=">
           {{ jobInformation?.jobTitle }}
         </a>
         @if(jobInformation?.regionalJob == 7 && jobInformation?.jobPaymentStatus == true)
         {
-          <span class="badge" style="
-            width: 64px;
-            padding: 4px 12px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 28px;
-            background: #DBFEE4;
-            color: #008A22;
-            font-weight: 300;
-            margin-left: 6px;">
+          <span class="w-16 px-3 py-1 flex justify-center items-center rounded-full bg-[#DBFEE4] text-[#008A22] font-light ml-1.5">
             Paid
           </span>
         }
       </h5>
 
-      <div class="d-flex flex-row justify-content-start align-items-center">
-        <div class="me-1">
+      <div class="flex flex-row justify-start items-center">
+        <div class="mr-1">
           <span class="textcont">
             <span class="textsub">
               {{ jobInformation?.isPublished ? "Published On:" : "Posted:" }}
@@ -49,11 +39,11 @@
         <div class="short-vertical-bar"></div>
   
         <div class="mx-1">
-          <div class="d-flex align-items-center">
+          <div class="flex items-center">
             <span><b>Deadline:</b>&nbsp;{{ deadlineDate | date }}</span>
-            <div >
+            <div>
               <input
-                class="d-none"
+                class="hidden"
                 ngbDatepicker
                 [(ngModel)]="deadlineDatePickerModel"
                 #d="ngbDatepicker"              
@@ -76,7 +66,7 @@
     </div>
     @if(jobInformation?.regionalJob==7)
     {
-      <div class="col-md-5 d-flex align-items-center justify-content-end gap-2"> 
+      <div class="w-full md:w-5/12 flex items-center justify-end gap-2"> 
         <button class="btn btn-primary" (click)="onClickEditJob()">
           <span class="icon-edit"></span>
           Continue editing
@@ -84,7 +74,7 @@
       </div>
     }
     @else {
-      <div class="col-md-5 d-flex align-items-center justify-content-end gap-2">
+      <div class="w-full md:w-5/12 flex items-center justify-end gap-2">
         @if (jobInformation?.hasContactId) {
           <button class="btn btn-primary" (click)="openReadyToProcessConfirmationDialog()">
             <span class="icon-check"></span>
