@@ -1,4 +1,4 @@
-<div class="drafted-card mb-3 shadow-sm" >
+<div class="drafted-card mb-3 shadow-sm">
   <div class="row">
     <div class="col-md-7">
       <!-- <h5 class="card-title job-title">
@@ -9,7 +9,7 @@
           >{{ jobInformation?.jobTitle }}</a
         >
       </h5> -->
-      <h5 class="inline-flex items-center gap-1.5">
+      <h5 class="inline-flex items-center text-[18px] font-bold gap-1.5">
         <a href="https://corporate3.bdjobs.com/Applicant_Process.asp?from=recruiter&jobno={{ jobInformation?.jobId }}&ref=">
           {{ jobInformation?.jobTitle }}
         </a>
@@ -21,29 +21,28 @@
         }
       </h5>
 
-      <div class="flex flex-row justify-start items-center">
-        <div class="mr-1">
+      <div class="d-flex flex-row justify-content-start align-items-center">
+        <div class="me-1">
           <span class="textcont">
             <span class="textsub">
               {{ jobInformation?.isPublished ? "Published On:" : "Posted:" }}
             </span>
-            <span *ngIf="jobInformation?.isPublished; else notPublished">
+            @if (jobInformation?.isPublished) {
               {{ jobInformation?.publishDate | date }}
-            </span>
-            <ng-template #notPublished>
+            } @else {
               {{ jobInformation?.jobPostingDate | date }}
-            </ng-template>
+            }
           </span>
         </div>
   
         <div class="short-vertical-bar"></div>
   
         <div class="mx-1">
-          <div class="flex items-center">
+          <div class="d-flex align-items-center">
             <span><b>Deadline:</b>&nbsp;{{ deadlineDate | date }}</span>
             <div>
               <input
-                class="hidden"
+                class="d-none"
                 ngbDatepicker
                 [(ngModel)]="deadlineDatePickerModel"
                 #d="ngbDatepicker"              
@@ -64,17 +63,15 @@
         </div>
       </div>      
     </div>
-    @if(jobInformation?.regionalJob==7)
-    {
-      <div class="w-full md:w-5/12 flex items-center justify-end gap-2"> 
+    @if (jobInformation?.regionalJob == 7) {
+      <div class="col-md-5 d-flex align-items-center justify-content-end gap-2"> 
         <button class="btn btn-primary" (click)="onClickEditJob()">
           <span class="icon-edit"></span>
           Continue editing
         </button>
       </div>
-    }
-    @else {
-      <div class="w-full md:w-5/12 flex items-center justify-end gap-2">
+    } @else {
+      <div class="col-md-5 d-flex align-items-center justify-content-end gap-2">
         @if (jobInformation?.hasContactId) {
           <button class="btn btn-primary" (click)="openReadyToProcessConfirmationDialog()">
             <span class="icon-check"></span>
