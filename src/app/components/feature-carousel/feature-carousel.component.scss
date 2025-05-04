@@ -41,8 +41,8 @@
   background: #9abacc;
   transition: background 0.3s, border 0.3s;
   cursor: pointer;
-  margin-left: 4px;
-  margin-right: 4px;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .dot-indicator[aria-current="true"] {

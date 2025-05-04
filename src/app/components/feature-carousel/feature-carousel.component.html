@@ -23,7 +23,7 @@
     </div>
   </div>
   <!-- Slider indicators -->
-  <div class="absolute z-30 flex space-x-3 bottom-0 left-1/2 -translate-x-1/2 pb-4">
+  <div class="absolute z-30 flex space-x-2 bottom-0 left-1/2 -translate-x-1/2 pb-4">
     <button *ngFor="let slide of slides; let i = index" type="button" class="dot-indicator" [attr.aria-current]="currentIndex === i ? 'true' : 'false'" [attr.aria-label]="'Slide ' + (i+1)" (click)="$event.stopPropagation(); showSlide(i)"></button>
   </div>
 </div>
