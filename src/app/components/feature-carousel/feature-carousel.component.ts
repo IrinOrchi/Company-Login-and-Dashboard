@@ -50,6 +50,7 @@ export class FeatureCarouselComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.startAutoSlide();
   }
 
   showSlide(index: number): void {
@@ -73,6 +74,11 @@ export class FeatureCarouselComponent implements OnInit {
     } else {
       this.nextSlide();
     }
+  }
+  startAutoSlide(): void {
+    this.interval = setInterval(() => {
+      this.nextSlide();
+    }, 5000); 
   }
 
   ngOnDestroy(): void {
