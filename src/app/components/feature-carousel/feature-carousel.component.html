@@ -1,83 +1,29 @@
-<ngb-carousel [interval]="3000">
-  <ng-template ngbSlide>
-    <div class="flex flex-wrap items-center carousel-details">
-      <div class="w-full lg:w-1/2 lg:pe-5">
-        <h3 class="text-[25.2px] font-semibold font-inter">Online Test</h3>
-        <p>
-          Take online tests anytime, anyplace to evaluate more applicants.
-          Online tests are your beacon to find perfect individuals . Online
-          tests that reveal applicant strengths might enhance your recruitment
-          process.
-        </p>
-      </div>
-      <div class="w-full lg:w-1/2 lg:text-right">
-        <img
-          class="carousel-image"
-          src="assets/images/online-test.png"
-          alt="Online test"
-        />
-      </div>
-    </div>
-  </ng-template>
-  <ng-template ngbSlide>
-    <div class="flex flex-wrap items-center carousel-details">
-      <div class="w-full lg:w-1/2 lg:pe-5">
-        <h3 class="text-[25.2px] font-semibold font-inter">Messaging</h3>
-        <p>
-          Communication is the heartbeat of any successful endeavor. In the
-          world of hiring, it's the bridge that connects you with your future
-          stars. Share your aspirations, inspire candidates, and foster
-          connections that transcend the boundaries of traditional hiring.
-        </p>
-      </div>
-      <div class="w-full lg:w-1/2 lg:text-right">
-        <img
-          src="assets/images/messaging.png"
-          alt="slider img"
-          class="carousel-image"
-        />
+<div class="relative w-full flex items-center justify-center" data-carousel="slide" (click)="onCarouselClick()">
+  <!-- Carousel wrapper -->
+  <div class="relative h-[400px] w-full overflow-hidden">
+    <!-- Slides wrapper for sliding effect -->
+    <div class="flex transition-transform duration-700 ease-in-out slide-track" [ngStyle]="{'transform': 'translateX(-' + (currentIndex * 100) + '%)'}">
+      <div class="w-full flex-shrink-0" *ngFor="let slide of slides; let i = index">
+        <div class="flex flex-wrap items-center carousel-details justify-between">
+          <div class="w-full lg:w-1/2 lg:pe-5 flex justify-center items-center">
+            <div class="max-w-xl text-center w-full">
+              <h3 class="text-[25.2px] font-semibold font-inter">{{slide.title}}</h3>
+              <p>{{slide.text}}</p>
+            </div>
+          </div>
+          <div class="w-full lg:w-1/2 flex justify-center lg:justify-end items-center">
+            <img
+              class="carousel-image"
+              [src]="slide.img"
+              [alt]="slide.alt"
+            />
+          </div>
+        </div>
       </div>
     </div>
-  </ng-template>
-  <ng-template ngbSlide>
-    <div class="flex flex-wrap items-center carousel-details">
-      <div class="w-full lg:w-1/2 lg:pe-5">
-        <h3 class="text-[25.2px] font-semibold font-inter">Video Interview</h3>
-        <p>
-          Don't just read resumes; watch aspirations come to life. A video
-          interview is your window to the soul of a candidate. Witness their
-          passion, their dedication, and their unwavering commitment to your
-          company's success. It's not just an interview; it's a glimpse into the
-          future.
-        </p>
-      </div>
-      <div class="w-full lg:w-1/2 lg:text-right">
-        <img
-          src="assets/images/video-interview.png"
-          alt="slider img"
-          class="carousel-image"
-        />
-      </div>
-    </div>
-  </ng-template>
-  <ng-template ngbSlide>
-    <div class="flex flex-wrap items-center carousel-details">
-      <div class="w-full lg:w-1/2 lg:pe-5">
-        <h3 class="text-[25.2px] font-semibold font-inter">Filtering</h3>
-        <p>
-          Let the refining and improving of your filters for your thoughts be a
-          passionate pursuit. Just as precious metals are sieved from the earth,
-          filter out the finest candidates from the talent pool. Choose those
-          who shine the brightest and bring your company's mission to life.
-        </p>
-      </div>
-      <div class="w-full lg:w-1/2 lg:text-right">
-        <img
-          src="assets/images/filtering.png"
-          alt="slider img"
-          class="carousel-image"
-        />
-      </div>
-    </div>
-  </ng-template>
-</ngb-carousel>
+  </div>
+  <!-- Slider indicators -->
+  <div class="absolute z-30 flex space-x-3 bottom-8 left-1/2 -translate-x-1/2">
+    <button *ngFor="let slide of slides; let i = index" type="button" class="dot-indicator" [attr.aria-current]="currentIndex === i ? 'true' : 'false'" [attr.aria-label]="'Slide ' + (i+1)" (click)="$event.stopPropagation(); showSlide(i)"></button>
+  </div>
+</div>
