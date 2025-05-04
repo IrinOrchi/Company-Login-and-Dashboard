@@ -1,7 +1,5 @@
 <div class="relative w-full flex items-center justify-center" data-carousel="slide" (click)="onCarouselClick($event)">
-  <!-- Carousel wrapper -->
   <div class="relative h-[450px] w-full overflow-hidden">
-    <!-- Slides wrapper for sliding effect -->
     <div class="flex transition-transform duration-700 ease-in-out slide-track" [ngStyle]="{'transform': 'translateX(-' + (currentIndex * 100) + '%)'}">
       <div class="w-full flex-shrink-0" *ngFor="let slide of slides; let i = index">
         <div class="flex flex-wrap items-center carousel-details justify-between">
