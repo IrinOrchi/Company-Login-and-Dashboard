@@ -1,17 +1,19 @@
 .carousel-image {
-  max-height: 300px;
-  object-fit: contain;
+  max-height: 380px;
   width: auto;
   margin-bottom: 3rem;
+  object-fit: contain;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 
   @media (max-width: 1280px) {
-    max-height: 300px;
+    max-height: 350px;
     margin-bottom: 4rem;
   }
 
   @media (max-width: 990px) {
-    height: 250px;
-    width: auto;
+    max-height: 250px;
     margin-bottom: 4rem;
   }
 }
@@ -36,15 +38,16 @@
   width: 12px;
   height: 12px;
   border-radius: 9999px;
-  border: 2px solid #38bdf8; /* Tailwind blue-400 */
-  background: #fff;
+  background: #9abacc;
   transition: background 0.3s, border 0.3s;
   cursor: pointer;
+  margin-left: 4px;
+  margin-right: 4px;
 }
 
 .dot-indicator[aria-current="true"] {
-  background: #38bdf8;
-  border-color: #38bdf8;
+  background: #0e73a9;
+  border-color: #0e73a9;
 }
 
 .slide-track {

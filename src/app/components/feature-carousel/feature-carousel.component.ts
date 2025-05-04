@@ -60,11 +60,20 @@ export class FeatureCarouselComponent implements OnInit {
     this.currentIndex = (this.currentIndex + 1) % this.slides.length;
   }
 
-  onCarouselClick(): void {
-    this.nextSlide();
+  prevSlide(): void {
+    this.currentIndex = (this.currentIndex - 1 + this.slides.length) % this.slides.length;
   }
 
- 
+  onCarouselClick(event: MouseEvent): void {
+    const carousel = (event.currentTarget as HTMLElement);
+    const rect = carousel.getBoundingClientRect();
+    const clickX = event.clientX - rect.left;
+    if (clickX < rect.width / 2) {
+      this.prevSlide();
+    } else {
+      this.nextSlide();
+    }
+  }
 
   ngOnDestroy(): void {
     if (this.interval) {
