@@ -27,4 +27,8 @@
   <app-company-select-popup></app-company-select-popup>
   }
 
+  @if(showNidModal) {
+    <app-nid-verification-modal (close)="closeNidModal()"></app-nid-verification-modal>
+  }
+
 </div>
