@@ -11,9 +11,11 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class NidVerificationModalComponent {
   constructor(public activeModal: NgbActiveModal) {}
+  
   dismiss() {
     this.activeModal.dismiss('Cross click');
   }
+
   verifyNow() {
     const url = 'https://corporate3.bdjobs.com/nidVerification.asp';
     window.location.href = url;
