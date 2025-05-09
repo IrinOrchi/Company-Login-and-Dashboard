@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -12,7 +13,6 @@ import {
   CreditSystemService,
   TokenData,
 } from '../../services/CreditSystem/credit-system.service';
-import { FormsModule } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
 
 @Component({
@@ -29,136 +29,109 @@ import { LoginService } from '../../services/login.service';
   ],
 })
 export class CreditComponent {
+  creditSystemService = inject(CreditSystemService);
+  private loginService = inject(LoginService);
+  private gatewayDataSharingService = inject(GatewayDataSharingService);
+
   modalRef: NgbModalRef | null = null;
 
-  leftCreditProgress: number = 0;
-  usedCreditProgress: number = 0;
+  // Signals for reactive state management
+  totalCredit = signal<number>(0);
+  usedCredit = signal<number>(0);
+  leftCredit = signal<number>(0);
+  usedCreditProgress = signal<number>(0);
+  leftCreditProgress = signal<number>(0);
+  isNotCreditExpired = signal<boolean>(true);
+  validity = signal<string>('');
+  fromDate = signal<string>('');
+  toDate = signal<string>('');
+  selectedFilter = signal<string>('p');
+  creditSystem = signal<CreditDetailsData | null>(null);
+  tokenData = signal<TokenData[]>([]);
 
-  //search
-  fromDate: string = '';
-  toDate: string = '';
-  selectedFilter: string = 'All';
-  isNotCreditExpired: boolean = false;
-  constructor(
-    private modalService: NgbModal,
-    public creditSystemService: CreditSystemService,
-    public loginService: LoginService,
-    public gatewayDataSharingService: GatewayDataSharingService
-  ) {}
-  creditSystem: CreditDetailsData | undefined;
-  // supportingInfo: SupportingInfo | undefined;
-  tokenData: TokenData[] | undefined;
+  // Computed signal for credit data validation
+  hasCreditData = computed(() => {
+    const data = this.creditSystem();
+    return data !== null && data !== undefined && (data.TokenData?.length || 0) > 0;
+  });
 
-  totalCredit: number = 0;
-  usedCredit: number = 0;
-  leftCredit: number = 0;
-  validity: string = '';
+  constructor(private modalService: NgbModal) {
+    this.initializeData();
+  }
 
-  ngOnInit(): void {
-    // this.gatewayDataSharingService.supportingInfo$.subscribe(
-    //   (supportingInfo) => {
-    //     this.supportingInfo = supportingInfo;
-    //   }
-    // );
-
-    // this.loginService.getCompanyId().subscribe({
-    //   next: (data) => {
-    //     if (data) companyId = data;
-    //   },
-    // });
+  private initializeData() {
     this.getCreditDetails('p', '', '');
   }
+
+  getCreditDetails(filter: string, fromDate: string, toDate: string) {
+    const companyId = window.localStorage.getItem('CompanyId') ?? '';
+    this.creditSystemService
+      .getCreditDetails(companyId, filter, fromDate, toDate)
+      .subscribe({
+        next: (response: CreditDetailsData) => {
+          this.creditSystem.set(response);
+          
+          // Update credit values
+          this.totalCredit.set(response.tCreditTotal || 0);
+          this.leftCredit.set(response.tCreditRemaining || 0);
+          this.usedCredit.set(response.tCreditUsed || 0);
+          
+          // Update validity
+          this.validity.set(this.creditSystemService.formatDate(response.tCreditValidity));
+          
+          // Update token data
+          this.tokenData.set([...response.TokenData]);
+
+          // Calculate progress percentages
+          if (this.totalCredit() > 0) {
+            this.leftCreditProgress.set(
+              Math.round((this.leftCredit() / this.totalCredit()) * 100)
+            );
+            this.usedCreditProgress.set(
+              Math.round((this.usedCredit() / this.totalCredit()) * 100)
+            );
+          }
+
+          // Check credit validity
+          const tCreditValidity = response.tCreditValidity;
+          this.isNotCreditExpired.set(
+            this.gatewayDataSharingService.getParseDate(tCreditValidity) >=
+            this.gatewayDataSharingService.getCurrentDateTime()
+          );
+        },
+        error: (err: Error) => {
+          console.log('Error Getting response: ', err);
+          // Reset values on error
+          this.resetCreditValues();
+        },
+      });
+  }
+
+  private resetCreditValues() {
+    this.totalCredit.set(0);
+    this.leftCredit.set(0);
+    this.usedCredit.set(0);
+    this.usedCreditProgress.set(0);
+    this.leftCreditProgress.set(0);
+    this.isNotCreditExpired.set(false);
+    this.validity.set('');
+    this.tokenData.set([]);
+  }
+
+  search() {
+    this.getCreditDetails(this.selectedFilter(), this.fromDate(), this.toDate());
+  }
+
   openModal(content: any) {
     this.modalRef = this.modalService.open(content, { size: 'lg' });
   }
 
-  search() {
-    // this.gatewayDataSharingService.supportingInfo$.subscribe(
-    //   (supportingInfo) => {
-    //     this.supportingInfo = supportingInfo;
-    //   }
-    // );
-    this.getCreditDetails(this.selectedFilter, this.fromDate, this.toDate);
-  }
-  getCreditDetails(filter: string, fromDate: string, toDate: string) {
-    let companyId = '';
-    this.loginService.getCompanyId().subscribe({
-      next: (cid) => {
-        if (cid) companyId = cid;
-      },
-    });
-    this.creditSystemService
-      .getCreditDetails(companyId ?? '', filter, fromDate, toDate)
-      .subscribe({
-        next: (response) => {
-          this.creditSystem = response;
-          // this.creditSystem = this.creditSystemService.getDummyData();
-          // console.log(this.creditSystem, 'c');
-          this.totalCredit = this.creditSystem.tCreditTotal;
-          this.leftCredit = this.creditSystem.tCreditRemaining;
-          this.usedCredit = this.creditSystem.tCreditUsed;
-          this.validity = this.creditSystemService.formatDate(
-            this.creditSystem.tCreditValidity
-          );
-
-          this.tokenData = [...this.creditSystem.TokenData];
-          // debugger;
-          if (this.leftCredit > 0 && this.totalCredit > this.leftCredit) {
-            this.leftCreditProgress =
-              this.creditSystemService.calculateProgress(
-                this.totalCredit,
-                this.leftCredit
-              );
-          }
-          if (this.leftCredit > 0 && this.totalCredit > this.usedCredit) {
-            // parseInt(this.leftCredit) / parseInt(this.totalCredit);
-            this.usedCreditProgress =
-              this.creditSystemService.calculateProgress(
-                this.totalCredit,
-                this.usedCredit
-              );
-          }
-          const tCreditValidity = this.creditSystem.tCreditValidity;
-          // console.log(
-          //   this.gatewayDataSharingService.getParseDate(tCreditValidity),
-          //   'tCreditValidity'
-          // );
-          // console.log(
-          //   this.gatewayDataSharingService.getCurrentDateTime(),
-          //   'currentDate'
-          // );
-
-          if (
-            this.gatewayDataSharingService.getParseDate(tCreditValidity) >=
-            this.gatewayDataSharingService.getCurrentDateTime()
-          ) {
-            this.isNotCreditExpired = true;
-          }
-        },
-        error: (err) => {
-          console.log('Error Getting response: ', err);
-        },
-      });
-    // this.creditSystem = this.creditSystemService.getDummyData();
-    // this.totalCredit = this.creditSystem.tCreditTotal;
-    // this.leftCredit = this.creditSystem.tCreditRemaining;
-    // this.usedCredit = this.creditSystem.tCreditUsed;
-    // this.validity = this.creditSystemService.formatDate(
-    //   this.creditSystem.tCreditValidity
-    // );
-
-    // this.tokenData = [...this.creditSystem.TokenData];
-
-    // this.leftCreditProgress = this.creditSystemService.calculateProgress(
-    //   this.leftCredit,
-    //   this.totalCredit
-    // );
-    // this.usedCreditProgress = this.creditSystemService.calculateProgress(
-    //   this.usedCredit,
-    //   this.totalCredit
-    // );
-  }
   closeModal() {
     this.modalRef?.close();
+  }
+
+  // Public method to format date
+  formatDate(date: string): string {
+    return this.creditSystemService.formatDate(date);
   }
 }

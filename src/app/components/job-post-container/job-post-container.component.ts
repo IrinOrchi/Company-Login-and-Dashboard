@@ -62,7 +62,7 @@ export class JobPostContainerComponent implements OnInit {
     var IsEntrepreneurCompany =
       window.localStorage.getItem(
         this.loginService.LOCAL_STORAGE_KEYS.IS_ENTREPRENEUR_COMPANY
-      ) == 'true' ?? false;
+      ) === 'true' || false;
 
     if (IsEntrepreneurCompany) {
       return true;
@@ -80,7 +80,7 @@ export class JobPostContainerComponent implements OnInit {
     this.isAdminUser =
       window.localStorage.getItem(
         this.loginService.LOCAL_STORAGE_KEYS.IS_ADMIN_USER
-      ) == 'true' ?? false;
+      ) === 'true' || false;
 
     this.supportPersonName =
       window.localStorage.getItem(

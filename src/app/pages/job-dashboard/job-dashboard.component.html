@@ -2,30 +2,33 @@
 
   <app-control-bar [activeTab]="activeTab"></app-control-bar>
 
-  <div class="container d-flex flex-row justify-content-end pt-3">
-
-
-    <a class="btn btn-success mx-1" href="https://recruiter.bdjobs.com/jobposting/">Post a New Job</a>
+  <div class="max-w-7xl flex flex-row justify-end items-center pt-3 space-x-2 pl-4">
+    <a class="px-4 py-2 bg-[#198754] text-white rounded hover:bg-[#157347] transition-colors" href="https://recruiter.bdjobs.com/jobposting/">Post a New Job</a>
     @if(((nidVerify || verificationStatus || paymentProcess) && !outsideBangladesh)|| outsideBangladesh){
-    <a class="btn btn-primary mx-1" href="https://recruiter.bdjobs.com/talent-search-dashboard/">
-      <img src="assets/images/search.svg" class="button-icon" />
+    <a class="px-4 py-2 bg-[#0e73a9] text-white rounded hover:bg-[#0c6290] transition-colors flex items-center" href="https://recruiter.bdjobs.com/talent-search-dashboard/">
+      <img src="assets/images/search.svg" class="w-4 h-4 mr-1" />
       Search Talent
     </a>}
     @else{
-    <button class="btn btn-primary" (click)="open()"><img src="assets/images/search.svg" class="button-icon" />
-      Search Talent</button>
+    <button class="px-4 py-2 bg-[#0e73a9] text-white rounded hover:bg-[#0c6290] transition-colors flex items-center" (click)="open()">
+      <img src="assets/images/search.svg" class="w-4 h-4 mr-1" />
+      Search Talent
+    </button>
     }
     <!-- @if(isNidButtonVisible){
-    <a class="btn btn-outline-primary mx-1" href="https://corporate3.bdjobs.com/nidVerification.asp">
+    <a class="px-4 py-2 border border-[#0d6efd] text-[#0d6efd] rounded hover:bg-[#0d6efd] hover:text-white transition-colors" href="https://corporate3.bdjobs.com/nidVerification.asp">
       NID Verification
     </a>
     } -->
-
   </div>
   <app-multiple-job-post-popup></app-multiple-job-post-popup>
   <app-job-post-container />
   @if(companySizePopUp !== "submitted"){
   <app-company-select-popup></app-company-select-popup>
+  }
+
+  @if(showNidModal) {
+    <app-nid-verification-modal (close)="closeNidModal()"></app-nid-verification-modal>
   }
 
 </div>

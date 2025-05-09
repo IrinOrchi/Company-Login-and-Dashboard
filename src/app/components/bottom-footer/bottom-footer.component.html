@@ -1,183 +1,79 @@
-<div class="bottom-footer-component">
-  <div class="container">
-    <div class="row align-items-center">
-      <div class="col-lg-4 col-md-6 col-sm-12">
-        <div
-          class="d-flex flex-column justify-content-start justify-content-md-evenly justify-content-lg-between flex-md-row mx-xl-4 mx-lg-1 mx-md-0"
+<div class="bg-[#165273] text-white py-4 footer-container">
+  <div class="container mx-auto px-12">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
+      <div class="relative">
+        <button
+          (click)="toggleDropdown2()"
+          class="flex items-center space-x-2 hover:text-orange-400 focus:outline-none"
         >
-          <div ngbDropdown placement="top-start" class="d-inline-block">
-            <div
-              id="dropdown-international-partners"
-              class="footer-dropdown-text"
-              ngbDropdownToggle
-            >
-              International Partners
-            </div>
-            <div
-              class="footer-dropdown-body"
-              ngbDropdownMenu
-              aria-labelledby="dropdown-international-partners"
-            >
-              <a
-                ngbDropdownItem
-                href="https://www.brightermonday.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                >Brighter Monday (Africa)</a
-              >
-              <!-- <a
-                ngbDropdownItem
-                href="https://www.catho.com.br/"
-                target="_blank"
-                rel="noopener noreferrer"
-                >Catho (Brazil)</a
-              > -->
-              <a
-                ngbDropdownItem
-                href="https://www.jobberman.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                >Jobberman (West Africa)</a
-              >
-              <a
-                ngbDropdownItem
-                href="https://www.jobsdb.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                >jobsDB (S.E. Asia)</a
-              >
-              <a
-                ngbDropdownItem
-                href="https://www.jobstreet.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                >JobStreet (S.E. Asia)</a
-              >
-              <a
-                ngbDropdownItem
-                href="https://www.jora.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                >Jora (Worldwide)</a
-              >
-              <a
-                ngbDropdownItem
-                href="https://www.occ.com.mx/"
-                target="_blank"
-                rel="noopener noreferrer"
-                >OCC Mundial (Mexico)</a
-              >
-              <a
-                ngbDropdownItem
-                href="https://www.seek.com.au/"
-                target="_blank"
-                rel="noopener noreferrer"
-                >SEEK (Australia)</a
-              >
-              <a
-                ngbDropdownItem
-                href="https://www.workana.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                >Workana (Latin America)</a
-              >
-              <a
-                ngbDropdownItem
-                href="https://www.zhaopin.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                >Zhaopin (China)</a
-              >
-            </div>
-          </div>
+          <span>International Partners</span>
+          <span class="text-xs">{{ dropdownOpenInternational ? '▼' : '▲' }}</span>
+        </button>
+        <div
+          *ngIf="dropdownOpenInternational"
+          class="absolute bottom-full left-0 bg-[#165273] text-white shadow-lg rounded-sm w-64 py-1 z-20"
+        >
+          <a href="https://www.brightermonday.com/" target="_blank" rel="noopener noreferrer" class="block px-4 py-2 hover:bg-white hover:text-black">Brighter Monday (Africa)</a>
+          <a href="https://www.jobberman.com/" target="_blank" rel="noopener noreferrer" class="block px-4 py-2 hover:bg-white hover:text-black">Jobberman (West Africa)</a>
+          <a href="https://www.jobsdb.com/" target="_blank" rel="noopener noreferrer" class="block px-4 py-2 hover:bg-white hover:text-black">jobsDB (S.E. Asia)</a>
+          <a href="https://www.jobstreet.com/" target="_blank" rel="noopener noreferrer" class="block px-4 py-2 hover:bg-white hover:text-black">JobStreet (S.E. Asia)</a>
+          <a href="https://www.jora.com/" target="_blank" rel="noopener noreferrer" class="block px-4 py-2 hover:bg-white hover:text-black">Jora (Worldwide)</a>
+          <a href="https://www.occ.com.mx/" target="_blank" rel="noopener noreferrer" class="block px-4 py-2 hover:bg-white hover:text-black">OCC Mundial (Mexico)</a>
+          <a href="https://www.seek.com.au/" target="_blank" rel="noopener noreferrer" class="block px-4 py-2 hover:bg-white hover:text-black">SEEK (Australia)</a>
+          <a href="https://www.workana.com/" target="_blank" rel="noopener noreferrer" class="block px-4 py-2 hover:bg-white hover:text-black">Workana (Latin America)</a>
+          <a href="https://www.zhaopin.com/" target="_blank" rel="noopener noreferrer" class="block px-4 py-2 hover:bg-white hover:text-black">Zhaopin (China)</a>
+        </div>
+      </div>
 
-          <div ngbDropdown placement="top-start" class="d-inline-block">
-            <div
-              id="dropdown-other-partners"
-              class="footer-dropdown-text otetherprt"
-              ngbDropdownToggle
-            >
-              Other Partners
-            </div>
-            <div
-              class="footer-dropdown-body"
-              ngbDropdownMenu
-              aria-labelledby="dropdown-other-partners"
-            >
-              <a
-                ngbDropdownItem
-                href="https://ajkerdeal.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                >AjkerDeal (Bangladesh)</a
-              >
-              <a
-                ngbDropdownItem
-                href="https://deliverytiger.com.bd/"
-                target="_blank"
-                rel="noopener noreferrer"
-                >Delivery Tiger (Bangladesh)</a
-              >
-              <!-- <a
-                ngbDropdownItem
-                href="https://www.beshto.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                >Beshto (Bangladesh)</a
-              > -->
-              <a
-                ngbDropdownItem
-                href="http://www.aspiringminds.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                >Aspiring Minds (India)</a
-              >
-            </div>
-          </div>
+      <!-- Other Partners -->
+      <div class="relative">
+        <button
+          (click)="toggleDropdown()"
+          class="flex items-center space-x-2 hover:text-orange-400 focus:outline-none"
+        >
+          <span>Other Partners</span>
+          <span class="text-xs">{{ dropdownOpen ? '▼' : '▲' }}</span>
+        </button>
+        <div
+          *ngIf="dropdownOpen"
+          class="absolute bottom-full left-0 bg-[#165273] text-white shadow-lg rounded-sm w-64 py-1 z-20"
+        >
+          <a href="https://ajkerdeal.com/" target="_blank" rel="noopener noreferrer" class="block px-4 py-2 hover:bg-white hover:text-black">AjkerDeal (Bangladesh)</a>
+          <a href="https://deliverytiger.com.bd/" target="_blank" rel="noopener noreferrer" class="block px-4 py-2 hover:bg-white hover:text-black">Delivery Tiger (Bangladesh)</a>
+          <a href="https://www.shl.com/en-in/" target="_blank" rel="noopener noreferrer" class="block px-4 py-2 hover:bg-white hover:text-black">Aspiring Minds (India)</a>
         </div>
       </div>
-      
-      <div class="col-lg-4 col-md-6 col-sm-12">
-        <div
-          class="d-flex flex-column justify-content-start justify-content-md-evenly justify-content-lg-between flex-md-row mx-xl-4 mx-lg-3 mx-md-0"
-        >
-          <div class="footer-dropdown-text ps-md-4 ps-0">
-            <a
-              href="https://bdjobs.com/policy/Privacy_policy.asp"
-              target="_blank"
-              rel="noopener noreferrer"
-              >Privacy Policy</a
-            >
-          </div>
-          <div class="footer-dropdown-text">
-            <a
-              href="https://bdjobs.com/tos.asp"
-              target="_blank"
-              rel="noopener noreferrer"
-              >Terms & Conditions</a
-            >
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-12">
-        <div
-          class="d-flex flex-row justify-content-start justify-content-md-evenly mx-xl-4 mx-lg-1 mx-md-0"
-        >
-          <div class="support-text d-flex">
-            Call For Support &nbsp;
-            <span class="phone-number d-flex align-items-center"
-              ><img
-                class="bottom-footer-icon"
-                src="assets/images/phone.svg"
-              /><a href="tel:01897627858">01897627858</a>,&nbsp;&nbsp;<a
-                href="tel:09638666444"
-                >09638666444</a
-              ></span
-            >
-          </div>
+
+      <!-- Privacy Policy -->
+      <a
+        href="https://bdjobs.com/policy/Privacy_policy.asp"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hover:text-orange-400"
+      >
+        Privacy Policy
+      </a>
+
+      <!-- Terms & Conditions -->
+      <a
+        href="https://bdjobs.com/tos.asp"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hover:text-orange-400"
+      >
+        Terms & Conditions
+      </a>
+
+      <!-- Support -->
+      <div class="flex items-center space-x-3">
+        <span class="hover:text-orange-400">Call For Support</span>
+        <div class="flex items-center space-x-2">
+          <i class="icon icon-phone text-orange-400"></i>
+          <a href="tel:09638666444" class="text-orange-400 hover:text-orange-300">09638666444,</a>
+     
+          <a href="tel:01897627858" class="text-orange-400 hover:text-orange-300">01897627858</a>
         </div>
       </div>
     </div>
   </div>
-  
 </div>

@@ -1,15 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
 import { CommonModule } from '@angular/common';
 import { Component, isDevMode, OnInit } from '@angular/core';
 import { ControlBarComponent } from '../../components/control-bar/control-bar.component';
@@ -34,7 +22,8 @@ import { MultipleJobPostPopupComponent } from "../../components/multiple-job-pos
     ControlBarComponent,
     JobPostContainerComponent,
     CompanySelectPopupComponent,
-    MultipleJobPostPopupComponent
+    MultipleJobPostPopupComponent,
+    NidVerificationModalComponent
   ],
 
 })
@@ -68,6 +57,8 @@ export class JobDashboardComponent implements OnInit {
   nowTime: Date = new Date()
 
   isCm: boolean = false;
+
+  showNidModal = false;
 
   constructor(
     private loginService: LoginService,
@@ -245,17 +236,11 @@ export class JobDashboardComponent implements OnInit {
   }
 
   open() {
-    const modalRef = this.modalService.open(NidVerificationModalComponent, {
-      centered: true,
-    });
-    modalRef.result.then(
-      (result) => {
-        console.log(result);
-      },
-      (reason) => {
-        console.log(reason);
-      }
-    );
+    this.showNidModal = true;
+  }
+
+  closeNidModal() {
+    this.showNidModal = false;
   }
 
   isPasswordChanged(): void {

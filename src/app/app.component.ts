@@ -3,8 +3,8 @@ import { CommonModule } from "@angular/common";
 import { RouterOutlet } from "@angular/router";
 import { NavBarComponent } from "./components/nav-bar/nav-bar.component";
 import { FooterComponent } from "./components/footer/footer.component";
-import { BottomFooterComponent } from "./components/bottom-footer/bottom-footer.component";
 import { LoginService } from "./services/login.service";
+import {BottomFooterComponent} from "./components/bottom-footer/bottom-footer.component";
 import { GlobalDataSharingService } from "./services/shared/global-data-sharing.service";
 
 @Component({
@@ -15,7 +15,7 @@ import { GlobalDataSharingService } from "./services/shared/global-data-sharing.
     RouterOutlet,
     NavBarComponent,
     FooterComponent,
-    BottomFooterComponent
+    BottomFooterComponent,
     
   ],
   templateUrl: "./app.component.html",

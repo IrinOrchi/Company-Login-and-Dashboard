@@ -1,4 +1,4 @@
-<div class="drafted-card mb-3 shadow-sm" >
+<div class="drafted-card mb-3 shadow-sm">
   <div class="row">
     <div class="col-md-7">
       <!-- <h5 class="card-title job-title">
@@ -9,23 +9,13 @@
           >{{ jobInformation?.jobTitle }}</a
         >
       </h5> -->
-      <h5 class="card-title job-title" style="display: inline-flex; align-items: center; gap: 6px;">
+      <h5 class="inline-flex items-center text-[18px] font-bold gap-1.5">
         <a href="https://corporate3.bdjobs.com/Applicant_Process.asp?from=recruiter&jobno={{ jobInformation?.jobId }}&ref=">
           {{ jobInformation?.jobTitle }}
         </a>
         @if(jobInformation?.regionalJob == 7 && jobInformation?.jobPaymentStatus == true)
         {
-          <span class="badge" style="
-            width: 64px;
-            padding: 4px 12px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 28px;
-            background: #DBFEE4;
-            color: #008A22;
-            font-weight: 300;
-            margin-left: 6px;">
+          <span class="w-16 px-3 py-1 flex justify-center items-center rounded-full bg-[#DBFEE4] text-[#008A22] font-light ml-1.5">
             Paid
           </span>
         }
@@ -37,12 +27,11 @@
             <span class="textsub">
               {{ jobInformation?.isPublished ? "Published On:" : "Posted:" }}
             </span>
-            <span *ngIf="jobInformation?.isPublished; else notPublished">
+            @if (jobInformation?.isPublished) {
               {{ jobInformation?.publishDate | date }}
-            </span>
-            <ng-template #notPublished>
+            } @else {
               {{ jobInformation?.jobPostingDate | date }}
-            </ng-template>
+            }
           </span>
         </div>
   
@@ -51,7 +40,7 @@
         <div class="mx-1">
           <div class="d-flex align-items-center">
             <span><b>Deadline:</b>&nbsp;{{ deadlineDate | date }}</span>
-            <div >
+            <div>
               <input
                 class="d-none"
                 ngbDatepicker
@@ -74,16 +63,14 @@
         </div>
       </div>      
     </div>
-    @if(jobInformation?.regionalJob==7)
-    {
+    @if (jobInformation?.regionalJob == 7) {
       <div class="col-md-5 d-flex align-items-center justify-content-end gap-2"> 
         <button class="btn btn-primary" (click)="onClickEditJob()">
           <span class="icon-edit"></span>
           Continue editing
         </button>
       </div>
-    }
-    @else {
+    } @else {
       <div class="col-md-5 d-flex align-items-center justify-content-end gap-2">
         @if (jobInformation?.hasContactId) {
           <button class="btn btn-primary" (click)="openReadyToProcessConfirmationDialog()">
