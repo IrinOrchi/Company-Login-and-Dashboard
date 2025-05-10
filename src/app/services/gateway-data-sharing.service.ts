@@ -31,10 +31,6 @@ export class GatewayDataSharingService {
       const [datePart, timePart] = inputDate.split(' ');
       const [month, day, year] = datePart.split('/');
 
-      //   console.log("Month:", month);
-      //   console.log("Day:", day);
-      //   console.log("Year:", year);
-
       // Construct the date object
       const date = new Date(`${year}-${month}-${day}`);
       return date;
