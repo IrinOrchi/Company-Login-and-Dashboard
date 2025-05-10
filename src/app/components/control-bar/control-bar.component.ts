@@ -92,7 +92,6 @@ export class ControlBarComponent implements OnInit {
   // Input properties
   @Input() activeTab?: string;
 
-  // Service data
   serviceData = signal<ServiceInfo | undefined>(undefined);
   supportingInfo = signal<SupportingInfo | undefined>(undefined);
   creditSystem = signal<CreditSystemResponse | undefined>(undefined);
