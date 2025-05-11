@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './circular-progress.component.html',
-  styleUrls: ['./circular-progress.component.css']
+  styleUrls: ['./circular-progress.component.scss']
 })
 export class CircularProgressComponent {
   @Input() value: number = 0;
