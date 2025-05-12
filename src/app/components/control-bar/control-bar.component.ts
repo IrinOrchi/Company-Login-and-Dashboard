@@ -69,7 +69,6 @@ export class ControlBarComponent implements OnInit {
   hasCVBankAccess = signal(false);
   hasSmsPackage = signal(false);
 
-  // Service data
   remainingCV = signal(0);
   viewedCV = signal(0);
   maxCV = signal(0);
@@ -89,7 +88,6 @@ export class ControlBarComponent implements OnInit {
   paymentProcess = signal<boolean | undefined>(undefined);
   isNotCreditExpired = signal(false);
 
-  // Input properties
   @Input() activeTab?: string;
 
   serviceData = signal<ServiceInfo | undefined>(undefined);

@@ -1028,10 +1028,8 @@ export class JobPostCardComponent implements OnChanges {
         if (confirmed) {
           this.jobPostStatus = this.tempJobPostStatus;
           this.toggleLivePauseJob();
-          // console.log('User confirmed:', confirmed);
         } else {
           this.tempJobPostStatus = this.jobPostStatus;
-          // console.log('User did not confirm');
         }
       })
       .catch(() =>
@@ -1207,7 +1205,6 @@ export class JobPostCardComponent implements OnChanges {
         },
         error(msg) {
           return false;
-          // console.log('Error Getting response: ', msg);
         },
       });
     return false;

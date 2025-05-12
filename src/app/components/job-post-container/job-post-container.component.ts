@@ -248,7 +248,6 @@ export class JobPostContainerComponent implements OnInit {
         console.error('Error:', error);
       },
       () => {
-        // console.log('Observable completed');
       }
     );
   }
