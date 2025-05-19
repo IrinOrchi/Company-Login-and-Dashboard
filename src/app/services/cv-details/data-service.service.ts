@@ -13,7 +13,6 @@ import { CvDetailsAccessCheck } from '../../models/Cv-Details/CvViewUrlParams';
   providedIn: 'root',
 })
 export class DataServiceService {
-  //private readonly Generic_Query_Engine_Url = "https://testmongo.bdjobs.com/test_redwan/Mongo/Query";
   private readonly Generic_Query_Engine_Url =
     'https://recruiter.bdjobs.com/queryengine/Mongo/Query';
   private readonly Check_Validity_API_Url =
@@ -110,11 +109,7 @@ export class DataServiceService {
       'https://corporate3.bdjobs.com/Applicant_Process_MoveToActivity_mongo_api.asp?domain=gateway';
     // 'https://corporate3.bdjobs.com/Applicant_Process_MoveToActivity_mongo_api-tst.asp?domain=gateway';
     const requestBody = `applyID=${applyID}&actType=sltyp&currentAct=0&currentActType=al&multipleAct=0&jid=${jobId}`;
-    // const options = {
-    //   headers: new HttpHeaders({
-    //     'Content-Type': 'application/x-www-form-urlencoded',
-    //   }),
-    // };
+   
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -126,7 +121,6 @@ export class DataServiceService {
 
   rejectCV(jobId?: string, applyID?: string, action?: string) {
     const requestBody = `applyID=${applyID}&actVal=${action}&jpid=${jobId}`;
-    // console.log(requestBody, 'requestBody');
 
     const options = {
       headers: new HttpHeaders({
