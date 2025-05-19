@@ -256,7 +256,6 @@ export class JobDashboardComponent implements OnInit {
         loggedintime: loggedintime,
       })
       .subscribe((response) => {
-        //console.log('This is the response', response.Valid);
         let valid: boolean = response.Valid;
         if (!valid) {
           this.onClickSignOut();
@@ -274,11 +273,9 @@ export class JobDashboardComponent implements OnInit {
 
     this.loginService.clearAppData().subscribe({
       next: () => {
-        // window.location.replace('https://gateway.bdjobs.com');
         this.router.navigate(['/']);
       },
       error: () => {
-        // window.location.replace('https://gateway.bdjobs.com');
         this.router.navigate(['/']);
       },
     });
