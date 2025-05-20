@@ -86,10 +86,7 @@ export class JobInformationService {
     let userId = window.localStorage.getItem(
       this.loginService.LOCAL_STORAGE_KEYS.USER_ID
     );
-    //?? "ZRU1PEc7";
-
-    // TODO: REMOVE THE DEFAULT VALUES.
-    //Temporary Solution
+ 
     if (
       (errorCount < 5 && companyId === null) ||
       companyId === undefined ||
