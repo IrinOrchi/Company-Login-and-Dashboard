@@ -103,10 +103,7 @@ export class JobInformationService {
         this.loginService.LOCAL_STORAGE_KEYS.USER_ID
       );
     }
-    // else{
-    //   console.log('Data Fetching Error.')
-    // }
-
+   
     let url = `${this.JOB_INFORMATION_ENDPOINT}?companyId=${companyId}&UA=${userId}&JobType=${jobType}`;
 
     url += `&batchSize=${jobSearchCriteria.pageSize ?? 10}`;
@@ -135,9 +132,7 @@ export class JobInformationService {
     return this.httpClient.get(`${this.JOB_ARCHIVE_ENDPOINT}?id=${jobId}&comdata=${encryptedCompanyId}`, {
       responseType: 'text',
     });
-    // return this.httpClient.get(
-    //   `${this.JOB_MONGO_ARCHIVE_ENDPOINT}?jobId=${jobId}`
-    // );
+   
   }
 
   unArchiveJob(jobId: number, encryptedCompanyId: string) {
