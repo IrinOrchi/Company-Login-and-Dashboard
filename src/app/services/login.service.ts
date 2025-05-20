@@ -45,7 +45,6 @@ export class LoginService {
   //   : '';
 
   private readonly API_ENDPOINT: string =
-    // 'https://testr.bdjobs.com/authentication/api/authentication';
     // 'https://gateway.bdjobs.com/authentication/api/Authentication';
     'https://recruiter.bdjobs.com/authentication/api/Authentication';
   // 'https://testmongo.bdjobs.com/test_redwan/api/Authentication';
@@ -175,7 +174,6 @@ export class LoginService {
           })
         );
     } else {
-      // Return an observable that emits an error if the token is not found
       return throwError(() => new Error('Refresh token not found'));
     }
   }
