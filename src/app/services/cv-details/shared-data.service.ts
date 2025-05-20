@@ -243,7 +243,7 @@ export class SharedDataService {
     const startDate = new Date(startingDate);
     let endDate = new Date(endingDate);
     if (IsContinue) {
-      endDate = new Date(); // Consider today's date as end date
+      endDate = new Date(); 
     }
     if (startDate <= endDate) {
       const startYear = startDate.getFullYear();
@@ -290,7 +290,7 @@ export class SharedDataService {
   convertToYearsMonths(value: string) {
     let digits = value.split('.');
     let years = parseInt(digits[0]);
-    let months = parseInt(digits[1]) || 0; // If no decimal part, default to 0 months
+    let months = parseInt(digits[1]) || 0; 
     return years + ' years ' + months + ' months';
   }
 

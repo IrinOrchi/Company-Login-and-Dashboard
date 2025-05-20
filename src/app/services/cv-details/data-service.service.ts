@@ -129,7 +129,6 @@ export class DataServiceService {
       withCredentials: true,
     };
     return this.httpClient.post(
-      // `https://corporate3.bdjobs.com/Applicant_Process_Rejected_mongo_api.asp?acttype=rej&actVal=1&idn=${idn}&jid=${jobId}&applyID=${applyID}&jpid=${jobId}&domain=gateway`,
       'https://corporate3.bdjobs.com/Applicant_Process_Rejected_mongo_api.asp?domain=gateway',
       requestBody,
       options
