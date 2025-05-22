@@ -324,14 +324,7 @@
                             @if(academicQualification.Result){
                             <span>{{sharedDataService.getGradeDescription(academicQualification)}}</span>
                             }
-                            <!-- <span *ngIf="academicQualification.Result.ResultType === 11"> {{'CGPA: '+
-                              academicQualification.Result.MarkOrCGPA +' out of 4'}}</span>
-                            <span *ngIf="academicQualification.Result.ResultType === 12">Appeared</span>
-                            <span *ngIf="academicQualification.Result.ResultType === 0">Do not mention</span>
-                            <span *ngIf="academicQualification.Result.ResultType === 8">Pass</span>
-                            <span *ngIf="academicQualification.Result.ResultType === 9">Awarded</span>
-                            <span *ngIf="academicQualification.Result.ResultType === 10">Enrolled</span>
-                            <span *ngIf="academicQualification.Result.ResultType === 13 || 14 || 15"></span> -->
+                           
                           </td>
                           <td>{{ academicQualification.PassingYear }}</td>
                           <td style="align-items: center;" *ngIf="AcademicDuration">{{ academicQualification.Duration == 0 ||
