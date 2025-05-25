@@ -56,7 +56,6 @@ export class DetailsViewComponent {
   AcademicAchievement: boolean | undefined;
   AcademicDuration?: boolean | undefined;
   ngAfterViewInit(): void {
-    // console.log(this.details_view_main_div_content, 'details_view_main_div_content');
 
     if (this.details_view_main_div_content) {
       const htmlContent = this.details_view_main_div_content.nativeElement;
@@ -80,9 +79,6 @@ export class DetailsViewComponent {
           );
         }
         
-
-        // console.log(this.skillDescriptions, 'skilldescription');
-        ////debugger
 
         this.references = cvDetails.References;
 
@@ -132,7 +128,7 @@ export class DetailsViewComponent {
           this.academicQualifiacationSorted.sort(
             (a, b) => b.PassingYear - a.PassingYear
           );
-          // console.log(this.academicQualifiacationSorted+ ' academic quali');
+         
         }
         }
 
