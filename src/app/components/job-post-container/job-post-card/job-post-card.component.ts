@@ -1253,7 +1253,6 @@ export class JobPostCardComponent implements OnChanges {
     const jobId = this.jobInformation?.jobId;  
     const newLink = this.jobInformation?.isForwardToNewLink;
   
-    //console.log('Current Domain:', currentDomain); 
   
     if (!jobId) {
       return '#';  
