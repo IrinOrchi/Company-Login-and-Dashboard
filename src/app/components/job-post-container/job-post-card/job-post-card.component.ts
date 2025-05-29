@@ -1229,7 +1229,6 @@ export class JobPostCardComponent implements OnChanges {
       // Format in 'M' if the value is in millions
       return (value / 1000000).toFixed(0) + 'M';
     } else {
-      // No formatting needed for values less than 1000
       return value.toString();
     }
   }
@@ -1247,19 +1246,7 @@ export class JobPostCardComponent implements OnChanges {
     return number.toLocaleString('en-IN');
   }
 
-  // getJobLink(jobId: number): string {
-  //   const currentDomain = window.location.hostname;
-  
-  //   console.log('Current Domain:', currentDomain);  // Logs the current domain to the console
-  
-  //   if (currentDomain.includes('recruiter')) {
-  //     return `https://corporate3.bdjobs.com/Applicant_Process.asp?from=recruiter&jobno=${jobId}&ref=`;
-  //   } else if (currentDomain.includes('gateway')) {
-  //     return `https://gateway.bdjobs.com/recruitmentCenter/applicants?jobno=${jobId}`;
-  //   } else {
-  //     return '#';
-  //   }
-  // }
+ 
 
   getJobLink(): string {
     const currentDomain = window.location.hostname;
