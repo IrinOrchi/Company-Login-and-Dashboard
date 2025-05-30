@@ -215,19 +215,11 @@ export class JobDashboardComponent implements OnInit {
     this.companySizePopUp =
       window.localStorage.getItem('companySizePopUp') ?? '';
   }
-  /**
-   *
-   */
+ 
 
 
   getJobPostingUrl(): string {
-    // const redirectDate = new Date("2024-01-11T17:00:00");
-
-    // const shouldRedirect =
-    //   this.companyCreatedAt &&
-    //   (this.companyCreatedAt > redirectDate ||
-    //     ["15131", "33762", "41914"].includes(this.companyId.toString()));
-
+    
     // return shouldRedirect
     //   ? "https://recruiter.bdjobs.com/jobposting/"
     //   : "https://corporate3.bdjobs.com/Job_Posting_Board_Services.asp";
@@ -264,7 +256,6 @@ export class JobDashboardComponent implements OnInit {
         loggedintime: loggedintime,
       })
       .subscribe((response) => {
-        //console.log('This is the response', response.Valid);
         let valid: boolean = response.Valid;
         if (!valid) {
           this.onClickSignOut();
@@ -282,11 +273,9 @@ export class JobDashboardComponent implements OnInit {
 
     this.loginService.clearAppData().subscribe({
       next: () => {
-        // window.location.replace('https://gateway.bdjobs.com');
         this.router.navigate(['/']);
       },
       error: () => {
-        // window.location.replace('https://gateway.bdjobs.com');
         this.router.navigate(['/']);
       },
     });

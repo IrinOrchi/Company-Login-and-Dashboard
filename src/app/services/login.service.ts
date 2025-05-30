@@ -45,7 +45,6 @@ export class LoginService {
   //   : '';
 
   private readonly API_ENDPOINT: string =
-    // 'https://testr.bdjobs.com/authentication/api/authentication';
     // 'https://gateway.bdjobs.com/authentication/api/Authentication';
     'https://recruiter.bdjobs.com/authentication/api/Authentication';
   // 'https://testmongo.bdjobs.com/test_redwan/api/Authentication';
@@ -175,7 +174,6 @@ export class LoginService {
           })
         );
     } else {
-      // Return an observable that emits an error if the token is not found
       return throwError(() => new Error('Refresh token not found'));
     }
   }
@@ -227,7 +225,7 @@ export class LoginService {
       }),
       catchError((error) => {
         console.error('Error in getSupportingInfo:', error);
-        return of(null); // or handle the error as needed
+        return of(null); 
       })
     );
   }
@@ -243,7 +241,7 @@ export class LoginService {
       }),
       catchError((error) => {
         console.error('Error in getCompanyId:', error);
-        return of(null); // or handle the error as needed
+        return of(null); 
       })
     );
   }
@@ -259,7 +257,7 @@ export class LoginService {
       }),
       catchError((error) => {
         console.error('Error in getUserId:', error);
-        return of(null); // or handle the error as needed
+        return of(null); 
       })
     );
   }
@@ -301,7 +299,7 @@ export class LoginService {
     return this.getUserLoginData().pipe(
       map((data) => {
         if (data && data.exp) {
-          const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
+          const currentTime = Math.floor(Date.now() / 1000);
           return data.exp > currentTime;
         }
         return false; // Consider token without expiration date as non-expiring
@@ -333,7 +331,7 @@ export class LoginService {
       }),
       catchError((error) => {
         console.error('Error during sign-out process', error);
-        return of(null); // Return an observable to allow the process to continue
+        return of(null); 
       })
     );
   }
@@ -350,7 +348,6 @@ export class LoginService {
   checkIsPasswordChanged(data: any): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
-      // Add any other headers as needed
     });
 
     const options = {

@@ -81,7 +81,6 @@ export class CreditSystemService {
         }
       },
     });
-    // var companyId = window.localStorage.getItem('companyId') ?? '';
     return this.httpClient
       .get<CreditSystemResponse>(this.creditSystemUrl + 'comdata=' + companyId)
       .pipe(

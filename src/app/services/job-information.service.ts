@@ -86,10 +86,7 @@ export class JobInformationService {
     let userId = window.localStorage.getItem(
       this.loginService.LOCAL_STORAGE_KEYS.USER_ID
     );
-    //?? "ZRU1PEc7";
-
-    // TODO: REMOVE THE DEFAULT VALUES.
-    //Temporary Solution
+ 
     if (
       (errorCount < 5 && companyId === null) ||
       companyId === undefined ||
@@ -103,10 +100,7 @@ export class JobInformationService {
         this.loginService.LOCAL_STORAGE_KEYS.USER_ID
       );
     }
-    // else{
-    //   console.log('Data Fetching Error.')
-    // }
-
+   
     let url = `${this.JOB_INFORMATION_ENDPOINT}?companyId=${companyId}&UA=${userId}&JobType=${jobType}`;
 
     url += `&batchSize=${jobSearchCriteria.pageSize ?? 10}`;
@@ -135,9 +129,7 @@ export class JobInformationService {
     return this.httpClient.get(`${this.JOB_ARCHIVE_ENDPOINT}?id=${jobId}&comdata=${encryptedCompanyId}`, {
       responseType: 'text',
     });
-    // return this.httpClient.get(
-    //   `${this.JOB_MONGO_ARCHIVE_ENDPOINT}?jobId=${jobId}`
-    // );
+   
   }
 
   unArchiveJob(jobId: number, encryptedCompanyId: string) {
@@ -410,7 +402,7 @@ export class JobInformationService {
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const day = date.getDate().toString().padStart(2, '0');
-    const hours = date.getHours() % 12 || 12; // Convert to 12-hour format
+    const hours = date.getHours() % 12 || 12; 
     const minutes = date.getMinutes().toString().padStart(2, '0');
     const seconds = date.getSeconds().toString().padStart(2, '0');
     const meridiem = date.getHours() < 12 ? 'AM' : 'PM';
