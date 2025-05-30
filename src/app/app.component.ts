@@ -43,9 +43,9 @@ export class AppComponent implements OnInit {
       this.shouldShowHeader = value?.shouldShowHeader;
     });
 
-    // if (isDevMode()) {
-    //   window.localStorage.setItem('CompanyId', 'ZxU0PRC=');
-    //   window.localStorage.setItem('UserId', 'ZRd9PxCu');
-    // }
+    if (isDevMode()) {
+      window.localStorage.setItem('CompanyId', 'ZxU0PRC=');
+      window.localStorage.setItem('UserId', 'ZRd9PxCu');
+    }
   }
 }
